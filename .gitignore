@@ -400,3 +400,5 @@ FodyWeavers.xsd
 # Other files
 .env
 .DS_Store
+.idea/
+**/.idea/
