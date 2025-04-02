@@ -1,3 +1,4 @@
 DATABASE_URL=
 DATABASE_USERNAME=
 DATABASE_PASSWORD=
+Configure essas variáveis de ambiente no seu próprio SO usando o terminal
