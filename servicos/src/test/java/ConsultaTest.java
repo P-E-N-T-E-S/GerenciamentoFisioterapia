@@ -71,6 +71,5 @@ class ConsultaTest {
         assertTrue(notificacoes.get("1").contains("atrasado há 4 dias"));
         assertTrue(notificacoes.get("3").contains("atrasado há 5 dias"));
     }
-
 }
 
