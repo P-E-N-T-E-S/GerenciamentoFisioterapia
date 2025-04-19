@@ -1,8 +1,9 @@
-import consulta.Consulta;
-import consulta.Material;
+package com.implantodontia.testes;
+
+import com.implantodontia.dominio.consulta.Consulta;
+import com.implantodontia.dominio.consulta.Material;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
 import java.util.HashMap;

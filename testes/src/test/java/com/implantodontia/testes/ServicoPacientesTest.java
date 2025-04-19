@@ -1,6 +1,7 @@
-package paciente;
+package com.implantodontia.testes;
 
-import notificacao.ServicoPacientes;
+import com.implantodontia.testes.consulta.notificacao.ServicoPacientes;
+import com.implantodontia.testes.consulta.paciente.Paciente;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

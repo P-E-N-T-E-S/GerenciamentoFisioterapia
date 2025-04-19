@@ -11,8 +11,9 @@
 
     <modules>
         <module>apresentacao</module>
-        <module>servicos</module>
+        <module>testes</module>
         <module>persistencia</module>
+        <module>dominio</module>
     </modules>
 
     <properties>

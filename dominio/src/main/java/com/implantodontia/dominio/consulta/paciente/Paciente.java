@@ -1,4 +1,4 @@
-package paciente;
+package com.implantodontia.dominio.consulta.paciente;
 
 import java.time.LocalDate;
 

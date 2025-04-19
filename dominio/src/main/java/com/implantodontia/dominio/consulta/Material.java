@@ -1,4 +1,4 @@
-package consulta;
+package com.implantodontia.dominio.consulta;
 
 
 import java.util.HashMap;

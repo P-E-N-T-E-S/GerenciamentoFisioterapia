@@ -1,6 +1,6 @@
-package notificacao;
+package com.implantodontia.dominio.consulta.notificacao;
 
-import paciente.Paciente;
+import com.implantodontia.dominio.consulta.paciente.Paciente;
 
 import java.util.ArrayList;
 import java.util.List;

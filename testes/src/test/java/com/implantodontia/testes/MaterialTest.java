@@ -1,14 +1,12 @@
+package com.implantodontia.testes;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
-import java.math.BigDecimal;
-
-import consulta.Material;
+import com.implantodontia.testes.consulta.Material;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 

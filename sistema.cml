@@ -2,7 +2,6 @@ Domain GestaoFisioterapia{
     Subdomain GestaoPacientes
     Subdomain GestaoConsultas
     Subdomain Materiais
-    Subdomain Financeiro
     Subdomain Relatorio
 }
 
@@ -16,8 +15,6 @@ ContextMap{
     GestaoConsultas Shared-Kernel Materiais
     GestaoPacientes Shared-Kernel Relatorios
     GestaoConsultas Shared-Kernel Relatorios
-    // Relatorios Downstream-upstream Pacientes
-    // Relatorios Downstream-upstream
 }
 
 BoundedContext GestaoPacientes implements GestaoPacientes{
@@ -30,8 +27,6 @@ BoundedContext GestaoPacientes implements GestaoPacientes{
             - Endereco endereco
             - Contato contato
             boolean foiAtendido
-
-            def int calcularIdade();
         }
 
         ValueObject PacienteId{
@@ -103,7 +98,7 @@ BoundedContext GestaoConsultas implements GestaoConsultas{
             - ConsultaId id
             - PacienteId paciente
             LocalDateTime data
-            - Local local // ta definido em pacientes mas vou usar aqui tambem
+            - Local local
             - Status status
             - List<Procedimento> procedimentos
             - List<ItemMaterial> materiaisUtilizados
