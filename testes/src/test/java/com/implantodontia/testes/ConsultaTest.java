@@ -104,7 +104,7 @@ class ConsultaTest {
         agendaLocal.put("5", consulta);
 
         Map<String, String> lembretes = Consulta.gerarLembretesConsultas(agendaLocal, hoje);
-        assertEquals(1, lembretes.size()); // Passa com sucesso
+        assertEquals(1, lembretes.size());
     }
 
     @Test
@@ -116,7 +116,7 @@ class ConsultaTest {
                 new Material(),
                 true,
                 LocalDate.of(2025, 4, 3),
-                "Clínica Municipal");
+                "Domicilio");
         agenda.put("6", consulta);
 
         Map<String, String> lembretes = Consulta.gerarLembretesConsultas(agenda, hoje);

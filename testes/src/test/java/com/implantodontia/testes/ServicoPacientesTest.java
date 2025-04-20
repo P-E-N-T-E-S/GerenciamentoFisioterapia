@@ -1,7 +1,7 @@
 package com.implantodontia.testes;
 
 
-import com.implantodontia.dominio.consulta.notificacao.ServicoPacientes;
+import com.implantodontia.dominio.consulta.services.ServicoPacientes;
 import com.implantodontia.dominio.consulta.paciente.Paciente;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

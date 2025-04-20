@@ -72,7 +72,6 @@ public class Consulta {
         return notificacoes;
     }
 
-    // Getters
     public LocalDateTime getDataHora() {
         return dataHora;
     }

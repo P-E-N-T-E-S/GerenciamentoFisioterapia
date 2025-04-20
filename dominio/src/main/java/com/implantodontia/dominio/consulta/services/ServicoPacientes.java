@@ -1,4 +1,4 @@
-package com.implantodontia.dominio.consulta.notificacao;
+package com.implantodontia.dominio.consulta.services;
 
 import com.implantodontia.dominio.consulta.paciente.Paciente;
 
