@@ -3,7 +3,8 @@ package com.implantodontia.testes;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 
-import com.implantodontia.testes.consulta.Material;
+
+import com.implantodontia.dominio.consulta.Material;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
