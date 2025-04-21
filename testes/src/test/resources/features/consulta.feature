@@ -1,4 +1,4 @@
-Feature: Alerta de pagamento pendente
+Feature: Alerta de pagamento pendente para Doutora
 
   Scenario: Envio de notificação sobre pagamento pendente
     Dado que eu tenha uma consulta realizada, mas não paga na data atual
