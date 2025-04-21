@@ -15,6 +15,7 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+História N°7
 public class NotificacaoPagamentoPacienteTest {
 
     private Map<String, Consulta> agenda;

@@ -1,9 +1,12 @@
 package com.implantodontia.dominio.consulta.services;
 
+import com.implantodontia.dominio.consulta.Consulta;
 import com.implantodontia.dominio.consulta.paciente.Paciente;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class ServicoPacientes {
     private static ServicoPacientes instace;
@@ -24,6 +27,34 @@ public class ServicoPacientes {
         String notificacao = "Novo paciente cadastrado: " + paciente.getNome() + "por " + paciente.getMedicoResponsavel()+
                 ". Contato: " + paciente.getContato();
         notificacoes.add(notificacao);
+    }
+
+    public String verificarPagamentoPendenteDia(Paciente paciente, Map<String, Consulta> agenda, LocalDate datafiltro){
+        for (Map.Entry<String, Consulta> entry : agenda.entrySet()) {
+            String nome = entry.getValue().getPaciente().getNome();
+            if (nome.equals(paciente.getNome()) && !entry.getValue().getClientePagou()) {
+                LocalDate dataVencimento = entry.getValue().getDataVencimento();
+                if (dataVencimento.isBefore(datafiltro.plusDays(1)) && dataVencimento.isAfter(datafiltro.minusDays(2))){
+                    return ("Pagamento pendente do paciente: " + entry.getValue().getPaciente().getNome() + " - para o dia " + entry.getValue().getDataHora().toLocalDate());
+                }
+            }
+        }
+
+        return "Não existem pagamentos pendentes para o paciente";
+    }
+
+    public String verificarPagamentoPendenteSemana(Paciente paciente, Map<String, Consulta> agenda, LocalDate datafiltro){
+        for (Map.Entry<String, Consulta> entry : agenda.entrySet()) {
+            String nome = entry.getValue().getPaciente().getNome();
+            if (nome.equals(paciente.getNome())) {
+                LocalDate dataVencimento = entry.getValue().getDataVencimento();
+                if (dataVencimento.isBefore(datafiltro.plusDays(7)) && dataVencimento.isAfter(datafiltro.minusDays(2))){
+                    return ("Pagamento pendente do paciente: " + entry.getValue().getPaciente().getNome() + " - para o dia " + entry.getValue().getDataHora().toLocalDate());
+                }
+            }
+        }
+
+        return "Não existem pagamentos pendentes para o paciente";
     }
 
     public List<String> getNotificacoes() {
