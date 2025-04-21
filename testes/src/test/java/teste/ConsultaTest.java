@@ -53,7 +53,7 @@ class ConsultaTest {
         agenda.put("2", consulta2);
         agenda.put("3", consulta3);
     }
-    
+
 
     // História N°5
     @Test

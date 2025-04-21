@@ -12,8 +12,8 @@ public class NotificacaoPagamentoPacienteServico {
             String nome = entry.getValue().getPaciente().getNome();
             if (nome.equals(paciente.getNome()) && !entry.getValue().getClientePagou()) {
                 LocalDate dataVencimento = entry.getValue().getDataVencimento();
-                if (dataVencimento.isBefore(datafiltro.plusDays(1)) && dataVencimento.isAfter(datafiltro.minusDays(2))){
-                    return ("Pagamento pendente do paciente: " + entry.getValue().getPaciente().getNome() + " - para o dia " + entry.getValue().getDataHora().toLocalDate());
+                if (dataVencimento.isEqual(datafiltro.plusDays(1)) && dataVencimento.isAfter(datafiltro.minusDays(2))){
+                    return ("Pagamento pendente do paciente: " + entry.getValue().getPaciente().getNome() + " - para o dia " + entry.getValue().getDataVencimento());
                 }
             }
         }
@@ -27,7 +27,7 @@ public class NotificacaoPagamentoPacienteServico {
             if (nome.equals(paciente.getNome())) {
                 LocalDate dataVencimento = entry.getValue().getDataVencimento();
                 if (dataVencimento.isBefore(datafiltro.plusDays(7)) && dataVencimento.isAfter(datafiltro.minusDays(2))){
-                    return ("Pagamento pendente do paciente: " + entry.getValue().getPaciente().getNome() + " - para o dia " + entry.getValue().getDataHora().toLocalDate());
+                    return ("Pagamento pendente do paciente: " + entry.getValue().getPaciente().getNome() + " - para o dia " + entry.getValue().getDataVencimento());
                 }
             }
         }
