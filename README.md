@@ -33,8 +33,6 @@ Um projeto feito para uma fisioterapeuta autônoma que funciona como um diário 
 
 <p float="left">
 
-<img align="right" width="120" src="https://raw.githubusercontent.com/iuricode/readme-template/main/repositorio/imagem.png" />
-
 O sistema tem como função fazer o gerenciamento do dia a dia da fisioterapeuta autônoma, onde ela faz o registro dos seus pacientes, marca a suas consultas, controla os materiais e tem acesso a relatórios com base em seus históricos de consultas.
 ## 🔧 Funcionalidades Principais
 
@@ -76,11 +74,6 @@ O sistema tem como função fazer o gerenciamento do dia a dia da fisioterapeuta
 
 <summary>Entrega 2</summary>
 <ul>
-  <li>
-    <a  href=""
-      >Apresentação do Protótipo</a
-    >
-  </li>
 </ul>
 </details>
 
@@ -159,10 +152,42 @@ O sistema tem como função fazer o gerenciamento do dia a dia da fisioterapeuta
       </a>
     </td>
     <td align="center">
-      <a href="https://github.com/Thomazrlima">
-        <img src="https://avatars3.githubusercontent.com/Thomazrlima" width="100px;" alt="Foto de Thomaz"/><br>
+      <a href="https://github.com/caetrias">
+        <img src="https://avatars3.githubusercontent.com/caetrias" width="100px;" alt="Foto de Gabriel"/><br>
         <sub>
-          <b>Thomaz R. Lima</b>
+          <b>Gabriel Caetano</b>
+        </sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/joaovfittipaldi">
+        <img src="https://avatars3.githubusercontent.com/joaovfittipaldi" width="100px;" alt="Foto de João"/><br>
+        <sub>
+          <b>João Fittipaldi</b>
+        </sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/couboii">
+        <img src="https://avatars3.githubusercontent.com/couboii" width="100px;" alt="Foto de Emanuel"/><br>
+        <sub>
+          <b>Emanuel Eduardo</b>
+        </sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/lauravidall">
+        <img src="https://avatars3.githubusercontent.com/lauravidall" width="100px;" alt="Foto de Laura"/><br>
+        <sub>
+          <b>Laura Brasileiro</b>
+        </sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/igoralvesa">
+        <img src="https://avatars3.githubusercontent.com/igoralvesa" width="100px;" alt="Foto de Igor"/><br>
+        <sub>
+          <b>Igor Alves</b>
         </sub>
       </a>
     </td>
