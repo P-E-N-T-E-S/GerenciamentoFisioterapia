@@ -198,7 +198,7 @@ O sistema tem como função fazer o gerenciamento do dia a dia da fisioterapeuta
 
 <ul>
   <li>
-    <a href="">Thaysa Farias</a> - Nossa cliente
+    <a href="https://www.instagram.com/thaysagfarias/">Thaysa Farias</a> - Nossa cliente
   </li>
 </ul>
 
