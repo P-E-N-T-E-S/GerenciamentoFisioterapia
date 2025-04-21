@@ -1,12 +1,11 @@
-package com.implantodontia.dominio.consulta.services;
-
-import com.implantodontia.dominio.consulta.Consulta;
-import com.implantodontia.dominio.consulta.paciente.Paciente;
+package com.implantodontia.dominio.core.gestaoPacientes.paciente;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import com.implantodontia.dominio.core.gestaoConsulta.consulta.Consulta;
 
 public class ServicoPacientes {
     private static ServicoPacientes instace;

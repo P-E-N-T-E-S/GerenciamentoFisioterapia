@@ -1,8 +1,9 @@
-package com.implantodontia.dominio.consulta.paciente;
-
-import java.time.LocalDate;
+package com.implantodontia.dominio.core.gestaoPacientes.paciente;
 
 public class Paciente {
+    private PacienteId pacienteId;
+    private Cpf cpf;
+    private Endereco endereco;
     private String nome;
     private String contato;
     private String medicoResponsavel;

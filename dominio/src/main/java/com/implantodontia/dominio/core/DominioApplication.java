@@ -1,4 +1,4 @@
-package com.implantodontia.dominio;
+package com.implantodontia.dominio.core;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

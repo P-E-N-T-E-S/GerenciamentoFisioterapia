@@ -1,6 +1,4 @@
-package com.implantodontia.dominio.consulta;
-
-import com.implantodontia.dominio.consulta.paciente.Paciente;
+package com.implantodontia.dominio.core.gestaoConsulta.consulta;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -9,13 +7,16 @@ import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.implantodontia.dominio.core.material.Material;
+import com.implantodontia.dominio.core.gestaoPacientes.paciente.Paciente;
+
 public class Consulta {
     private LocalDateTime dataHora;
     private Paciente paciente;
     private LocalDate data_vencimento;
     private boolean clientePagou;
     private String descricao;
-    private Material materiais;
+    private Material materiais; //TODO: AJeitar essa bomba
     private String local;
 
     public Consulta(LocalDateTime dataHora, String descricao, Material materiais,

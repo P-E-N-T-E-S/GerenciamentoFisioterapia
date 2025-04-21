@@ -1,4 +1,4 @@
-package com.implantodontia.dominio.consulta;
+package com.implantodontia.dominio.core.gestaoConsulta.consulta;
 
 import java.time.LocalDate;
 

@@ -1,10 +1,11 @@
 package teste;
 
-import com.implantodontia.dominio.consulta.Consulta;
-import com.implantodontia.dominio.consulta.Material;
-import com.implantodontia.dominio.consulta.paciente.Paciente;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import com.implantodontia.dominio.core.material.Material;
+import com.implantodontia.dominio.core.gestaoConsulta.consulta.Consulta;
+import com.implantodontia.dominio.core.gestaoPacientes.paciente.Paciente;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

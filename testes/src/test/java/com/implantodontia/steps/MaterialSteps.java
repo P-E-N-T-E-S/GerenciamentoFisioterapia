@@ -1,11 +1,13 @@
 package com.implantodontia.steps;
 
-import com.implantodontia.dominio.consulta.services.MaterialServico;
 import io.cucumber.java.en.*;
 
 import static org.junit.Assert.*;
 
 import java.util.Map;
+
+import com.implantodontia.dominio.core.material.MaterialServico;
+
 import java.util.HashMap;
 
 // História N°1

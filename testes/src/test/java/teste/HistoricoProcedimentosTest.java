@@ -1,17 +1,13 @@
 package teste;
 
-import com.implantodontia.dominio.consulta.Consulta;
-import com.implantodontia.dominio.consulta.Material;
-import com.implantodontia.dominio.consulta.Procedimento;
-import com.implantodontia.dominio.consulta.paciente.Paciente;
-import com.implantodontia.dominio.consulta.services.HistoricoProcedimentosService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import com.implantodontia.dominio.core.gestaoConsulta.consulta.Procedimento;
+import com.implantodontia.dominio.core.relatorio.HistoricoProcedimentosService;
+
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 

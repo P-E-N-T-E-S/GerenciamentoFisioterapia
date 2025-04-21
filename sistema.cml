@@ -1,43 +1,49 @@
-Domain GestaoFisioterapia{
+Domain Implantodontia {
     Subdomain GestaoPacientes
     Subdomain GestaoConsultas
-    Subdomain Materiais
-    Subdomain Relatorio
+    Subdomain GestaoMateriais
+    Subdomain Relatorios
 }
 
-ContextMap{
+ContextMap ImplantodontiaContextMap {
     contains GestaoPacientes
     contains GestaoConsultas
-    contains Materiais
+    contains GestaoMateriais
     contains Relatorios
 
-    GestaoPacientes Shared-Kernel GestaoConsultas
-    GestaoConsultas Shared-Kernel Materiais
-    GestaoPacientes Shared-Kernel Relatorios
-    GestaoConsultas Shared-Kernel Relatorios
+    GestaoPacientes [SK]<->[SK] GestaoConsultas
+    GestaoConsultas [SK]<->[SK] GestaoMateriais
+    GestaoPacientes [SK]<->[SK] Relatorios
+    GestaoConsultas [SK]<->[SK] Relatorios
 }
 
-BoundedContext GestaoPacientes implements GestaoPacientes{
-    Aggregate Paciente{
-        Entity Paciente{
+BoundedContext GestaoPacientes implements GestaoPacientes {
+    Aggregate Paciente {
+        Entity Paciente {
+            aggregateRoot
             - PacienteId id
             String nome
-            LocalDate dataNascimento
             - Cpf cpf
             - Endereco endereco
             - Contato contato
             boolean foiAtendido
+            String medicoResponsavel
         }
 
-        ValueObject PacienteId{
-            Long id
+        Service ServicoPacientes {
+
+            void cadastrarPaciente(@Paciente paciente);
+            String verificarPagamentoPendenteDia(@Paciente paciente, Map<String, @Consulta> agenda, LocalDate datafiltro);
+            String verificarPagamentoPendenteSemana(@Paciente paciente, Map<String, @Consulta> agenda, LocalDate datafiltro);
+            List<String> getNotificacoes();
+            void limparNotificacoes();
         }
 
-        ValueObject Cpf{
+        ValueObject Cpf {
             String numero
         }
 
-        ValueObject Endereco{
+        ValueObject Endereco {
             String logradouro
             String numero
             String complemento nullable
@@ -45,237 +51,78 @@ BoundedContext GestaoPacientes implements GestaoPacientes{
             String cidade
         }
 
-        ValueObject Contato{
-
-        }
-    }
-    Aggregate CirurgiaoParceiro{
-        Entity Cirurgiao {
-            aggregateRoot
-
-            -CirurgiaoId id
-            String nome
-            String crm
-            - Especialidade especialidade
-
-            Repository CirurgiaoRepository {
-                List<@Cirurgiao> listarTodos();
-                @Cirurgiao buscarPorCrm(String crm);
-            }
+        ValueObject Contato {
+            String telefone
+            String Email
         }
 
-        ValueObject CirurgiaoId {
-            String id
-        }
-
-        ValueObject Especialidade{ //Se possível ser um enum
-            String especialidade
+        ValueObject PacienteId{
+            long id
         }
     }
 }
 
-BoundedContext GestaoConsultas implements GestaoConsultas{
-    Aggregate Consulta{
-        Service AgendamentoService{
-            void agendar(@PacienteId paciente, LocalDateTime data, @Endereco endereco);
-            void cancelar(@ConsultaId consulta);
-            void confirmar(@ConsultaId consulta);
-        }
-        
-        DomainEvent ConsultaRegistradaEvent {
-            - ConsultaId consulta
-            - PacienteId paciente
-            LocalDateTime data
-        }
-
-        DomainEvent PagamentoRegistradoEvent{
-            - ConsultaId consulta
-            BigDecimal valor
-            LocalDate data
-        }
-
+BoundedContext GestaoConsultas implements GestaoConsultas {
+    Aggregate Consulta {
         Entity Consulta {
-            - ConsultaId id
-            - PacienteId paciente
-            LocalDateTime data
-            - Local local
-            - Status status
-            - List<Procedimento> procedimentos
-            - List<ItemMaterial> materiaisUtilizados
-            - Pagamento pagamento nullable
-
-            def boolean foiRealizada();
-            
-            def void registrarPagamento(BigDecimal valor, @MetodoPagamento metodo);
-        }
-
-        ValueObject ConsultaId {
-            String id
-        }
-
-        ValueObject Local{
-            String nome
-            String tipo //Seria um enum de domicilio, clinica ou hospital
-            - Endereco endereco
-        }
-
-        ValueObject Status{
-            String status //Seria um enum de Agendada, Confirmada, Realizada e Cancelada
-        }
-
-        ValueObject Procedimento {
-            String codigo
-            String descricao
-            BigDecimal valor
-        }
-
-        ValueObject Pagamento{
-            String codigo
-            LocalDate data
-            - MetodoPagamento metodo
-        }
-
-        ValueObject MetodoPagamento {
-            String metodo //Seria um enum Dinheiro, Pix ou Cartao
-        }
-
-        ValueObject ItemMaterial {
-            - MaterialId material
-            int quantidade
-        }
-    }
-
-    Aggregate FichaMedica{
-        Entity FichaMedica{
             aggregateRoot
-
-            - FichaId id
-            - PacienteId paciente
-            - List<Alergia> alergias
-            - List<CirurgiaAnterior> cirurgiasAnteriores
-            - ProcedimentoCirurgico procedimentoAtual
-            String observacoes
-
-            Repository FichaRepository{
-                @FichaMedica buscarPorPaciente(@PacienteId paciente);
-            }
-        }
-
-        ValueObject FichaId{
-            String id
-        }
-
-        ValueObject Alergia {
-            String substancia
-            String gravidade //Seria um enum de LEVE, MODERADA e GRAVE
-        }
-        ValueObject CirurgiaAnterior{
-            String descricao 
-            LocalDate data 
-            String cirurgiao 
-        }
-
-        ValueObject ProcedimentoCirurgico {
+            LocalDateTime dataHora
+            - Paciente paciente
+            LocalDate dataVencimento
+            boolean clientePagou
             String descricao
-            LocalDate data
-            - CirurgiaoId cirurgiao
-            String anestesista
-            String hospital
+            - Material materiais
+            String local
         }
+
+        Entity Procedimento {
+            LocalDate dataRealizacao
+            - TipoProcedimento tipo
+            String detalhes
+            String local
+        }
+
+        enum TipoProcedimento {
+            CONSULTA_PADRAO,
+            INTRA_OPERATORIO
+        }
+
+        Service ConsultaService {
+            Map<String, String> gerarLembretesConsultas(Map<String, @Consulta> agenda, LocalDate hoje);
+            Map<String, String> gerarNotificacoesPendencias(Map<String, @Consulta> agenda, LocalDate hoje);
+            Map<String, @Consulta> filtrarPorData(Map<String, @Consulta> agenda, LocalDate datafiltro);
+        }
+
+        Service NotificacaoPagamentoPacienteServico {
+            String verificarPagamentoPendenteDia(@Paciente paciente, Map<String, @Consulta> agenda, LocalDate datafiltro);
+            String verificarPagamentoPendenteSemana(@Paciente paciente, Map<String, @Consulta> agenda, LocalDate datafiltro);
+        }
+
     }
 }
 
-BoundedContext Materiais {
+BoundedContext GestaoMateriais implements GestaoMateriais {
     Aggregate Material {
         Entity Material {
             aggregateRoot
-            
-            - MaterialId id
             String nome
             String descricao
-            - UnidadeMedida unidade
-            int quantidadeEstoque
-            BigDecimal custoUnitario
-            
-            def void consumir(int quantidade);
-            
-            def void repor(int quantidade);
-            
-            Repository MaterialRepository {
-                List<@Material> listarTodos();
-                @Material buscarPorNome(String nome);
-            }
+            int quantidade
+            BigDecimal valor
         }
-        
-        ValueObject MaterialId {
-            String id
-        }
-        
-        ValueObject UnidadeMedida {
-            String unidade //Enum de unidade, ml, grama e metro
-        }
-        
-        DomainEvent MaterialCriticoEvent {
-            - MaterialId material
-            int quantidadeAtual
-        }
-    }
-    
-    Aggregate Inventario {
-        Service InventarioService {
-            void registrarUso(@MaterialId material, int quantidade, @ConsultaId consulta);
-            void registrarPerda(@MaterialId material, int quantidade, String motivo);
+
+        Service MaterialServico {
+            void adicionar(Map<String, Integer> inventario, String item, int quantidade);
+            String remover(Map<String, Integer> inventario, String item, int quantidade);
         }
     }
 }
 
 BoundedContext Relatorios {
-    Aggregate Evolucao {
+    Aggregate Relatorio {
         Service RelatorioService {
-            @RelatorioEvolucao gerarRelatorioEvolucaoPaciente(
-                @PacienteId paciente,
-                LocalDate inicio,
-                LocalDate fim
-            );
-            
-            @RelatorioFinanceiro gerarRelatorioFinanceiro(
-                LocalDate inicio,
-                LocalDate fim
-            );
-        }
-        
-        ValueObject RelatorioEvolucao {
-            - PacienteId paciente
-            - List<ConsultaResumo> consultas
-            String metricasEvolucao //Era pra ser um map mas da erro
-            String resumo
-            
-            def calcularProgresso();
-        }
-        
-        ValueObject ConsultaResumo {
-            LocalDate data
-            List<String> procedimentos
-            String observacoes
-            boolean compareceu
-        }
-        
-        ValueObject RelatorioFinanceiro {
-            LocalDate periodoInicio
-            LocalDate periodoFim
-            BigDecimal ganhoBruto
-            int totalConsultas
-            String pagamentosPorMetodo // era pra ser um map mas da erro
-            - List<ItemFinanceiro> detalhes
-            
-            def calcularTotal();
-        }
-        
-        ValueObject ItemFinanceiro {
-            LocalDate data
-            String pacienteNome
-            BigDecimal valor
-            - MetodoPagamento metodo
+            void gerarRelatorioConsultas(LocalDate dataInicio, LocalDate dataFim);
+            void gerarRelatorioPagamentos(LocalDate dataInicio, LocalDate dataFim);
         }
     }
 }

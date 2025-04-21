@@ -1,10 +1,11 @@
-package com.implantodontia.dominio.consulta.services;
+package com.implantodontia.dominio.core.relatorio;
 
-import com.implantodontia.dominio.consulta.Procedimento;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import com.implantodontia.dominio.core.gestaoConsulta.consulta.Procedimento;
 
 public class HistoricoProcedimentosService {
     private static HistoricoProcedimentosService instance;

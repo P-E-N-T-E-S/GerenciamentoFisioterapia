@@ -1,4 +1,4 @@
-package com.implantodontia.dominio.consulta.services;
+package com.implantodontia.dominio.core.material;
 
 import java.util.Map;
 
