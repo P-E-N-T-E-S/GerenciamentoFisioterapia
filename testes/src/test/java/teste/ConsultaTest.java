@@ -1,5 +1,8 @@
 package teste;
 
+import com.implantodontia.dominio.core.gestaoPacientes.paciente.Cpf;
+import com.implantodontia.dominio.core.gestaoPacientes.paciente.Endereco;
+import com.implantodontia.dominio.core.gestaoPacientes.paciente.PacienteId;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -29,7 +32,7 @@ class ConsultaTest {
                 new Material(),
                 false,
                 LocalDate.of(2025, 4, 8),
-                "Clínica Central", new Paciente("Roger", "(81) 9999-99999", "Dra Katia"));
+                "Clínica Central", new Paciente(new PacienteId(0), new Cpf("684.976.720-89"), new Endereco("Rua dos bobos", "0", null, "Recife", "52071321"), "Roger", "(81) 9999-99999", "Dra Katia"));
 
         Consulta consulta2 = new Consulta(
                 LocalDateTime.of(2025, 4, 11, 0, 0),
@@ -38,7 +41,7 @@ class ConsultaTest {
                 true,
                 LocalDate.of(2025, 4, 10),
                 "Hospital Geral",
-                new Paciente("Marcos", "(81) 9999-99999", "Dra Roberta"));
+                new Paciente(new PacienteId(1), new Cpf("684.976.720-89"), new Endereco("Rua dos bobos", "0", null, "Recife", "52071321"), "Marcos", "(81) 9999-99999", "Dra Roberta"));
 
         Consulta consulta3 = new Consulta(
                 LocalDateTime.of(2025, 4, 10, 0, 0),
@@ -47,7 +50,7 @@ class ConsultaTest {
                 false,
                 LocalDate.of(2025, 4, 7),
                 "Clínica Municipal",
-                new Paciente("João", "(81) 9999-99999", "Dra Matilda"));
+                new Paciente(new PacienteId(2), new Cpf("684.976.720-89"), new Endereco("Rua dos bobos", "0", null, "Recife", "52071321"), "João", "(81) 9999-99999", "Dra Matilda"));
 
         agenda.put("1", consultaBase);
         agenda.put("2", consulta2);
@@ -76,7 +79,7 @@ class ConsultaTest {
                 false,
                 LocalDate.of(2025, 4, 8),
                 "Clínica Central",
-                new Paciente("Martha", "(81) 9999-99999", "Dra Roberta"));
+                new Paciente(new PacienteId(0), new Cpf("684.976.720-89"), new Endereco("Rua dos bobos", "0", null, "Recife", "52071321"), "Martha", "(81) 9999-99999", "Dra Roberta"));
         agenda.put("4", consulta);
 
         Map<String, String> lembretes = Consulta.gerarLembretesConsultas(agenda, hoje);
@@ -96,7 +99,7 @@ class ConsultaTest {
                 true,
                 LocalDate.of(2025, 4, 8),
                 "Hospital Geral",
-                new Paciente("Jorge", "(81) 9999-99999", "Dra Roberta"));
+                new Paciente(new PacienteId(0), new Cpf("684.976.720-89"), new Endereco("Rua dos bobos", "0", null, "Recife", "52071321"), "Jorge", "(81) 9999-99999", "Dra Roberta"));
         agendaLocal.put("5", consulta);
 
         Map<String, String> lembretes = Consulta.gerarLembretesConsultas(agendaLocal, hoje);
@@ -113,7 +116,7 @@ class ConsultaTest {
                 true,
                 LocalDate.of(2025, 4, 3),
                 "Domicilio",
-                new Paciente("Evaldo", "(81) 9999-99999", "Dra Roberta"));
+                new Paciente(new PacienteId(0), new Cpf("684.976.720-89"), new Endereco("Rua dos bobos", "0", null, "Recife", "52071321"), "Evaldo", "(81) 9999-99999", "Dra Roberta"));
         agenda.put("6", consulta);
 
         Map<String, String> lembretes = Consulta.gerarLembretesConsultas(agenda, hoje);

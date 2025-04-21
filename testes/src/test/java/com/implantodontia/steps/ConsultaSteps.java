@@ -1,13 +1,13 @@
 package com.implantodontia.steps;
-import com.implantodontia.dominio.consulta.Consulta;
-import com.implantodontia.dominio.consulta.Material;
-import com.implantodontia.dominio.consulta.paciente.Paciente;
+import com.implantodontia.dominio.core.gestaoConsulta.consulta.Consulta;
+import com.implantodontia.dominio.core.gestaoPacientes.paciente.Cpf;
+import com.implantodontia.dominio.core.gestaoPacientes.paciente.Endereco;
+import com.implantodontia.dominio.core.gestaoPacientes.paciente.Paciente;
+import com.implantodontia.dominio.core.gestaoPacientes.paciente.PacienteId;
+import com.implantodontia.dominio.core.material.Material;
 import io.cucumber.java.en.*;
-import com.implantodontia.dominio.consulta.Procedimento;
-import com.implantodontia.dominio.consulta.services.HistoricoProcedimentosService;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -23,7 +23,7 @@ public class ConsultaSteps {
                 new Material(),
                 false,
                 LocalDate.of(2025, 4, 8),
-                "Clínica Central", new Paciente("Roger", "(81) 9999-99999", "Dra Katia"));
+                "Clínica Central", new Paciente(new PacienteId(0), new Cpf("684.976.720-89"), new Endereco("Rua dos bobos", "0", null, "Recife", "52071321"), "Roger", "(81) 9999-99999", "Dra Katia"));
 
                 agenda.put("1", consultaBase);
     }

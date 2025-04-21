@@ -1,9 +1,13 @@
 package com.implantodontia.steps;
 
-import com.implantodontia.dominio.consulta.Material;
-import com.implantodontia.dominio.consulta.paciente.Paciente;
-import com.implantodontia.dominio.consulta.Consulta;
-import com.implantodontia.dominio.consulta.services.NotificacaoPagamentoPacienteServico;
+
+import com.implantodontia.dominio.core.gestaoConsulta.consulta.Consulta;
+import com.implantodontia.dominio.core.gestaoConsulta.consulta.NotificacaoPagamentoPacienteServico;
+import com.implantodontia.dominio.core.gestaoPacientes.paciente.Cpf;
+import com.implantodontia.dominio.core.gestaoPacientes.paciente.Endereco;
+import com.implantodontia.dominio.core.gestaoPacientes.paciente.Paciente;
+import com.implantodontia.dominio.core.gestaoPacientes.paciente.PacienteId;
+import com.implantodontia.dominio.core.material.Material;
 import io.cucumber.java.en.*;
 
 import static org.junit.Assert.*;
@@ -25,7 +29,7 @@ public class NotificacaoPagamentoPendenteSteps {
                 new Material(),
                 false,
                 LocalDate.of(2025, 4, 17),
-                "Clínica Central", new Paciente("Roger", "(81) 9999-99999", "Dra Katia"));
+                "Clínica Central", new Paciente(new PacienteId(0), new Cpf("684.976.720-89"), new Endereco("Rua dos bobos", "0", null, "Recife", "52071321"), "Roger", "(81) 9999-99999", "Dra Katia"));
                 agenda.put("1", consulta3);
     }
 
@@ -40,7 +44,7 @@ public class NotificacaoPagamentoPendenteSteps {
     public void alertaVencimentoAmanha() {
         LocalDate dataAtual = LocalDate.of(2025, 4, 16);
         String validacao = servico.verificarPagamentoPendenteDia(
-                new Paciente("Roger", "(81) 9999-99999", "Dra Katia"), agenda, dataAtual);
+                new Paciente(new PacienteId(0), new Cpf("684.976.720-89"), new Endereco("Rua dos bobos", "0", null, "Recife", "52071321"), "Roger", "(81) 9999-99999", "Dra Katia"), agenda, dataAtual);
         assertEquals("Pagamento pendente do paciente: Roger - para o dia 2025-04-17", validacao);
     }
 
@@ -52,7 +56,7 @@ public class NotificacaoPagamentoPendenteSteps {
                 new Material(),
                 false,
                 LocalDate.of(2025, 4, 17),
-                "Clínica Central", new Paciente("Roger", "(81) 9999-99999", "Dra Katia"));
+                "Clínica Central", new Paciente(new PacienteId(0), new Cpf("684.976.720-89"), new Endereco("Rua dos bobos", "0", null, "Recife", "52071321"), "Roger", "(81) 9999-99999", "Dra Katia"));
         agenda.put("1", consulta3);
     }
 
@@ -69,7 +73,7 @@ public class NotificacaoPagamentoPendenteSteps {
     public void alertaVencimentoProximaSemana() {
         LocalDate dataAtual = LocalDate.of(2025, 4, 16);
         String validacao = servico.verificarPagamentoPendenteSemana(
-                new Paciente("Roger", "(81) 9999-99999", "Dra Katia"), agenda, dataAtual);
+                new Paciente(new PacienteId(0), new Cpf("684.976.720-89"), new Endereco("Rua dos bobos", "0", null, "Recife", "52071321"), "Roger", "(81) 9999-99999", "Dra Katia"), agenda, dataAtual);
         assertEquals("Pagamento pendente do paciente: Roger - para o dia 2025-04-17", validacao);
     }
 }

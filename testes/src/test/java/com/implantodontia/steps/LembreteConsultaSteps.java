@@ -1,9 +1,12 @@
 package com.implantodontia.steps;
 
+import com.implantodontia.dominio.core.gestaoConsulta.consulta.Consulta;
+import com.implantodontia.dominio.core.gestaoPacientes.paciente.Cpf;
+import com.implantodontia.dominio.core.gestaoPacientes.paciente.Endereco;
+import com.implantodontia.dominio.core.gestaoPacientes.paciente.Paciente;
+import com.implantodontia.dominio.core.gestaoPacientes.paciente.PacienteId;
+import com.implantodontia.dominio.core.material.Material;
 import io.cucumber.java.pt.*;
-import com.implantodontia.dominio.consulta.Consulta;
-import com.implantodontia.dominio.consulta.Material;
-import com.implantodontia.dominio.consulta.paciente.Paciente;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -32,7 +35,7 @@ public class LembreteConsultaSteps {
                 false,
                 LocalDate.now().plusDays(10),
                 local,
-                new Paciente("Paciente Teste", "0000-0000", "Dr. Teste")
+                new Paciente(new PacienteId(0), new Cpf("684.976.720-89"), new Endereco("Rua dos bobos", "0", null, "Recife", "52071321"), "Paciente Teste", "0000-0000", "Dr. Teste")
         );
         agenda.put("1", consulta);
     }
@@ -72,7 +75,7 @@ public class LembreteConsultaSteps {
                 true,
                 LocalDate.now().plusDays(10),
                 local,
-                new Paciente("Paciente Teste", "0000-0000", "Dr. Teste")
+                new Paciente(new PacienteId(0), new Cpf("684.976.720-89"), new Endereco("Rua dos bobos", "0", null, "Recife", "52071321"), "Paciente Teste", "0000-0000", "Dr. Teste")
         );
         agenda.put("2", consulta);
     }
@@ -106,7 +109,7 @@ public class LembreteConsultaSteps {
                 true,
                 LocalDate.now().plusDays(10),
                 local,
-                new Paciente("Paciente Teste", "0000-0000", "Dr. Teste")
+                new Paciente(new PacienteId(0), new Cpf("684.976.720-89"), new Endereco("Rua dos bobos", "0", null, "Recife", "52071321"), "Paciente Teste", "0000-0000", "Dr. Teste")
         );
         agenda.put("3", consulta);
     }
