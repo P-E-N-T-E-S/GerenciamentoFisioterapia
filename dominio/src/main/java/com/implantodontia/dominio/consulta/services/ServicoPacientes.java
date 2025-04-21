@@ -23,9 +23,16 @@ public class ServicoPacientes {
     }
 
     public void cadastrarPaciente(Paciente paciente) {
+        if (paciente.getContato() == null || paciente.getContato().isBlank()) {
+            throw new IllegalArgumentException("Contato obrigatório");
+        }
         pacientes.add(paciente);
-        String notificacao = "Novo paciente cadastrado: " + paciente.getNome() + "por " + paciente.getMedicoResponsavel()+
-                ". Contato: " + paciente.getContato();
+        String notificacao = String.format(
+                "Alerta: Novo paciente cadastrado por %s. Nome: %s, Contato: %s",
+                paciente.getMedicoResponsavel(),
+                paciente.getNome(),
+                paciente.getContato()
+        );
         notificacoes.add(notificacao);
     }
 
@@ -55,6 +62,10 @@ public class ServicoPacientes {
         }
 
         return "Não existem pagamentos pendentes para o paciente";
+    }
+
+    public List<Paciente> getPacientes() {
+        return pacientes;
     }
 
     public List<String> getNotificacoes() {
