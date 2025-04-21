@@ -3,8 +3,7 @@ package com.implantodontia.testes;
 import com.implantodontia.dominio.consulta.Consulta;
 import com.implantodontia.dominio.consulta.Material;
 import com.implantodontia.dominio.consulta.paciente.Paciente;
-import com.implantodontia.dominio.consulta.services.NotificacaoPacienteServico;
-import static org.junit.jupiter.api.Assertions.*;
+import com.implantodontia.dominio.consulta.services.NotificacaoPagamentoPacienteServico;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,7 +15,7 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class NotificacaoConsultaPacienteTest {
+public class NotificacaoPagamentoPacienteTest {
 
     private Map<String, Consulta> agenda;
     private Consulta consultaBase;
@@ -57,33 +56,8 @@ public class NotificacaoConsultaPacienteTest {
     }
 
     @Test
-    public void enviarNotificacaoConsultaProximaUmDia(){
-        NotificacaoPacienteServico s = new NotificacaoPacienteServico();
-        String validacao = s.verificarConsultasProximasDia(new Paciente("Marcos", "(81) 9999-99999", "Dra Roberta"), agenda, LocalDate.of(2025, 4, 11));
-
-        assertEquals("Consulta próxima para amanhã: Marcos - Dia 2025-04-11", validacao);
-    }
-
-    @Test
-    public void enviarNotificacaoConsultaProximaUmaSemana(){
-        NotificacaoPacienteServico s = new NotificacaoPacienteServico();
-        String validacao = s.verificarConsultasProximasSemana(new Paciente("João", "(81) 9999-99999", "Dra Roberta"), agenda, LocalDate.of(2025, 4, 10));
-
-        assertEquals("Consulta próxima para a Próxima semana: João - Dia 2025-04-10", validacao);
-    }
-
-    @Test
-    public void enviarNotificacaoNaoExistemConsultasProximas(){
-        NotificacaoPacienteServico s = new NotificacaoPacienteServico();
-        String validacao = s.verificarConsultasProximasSemana(new Paciente("João", "(81) 9999-99999", "Dra Roberta"), agenda, LocalDate.of(2025, 4, 14));
-
-        assertEquals("Não existem consultas próximas para o paciente", validacao);
-    }
-
-
-    @Test
     public void enviarNotificacaoPagamentoPendenteProximaUmDia(){
-        NotificacaoPacienteServico s = new NotificacaoPacienteServico();
+        NotificacaoPagamentoPacienteServico s = new NotificacaoPagamentoPacienteServico();
         String validacao = s.verificarPagamentoPendenteDia(new Paciente("Roger", "(81) 9999-99999", "Dra Roberta"), agenda, LocalDate.of(2025, 4, 17));
 
         assertEquals("Pagamento pendente do paciente: Roger - para o dia 2025-04-10", validacao);
@@ -91,7 +65,7 @@ public class NotificacaoConsultaPacienteTest {
 
     @Test
     public void pagamentoPendenteUmaSemana(){
-        NotificacaoPacienteServico s = new NotificacaoPacienteServico();
+        NotificacaoPagamentoPacienteServico s = new NotificacaoPagamentoPacienteServico();
         String validacao = s.verificarPagamentoPendenteSemana(new Paciente("João", "(81) 9999-99999", "Dra Roberta"), agenda, LocalDate.of(2025, 4, 15));
 
         assertEquals("Pagamento pendente do paciente: João - para o dia 2025-04-10", validacao);
@@ -99,7 +73,7 @@ public class NotificacaoConsultaPacienteTest {
 
     @Test
     public void enviarNotificacaoNaoExistePagamentoPendenteClientePagou(){
-        NotificacaoPacienteServico s = new NotificacaoPacienteServico();
+        NotificacaoPagamentoPacienteServico s = new NotificacaoPagamentoPacienteServico();
         String validacao = s.verificarPagamentoPendenteSemana(new Paciente("Betania", "(81) 9999-99999", "Dra Roberta"), agenda, LocalDate.of(2025, 4, 15));
 
         assertEquals("Não existem pagamentos pendentes para o paciente", validacao);
