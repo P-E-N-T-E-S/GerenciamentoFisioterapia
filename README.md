@@ -128,14 +128,6 @@ O sistema tem como função fazer o gerenciamento do dia a dia da fisioterapeuta
       </a>
     </td>
     <td align="center">
-      <a href="https://github.com/Luiz-Edu0202">
-        <img src="https://avatars.githubusercontent.com/Luiz-Edu0202" width="100px;" alt="Foto de Dustin"/><br>
-        <sub>
-          <b>Luiz Eduardo Brayner</b>
-        </sub>
-      </a>
-    </td>
-    <td align="center">
       <a href="https://github.com/Nerebo">
         <img src="https://avatars.githubusercontent.com/Nerebo" width="100px;" alt="Foto de André"/><br>
         <sub>
