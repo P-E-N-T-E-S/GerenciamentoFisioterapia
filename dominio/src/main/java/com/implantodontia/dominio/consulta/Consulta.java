@@ -1,5 +1,7 @@
 package com.implantodontia.dominio.consulta;
 
+import com.implantodontia.dominio.consulta.paciente.Paciente;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -9,6 +11,7 @@ import java.util.Map;
 
 public class Consulta {
     private LocalDateTime dataHora;
+    private Paciente paciente;
     private LocalDate data_vencimento;
     private boolean clientePagou;
     private String descricao;
@@ -16,13 +19,14 @@ public class Consulta {
     private String local;
 
     public Consulta(LocalDateTime dataHora, String descricao, Material materiais,
-                    boolean clientePagou, LocalDate dataVencimento, String local) {
+                    boolean clientePagou, LocalDate dataVencimento, String local, Paciente paciente) {
         this.dataHora = dataHora;
         this.descricao = descricao;
         this.materiais = materiais;
         this.clientePagou = clientePagou;
         this.data_vencimento = dataVencimento;
         this.local = local;
+        this.paciente = paciente;
     }
 
     public static Map<String, String> gerarLembretesConsultas(Map<String, Consulta> agenda, LocalDate hoje) {
@@ -55,6 +59,10 @@ public class Consulta {
             }
         }
         return resultado;
+    }
+
+    public Paciente getPaciente() {
+        return paciente;
     }
 
     public static Map<String, String> gerarNotificacoesPendencias(Map<String, Consulta> agenda, LocalDate hoje) {

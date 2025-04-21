@@ -2,6 +2,7 @@ package com.implantodontia.testes;
 
 import com.implantodontia.dominio.consulta.Consulta;
 import com.implantodontia.dominio.consulta.Material;
+import com.implantodontia.dominio.consulta.paciente.Paciente;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
@@ -25,7 +26,7 @@ class ConsultaTest {
                 new Material(),
                 false,
                 LocalDate.of(2025, 4, 8),
-                "Clínica Central");
+                "Clínica Central", new Paciente("Roger", "(81) 9999-99999", "Dra Katia"));
 
         Consulta consulta2 = new Consulta(
                 LocalDateTime.of(2025, 4, 11, 0, 0),
@@ -33,7 +34,8 @@ class ConsultaTest {
                 new Material(),
                 true,
                 LocalDate.of(2025, 4, 10),
-                "Hospital Geral");
+                "Hospital Geral",
+        new Paciente("Marcos", "(81) 9999-99999", "Dra Roberta"));
 
         Consulta consulta3 = new Consulta(
                 LocalDateTime.of(2025, 4, 10, 0, 0),
@@ -41,7 +43,8 @@ class ConsultaTest {
                 new Material(),
                 false,
                 LocalDate.of(2025, 4, 7),
-                "Clínica Municipal");
+                "Clínica Municipal",
+                new Paciente("João", "(81) 9999-99999", "Dra Matilda"));
 
         agenda.put("1", consultaBase);
         agenda.put("2", consulta2);
@@ -80,7 +83,8 @@ class ConsultaTest {
                 new Material(),
                 false,
                 LocalDate.of(2025, 4, 8),
-                "Clínica Central");
+                "Clínica Central",
+                new Paciente("Martha", "(81) 9999-99999", "Dra Roberta"));
         agenda.put("4", consulta);
 
         Map<String, String> lembretes = Consulta.gerarLembretesConsultas(agenda, hoje);
@@ -99,8 +103,8 @@ class ConsultaTest {
                 new Material(),
                 true,
                 LocalDate.of(2025, 4, 8),
-                "Hospital Geral"
-        );
+                "Hospital Geral",
+        new Paciente("Jorge", "(81) 9999-99999", "Dra Roberta"));
         agendaLocal.put("5", consulta);
 
         Map<String, String> lembretes = Consulta.gerarLembretesConsultas(agendaLocal, hoje);
@@ -116,7 +120,8 @@ class ConsultaTest {
                 new Material(),
                 true,
                 LocalDate.of(2025, 4, 3),
-                "Domicilio");
+                "Domicilio",
+                new Paciente("Evaldo", "(81) 9999-99999", "Dra Roberta"));
         agenda.put("6", consulta);
 
         Map<String, String> lembretes = Consulta.gerarLembretesConsultas(agenda, hoje);
