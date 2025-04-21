@@ -31,8 +31,10 @@ public class HistoricoProcedimentosService {
 
     public List<Procedimento> filtrarPorMesAno(int mes, int ano) {
         return procedimentos.stream()
-                .filter(p -> p.getDataRealizacao().getMonthValue() == mes
-                        && p.getDataRealizacao().getYear() == ano)
+                .filter(p ->
+                        p.getDataRealizacao().getMonthValue() == mes
+                                && p.getDataRealizacao().getYear() == ano
+                )
                 .collect(Collectors.toList());
     }
 

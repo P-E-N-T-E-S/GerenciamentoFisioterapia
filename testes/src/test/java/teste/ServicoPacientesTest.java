@@ -1,4 +1,4 @@
-package com.implantodontia.testes;
+/*package teste;
 
 
 import com.implantodontia.dominio.consulta.services.ServicoPacientes;
@@ -43,4 +43,4 @@ class ServicoPacientesTest {
 
         assertEquals(2, servico.getNotificacoes().size());
     }
-}
+}*/

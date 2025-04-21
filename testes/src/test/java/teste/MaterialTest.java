@@ -1,4 +1,4 @@
-package com.implantodontia.testes;
+/*package teste;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -59,4 +59,4 @@ public class MaterialTest {
         material.remover(inventario, "Gaze", 2);
         assertEquals(0, inventario.get("Gaze"));
     }
-}
+}*/

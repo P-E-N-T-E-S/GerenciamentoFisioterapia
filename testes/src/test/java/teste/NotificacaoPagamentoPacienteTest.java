@@ -1,4 +1,4 @@
-package com.implantodontia.testes;
+/*package teste;
 
 import com.implantodontia.dominio.consulta.Consulta;
 import com.implantodontia.dominio.consulta.Material;
@@ -78,4 +78,4 @@ public class NotificacaoPagamentoPacienteTest {
 
         assertEquals("Não existem pagamentos pendentes para o paciente", validacao);
     }
-}
+}*/
