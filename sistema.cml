@@ -30,6 +30,14 @@ BoundedContext GestaoPacientes implements GestaoPacientes {
             String medicoResponsavel
 
             def void vincularFichaMedica(@FichaMedica ficha);
+
+            Repository PacienteRepository{
+                void adicionar(@Paciente paciente);
+                void remover(@Paciente paciente);
+                @Paciente buscarPorId(@PacienteId id);
+                List<@Paciente> listarPacientes();
+                @FichaMedica buscarFicha();
+            }
         }
 
         Service ServicoPacientes {
@@ -95,6 +103,13 @@ BoundedContext GestaoConsultas implements GestaoConsultas {
             def Map<String, String> gerarNotificacoesPendencias(Map<String, @Consulta> agenda, LocalDate hoje);
             def Map<String, @Consulta> filtrarPorData(Map<String, @Consulta> agenda, LocalDate datafiltro);
 
+            Repository ConsultaRepository{
+                void adicionar(@Consulta consulta);
+                void remover(@Consulta consulta);
+                void alterar(@Consulta consulta);
+                List<@Consulta> buscarConsultasPorDia(Date dia);
+                List<@Consulta> buscarConsultasPorPaciente(@Paciente paciente);
+            }
         }
 
         Entity Procedimento {
@@ -131,6 +146,11 @@ BoundedContext GestaoMateriais implements GestaoMateriais {
             String descricao
             int quantidade
             BigDecimal valor
+
+            Repository MaterialRepository{
+                void adicionar(@Material material);
+                void remover(String nome);
+            }
         }
 
         Service MaterialServico {
