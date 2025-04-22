@@ -1,4 +1,5 @@
 package com.implantodontia.steps;
+import com.implantodontia.dominio.core.Calendario;
 import com.implantodontia.dominio.core.gestaoConsulta.consulta.Consulta;
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.Cpf;
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.Endereco;
@@ -39,5 +40,6 @@ public class ConsultaSteps {
         Map<String, String> notificacoes = Consulta.gerarNotificacoesPendencias(agenda, hoje);
         assertEquals(1, notificacoes.size());
         assertTrue(notificacoes.get("1").contains("atrasado há 4 dias"));
+
     }
 }
