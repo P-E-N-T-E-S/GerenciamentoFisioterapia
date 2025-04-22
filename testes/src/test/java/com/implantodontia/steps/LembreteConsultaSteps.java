@@ -6,7 +6,7 @@ import com.implantodontia.dominio.core.gestaoPacientes.paciente.Endereco;
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.Paciente;
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.PacienteId;
 import com.implantodontia.dominio.core.material.Material;
-import io.cucumber.java.pt.*;
+import io.cucumber.java.en.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -22,7 +22,7 @@ public class LembreteConsultaSteps {
     // ==================================================================
     // Cenário: Receber lembrete com 1 dia de antecedência
     // ==================================================================
-    @Dado("existe uma consulta agendada para {string} no local {string} com 1 dia de antecedência")
+    @Given("existe uma consulta agendada para {string} no local {string} com 1 dia de antecedência")
     public void criarConsulta1Dia(String dataHoraStr, String local) {
         agenda = new HashMap<>();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
@@ -40,14 +40,14 @@ public class LembreteConsultaSteps {
         agenda.put("1", consulta);
     }
 
-    @Quando("eu acesso o sistema no dia {string}")
+    @When("eu acesso o sistema no dia {string}")
     public void acessarSistema1Dia(String dataAcessoStr) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate dataAcesso = LocalDate.parse(dataAcessoStr, formatter);
         lembretes = Consulta.gerarLembretesConsultas(agenda, dataAcesso);
     }
 
-    @Então("devo ver um lembrete com:")
+    @Then("devo ver um lembrete com:")
     public void verificarLembrete1Dia(io.cucumber.datatable.DataTable dataTable) {
         Map<String, String> dados = dataTable.asMaps().get(0);
         String mensagemEsperada = String.format(
@@ -62,7 +62,7 @@ public class LembreteConsultaSteps {
     // ==================================================================
     // Cenário: Receber lembrete com 1 semana de antecedência
     // ==================================================================
-    @Dado("existe uma consulta agendada para {string} no local {string} com 1 semana de antecedência")
+    @Given("existe uma consulta agendada para {string} no local {string} com 1 semana de antecedência")
     public void criarConsulta1Semana(String dataHoraStr, String local) {
         agenda = new HashMap<>();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
@@ -80,7 +80,7 @@ public class LembreteConsultaSteps {
         agenda.put("2", consulta);
     }
 
-    @Então("devo receber um lembrete com:")
+    @Then("devo receber um lembrete com:")
     public void verificarLembrete1Semana(io.cucumber.datatable.DataTable dataTable) {
         Map<String, String> dados = dataTable.asMaps().get(0);
         String mensagemEsperada = String.format(
@@ -96,7 +96,7 @@ public class LembreteConsultaSteps {
     // ==================================================================
     // Cenário: Não receber lembrete para datas fora do intervalo
     // ==================================================================
-    @Dado("existe uma consulta agendada para {string} no local {string} sem lembrete agendado")
+    @Given("existe uma consulta agendada para {string} no local {string} sem lembrete agendado")
     public void criarConsultaSemLembrete(String dataHoraStr, String local) {
         agenda = new HashMap<>();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
@@ -114,7 +114,7 @@ public class LembreteConsultaSteps {
         agenda.put("3", consulta);
     }
 
-    @Então("nenhum lembrete deve ser gerado")
+    @Then("nenhum lembrete deve ser gerado")
     public void verificarAusenciaLembrete() {
         assertTrue(lembretes.isEmpty());
     }

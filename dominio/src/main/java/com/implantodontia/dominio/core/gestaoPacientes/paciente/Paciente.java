@@ -9,6 +9,8 @@ public class Paciente {
     private String nome;
     private String contato;
     private String medicoResponsavel;
+    private FichaMedica fichaMedica;
+
 
     public Paciente(PacienteId pacienteId, Cpf cpf, Endereco endereco, String nome, String contato, String medicoResponsavel) {
         notNull(pacienteId, "O Id do paciente nao pode ser nulo");
@@ -24,6 +26,21 @@ public class Paciente {
         this.nome = nome;
         this.contato = contato;
         this.medicoResponsavel = medicoResponsavel;
+    }
+
+    public PacienteId getPacienteId() {
+        return pacienteId;
+    }
+
+    public FichaMedica getFichaMedica() {
+        return fichaMedica;
+    }
+
+    public void vincularFichaMedica(FichaMedica ficha) {
+        if (!ficha.getPacienteId().equals(this.pacienteId)) {
+            throw new IllegalArgumentException("ID da ficha não corresponde ao paciente!");
+        }
+        this.fichaMedica = ficha;
     }
 
     public String getNome() { return nome; }

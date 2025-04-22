@@ -35,6 +35,50 @@ public class ServicoPacientes {
         notificacoes.add(notificacao);
     }
 
+
+    // História 2
+    private Paciente buscarPacientePorId(PacienteId id) {
+        return pacientes.stream()
+                .filter(p -> p.getPacienteId().equals(id))
+                .findFirst()
+                .orElse(null);
+    }
+
+    public boolean gerarPdfFichaMedica(FichaMedica ficha) {
+        Paciente paciente = buscarPacientePorId(ficha.getPacienteId());
+
+        if (paciente == null) {
+            throw new IllegalArgumentException("Paciente não encontrado");
+        }
+
+        // Implementação da geração do PDF usando o paciente encontrado
+        return ficha.validarDadosObrigatorios();
+    }
+
+
+    public boolean simularGeracaoPdf(PacienteId pacienteId) {
+        FichaMedica ficha = obterFichaMedica(pacienteId);
+        return ficha != null && ficha.validarDadosObrigatorios();
+    }
+
+    public FichaMedica obterFichaMedica(PacienteId pacienteId) {
+        Paciente paciente = buscarPacientePorId(pacienteId);
+        if (paciente != null) {
+            return paciente.getFichaMedica();
+        }
+        throw new IllegalArgumentException("Paciente não encontrado com ID: " + pacienteId.getId());
+    }
+
+    public boolean deveSolicitarObservacoes(PacienteId pacienteId) {
+        FichaMedica ficha = obterFichaMedica(pacienteId);
+        return ficha.getObservacoes() == null ||
+                ficha.getObservacoes().isBlank();
+    }
+
+
+//
+
+
     public String verificarPagamentoPendenteDia(Paciente paciente, Map<String, Consulta> agenda, LocalDate datafiltro){
         for (Map.Entry<String, Consulta> entry : agenda.entrySet()) {
             String nome = entry.getValue().getPaciente().getNome();
@@ -61,6 +105,11 @@ public class ServicoPacientes {
         }
 
         return "Não existem pagamentos pendentes para o paciente";
+    }
+
+    public boolean gerarPdfFichaMedica(Paciente paciente, FichaMedica ficha) {
+        // Implementação real usaria biblioteca PDF como Apache PDFBox ou iText
+        return ficha.validarDadosObrigatorios();
     }
 
     public List<Paciente> getPacientes() {
