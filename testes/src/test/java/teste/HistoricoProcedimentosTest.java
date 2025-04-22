@@ -4,7 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.implantodontia.dominio.core.gestaoConsulta.consulta.Procedimento;
-import com.implantodontia.dominio.core.relatorio.HistoricoProcedimentosService;
+import com.implantodontia.dominio.support.relatorio.HistoricoProcedimentosService;
 
 import java.time.LocalDate;
 import java.util.List;

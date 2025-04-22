@@ -1,5 +1,4 @@
 package com.implantodontia.steps;
-import com.implantodontia.dominio.core.Calendario;
 import com.implantodontia.dominio.core.gestaoConsulta.consulta.Consulta;
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.Cpf;
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.Endereco;

@@ -1,9 +1,7 @@
-package com.implantodontia.dominio.core;
+package com.implantodontia.dominio.support.relatorio;
 
 import com.implantodontia.dominio.core.gestaoConsulta.consulta.Consulta;
 
-import java.lang.reflect.Array;
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.Map;
 

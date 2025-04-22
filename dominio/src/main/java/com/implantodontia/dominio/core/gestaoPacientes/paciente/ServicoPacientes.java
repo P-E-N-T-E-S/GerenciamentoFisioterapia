@@ -14,7 +14,7 @@ public class ServicoPacientes {
 
     private ServicoPacientes() {}
 
-    public static synchronized ServicoPacientes getInstance() {
+    public static ServicoPacientes getInstance() {
         if (instace == null) {
             instace = new ServicoPacientes();
         }

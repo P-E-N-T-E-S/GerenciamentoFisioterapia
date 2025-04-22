@@ -28,6 +28,8 @@ BoundedContext GestaoPacientes implements GestaoPacientes {
             - Contato contato
             boolean foiAtendido
             String medicoResponsavel
+
+            def void vincularFichaMedica(@FichaMedica ficha);
         }
 
         Service ServicoPacientes {
@@ -35,6 +37,9 @@ BoundedContext GestaoPacientes implements GestaoPacientes {
             void cadastrarPaciente(@Paciente paciente);
             String verificarPagamentoPendenteDia(@Paciente paciente, Map<String, @Consulta> agenda, LocalDate datafiltro);
             String verificarPagamentoPendenteSemana(@Paciente paciente, Map<String, @Consulta> agenda, LocalDate datafiltro);
+            List<@Procedimento> filtrarPorTipo(Procedimento.TipoProcedimento tipo);
+            @FichaMedica obterFichaMedica(@PacienteId pacienteId);
+            boolean deveSolicitarObservacoes(@PacienteId pacienteId);
             List<String> getNotificacoes();
             void limparNotificacoes();
         }
@@ -59,6 +64,18 @@ BoundedContext GestaoPacientes implements GestaoPacientes {
         ValueObject PacienteId{
             long id
         }
+
+        Entity FichaMedica {
+            - PacienteId pacienteId
+            String historicoMedico
+            String alergias
+            String observacoes
+            LocalDateTime ultimaAtualizacao
+
+            def void preencherDadosClinicos(String historicoMedico, String alergias, LocalDateTime dataAtualizacao);
+            def boolean validarDadosObrigatorios();
+            def void adicionarObservacao(String observacao);
+        }
     }
 }
 
@@ -73,6 +90,11 @@ BoundedContext GestaoConsultas implements GestaoConsultas {
             String descricao
             - Material materiais
             String local
+
+            def Map<String, String> gerarLembretesConsultas(Map<String, @Consulta> agenda, LocalDate hoje);
+            def Map<String, String> gerarNotificacoesPendencias(Map<String, @Consulta> agenda, LocalDate hoje);
+            def Map<String, @Consulta> filtrarPorData(Map<String, @Consulta> agenda, LocalDate datafiltro);
+
         }
 
         Entity Procedimento {
@@ -120,9 +142,16 @@ BoundedContext GestaoMateriais implements GestaoMateriais {
 
 BoundedContext Relatorios {
     Aggregate Relatorio {
-        Service RelatorioService {
-            void gerarRelatorioConsultas(LocalDate dataInicio, LocalDate dataFim);
-            void gerarRelatorioPagamentos(LocalDate dataInicio, LocalDate dataFim);
+        Entity Calendario{
+            def List<@Consulta> setupCalendario(Map<String, @Consulta> agenda);
+        }
+
+
+        Service HistoricoProcedimentosService {
+            void adicionarProcedimento(@Procedimento procedimento);
+            List<@Procedimento> filtrarPorDataExata(LocalDate data);
+            List<@Procedimento> filtrarPorMesAno(int mes, int ano);
+            List<@Procedimento> filtrarPorTipo(Procedimento.TipoProcedimento tipo);
         }
     }
 }

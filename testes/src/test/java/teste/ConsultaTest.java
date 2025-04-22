@@ -1,6 +1,5 @@
 package teste;
 
-import com.implantodontia.dominio.core.Calendario;
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.Cpf;
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.Endereco;
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.PacienteId;

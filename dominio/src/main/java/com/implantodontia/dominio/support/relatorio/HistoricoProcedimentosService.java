@@ -1,4 +1,4 @@
-package com.implantodontia.dominio.core.relatorio;
+package com.implantodontia.dominio.support.relatorio;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
