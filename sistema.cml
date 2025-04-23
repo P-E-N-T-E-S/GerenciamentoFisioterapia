@@ -1,11 +1,11 @@
-Domain Implantodontia {
+Domain Fisioterapia {
     Subdomain GestaoPacientes
     Subdomain GestaoConsultas
     Subdomain GestaoMateriais
     Subdomain Relatorios
 }
 
-ContextMap ImplantodontiaContextMap {
+ContextMap FisioterapiaContextMap {
     contains GestaoPacientes
     contains GestaoConsultas
     contains GestaoMateriais
