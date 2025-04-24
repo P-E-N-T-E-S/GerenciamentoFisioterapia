@@ -2,12 +2,15 @@ package com.implantodontia.steps;
 
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.*;
 import io.cucumber.java.en.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.List;
 
 public class CadastroPacienteSteps {
 
-    private ServicoPacientes servico = ServicoPacientes.getInstance();
+    private ServicoPacientes servico = new ServicoPacientes();
     private Paciente paciente;
     private String erro;
 

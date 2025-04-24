@@ -7,7 +7,7 @@ import org.junit.runner.RunWith;
 @RunWith(Cucumber.class)
 @CucumberOptions(
         features = "src/test/resources/features",
-        glue = "com/implantodontia/steps",
+        glue = {"com/implantodontia/steps", "com.implantodontia.config" },
         plugin = {"pretty", "html:target/cucumber-reports"}
 )
 public class CucumberTestRunner {}

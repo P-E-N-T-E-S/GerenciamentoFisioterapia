@@ -11,7 +11,7 @@ public class FichaMedicaSteps {
 
     private PacienteId pacienteId;
     private FichaMedica fichaMedica;
-    private ServicoPacientes servico;
+    private ServicoPacientes servico = new ServicoPacientes();
     private boolean pdfSimulado;
     private boolean alertaAtivado;
 
@@ -21,8 +21,6 @@ public class FichaMedicaSteps {
 
     @Given("que existe um paciente com ficha médica no sistema")
     public void criarPacienteComFicha() {
-        servico = ServicoPacientes.getInstance();
-
         Paciente paciente = criarPacienteExemplo();
         this.pacienteId = paciente.getPacienteId();
         this.fichaMedica = new FichaMedica(pacienteId);
