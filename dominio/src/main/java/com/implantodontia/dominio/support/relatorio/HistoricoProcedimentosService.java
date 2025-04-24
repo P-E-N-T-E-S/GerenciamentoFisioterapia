@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 public class HistoricoProcedimentosService {
     private final List<Procedimento> procedimentos = new ArrayList<>();
 
-    private HistoricoProcedimentosService() {}
+    public HistoricoProcedimentosService() {}
 
     public void adicionarProcedimento(Procedimento procedimento) {
         procedimentos.add(procedimento);

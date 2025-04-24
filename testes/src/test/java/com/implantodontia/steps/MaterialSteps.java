@@ -14,7 +14,7 @@ import java.util.HashMap;
 public class MaterialSteps {
 
     private final Map<String, Integer> inventario = new HashMap<>();
-    private MaterialServico servico;
+    private MaterialServico servico = new MaterialServico();
 
     // ==================================================================
     // Cenário: Adicionar material existente

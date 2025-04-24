@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 // História N°2
 public class HistoricoProcedimentosSteps {
 
-    private HistoricoProcedimentosService service;
+    private HistoricoProcedimentosService service = new HistoricoProcedimentosService();
     private List<Procedimento> resultados;
     private LocalDate dataFiltro;
     private int mesFiltro;

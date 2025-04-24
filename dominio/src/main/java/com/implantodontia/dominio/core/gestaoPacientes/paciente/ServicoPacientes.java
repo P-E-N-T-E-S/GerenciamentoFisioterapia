@@ -14,12 +14,6 @@ public class ServicoPacientes {
     private List<Paciente> pacientes = new ArrayList<>();
     private List<String> notificacoes = new ArrayList<>();
 
-    @Autowired
-    public ServicoPacientes(List<Paciente> pacientes, List<String> notificacoes) {
-        this.pacientes = pacientes != null ? pacientes : new ArrayList<>();
-        this.notificacoes = notificacoes != null ? notificacoes : new ArrayList<>();
-    }
-
     public void cadastrarPaciente(Paciente paciente) {
         if (paciente.getContato() == null || paciente.getContato().isBlank()) {
             throw new IllegalArgumentException("Contato obrigatório");

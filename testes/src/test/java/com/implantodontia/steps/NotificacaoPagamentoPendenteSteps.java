@@ -22,7 +22,7 @@ import java.util.HashMap;
 
 public class NotificacaoPagamentoPendenteSteps {
 
-    private NotificacaoPagamentoPacienteServico servico;
+    private NotificacaoPagamentoPacienteServico servico = new NotificacaoPagamentoPacienteServico();
     private Map<String, Consulta> agenda = new HashMap<>();
 
     @Given("que eu sou um paciente e realizei uma consulta com a Dra.")
