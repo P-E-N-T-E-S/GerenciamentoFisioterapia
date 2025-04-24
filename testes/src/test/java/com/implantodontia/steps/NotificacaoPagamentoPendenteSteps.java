@@ -8,7 +8,10 @@ import com.implantodontia.dominio.core.gestaoPacientes.paciente.Endereco;
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.Paciente;
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.PacienteId;
 import com.implantodontia.dominio.core.material.Material;
+import io.cucumber.java.bs.A;
 import io.cucumber.java.en.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.Assert.*;
 
@@ -18,7 +21,8 @@ import java.util.Map;
 import java.util.HashMap;
 
 public class NotificacaoPagamentoPendenteSteps {
-    final NotificacaoPagamentoPacienteServico servico =  new NotificacaoPagamentoPacienteServico();
+
+    private NotificacaoPagamentoPacienteServico servico;
     private Map<String, Consulta> agenda = new HashMap<>();
 
     @Given("que eu sou um paciente e realizei uma consulta com a Dra.")

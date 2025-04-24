@@ -1,10 +1,11 @@
 package com.implantodontia.dominio.core.material;
 
+import org.springframework.stereotype.Service;
+
 import java.util.Map;
 
+@Service
 public class MaterialServico {
-
-    private static MaterialServico instance;
 
     public void adicionar(Map<String, Integer> inventario, String item, int quantidade) {
         if (inventario.containsKey(item)) {
@@ -24,12 +25,5 @@ public class MaterialServico {
             return("preciso adquirir mais " + item);
         }
         return "";
-    }
-
-    public static synchronized MaterialServico getInstance() {
-        if (instance == null) {
-            instance = new MaterialServico();
-        }
-        return instance;
     }
 }

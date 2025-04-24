@@ -6,19 +6,18 @@ import java.util.List;
 import java.util.Map;
 
 import com.implantodontia.dominio.core.gestaoConsulta.consulta.Consulta;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ServicoPacientes {
-    private static ServicoPacientes instace;
-    private final List<Paciente> pacientes = new ArrayList<>();
-    private final List<String> notificacoes = new ArrayList<>();
+    private List<Paciente> pacientes = new ArrayList<>();
+    private List<String> notificacoes = new ArrayList<>();
 
-    private ServicoPacientes() {}
-
-    public static ServicoPacientes getInstance() {
-        if (instace == null) {
-            instace = new ServicoPacientes();
-        }
-        return instace;
+    @Autowired
+    public ServicoPacientes(List<Paciente> pacientes, List<String> notificacoes) {
+        this.pacientes = pacientes != null ? pacientes : new ArrayList<>();
+        this.notificacoes = notificacoes != null ? notificacoes : new ArrayList<>();
     }
 
     public void cadastrarPaciente(Paciente paciente) {

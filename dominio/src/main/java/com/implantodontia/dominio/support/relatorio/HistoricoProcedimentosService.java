@@ -6,19 +6,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.implantodontia.dominio.core.gestaoConsulta.consulta.Procedimento;
+import org.springframework.stereotype.Service;
 
+@Service
 public class HistoricoProcedimentosService {
-    private static HistoricoProcedimentosService instance;
     private final List<Procedimento> procedimentos = new ArrayList<>();
 
     private HistoricoProcedimentosService() {}
-
-    public static synchronized HistoricoProcedimentosService getInstance() {
-        if (instance == null) {
-            instance = new HistoricoProcedimentosService();
-        }
-        return instance;
-    }
 
     public void adicionarProcedimento(Procedimento procedimento) {
         procedimentos.add(procedimento);
