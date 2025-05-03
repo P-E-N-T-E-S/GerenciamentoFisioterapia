@@ -16,9 +16,9 @@ const Material = () => {
         </div>
         <ul className="nav-list">
           <li><Link to="/"><FaHome className="icon" /> Homepage</Link></li>
-          <li><Link to="#"><FaUserInjured className="icon" /> Pacientes</Link></li>
-          <li><Link to="#"><FaClipboardList className="icon" /> Consultas</Link></li>
-          <li><Link to="#"><FaCalendarAlt className="icon" /> Calendário</Link></li>
+          <li><Link to="/pacientes"><FaUserInjured className="icon" /> Pacientes</Link></li>
+          <li><Link to="/consultas"><FaClipboardList className="icon" /> Consultas</Link></li>
+           <li><Link to="/calendario"><FaCalendarAlt className="icon" /> Calendário</Link></li>
           <li><Link to="/material"><FaBoxOpen className="icon" /> Material</Link></li>
         </ul>
         <div className="logout"><FaSignOutAlt className="icon" /> Sair</div>

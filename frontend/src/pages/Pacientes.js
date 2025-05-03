@@ -1,9 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaHome, FaUserInjured, FaClipboardList, FaCalendarAlt, FaBoxOpen, FaSignOutAlt, FaTooth } from 'react-icons/fa';
+import {
+  FaHome, FaUserInjured, FaClipboardList,
+  FaCalendarAlt, FaBoxOpen, FaSignOutAlt, FaTooth, FaSearch
+} from 'react-icons/fa';
 import '../styles/Home.css';
 
-const Home = () => {
+const Pacientes = () => {
   return (
     <div className="app-container">
       <aside className="sidebar">
@@ -27,20 +30,30 @@ const Home = () => {
           <span className="profile">👤</span>
         </header>
 
-        <div className="dashboard">
-          <div className="cards-row">
-            <div className="card">
-              <h3>Consultas de Hoje</h3>
-              <div className="placeholder">[Tabela de Consultas]</div>
+        <div className="dashboard center-material">
+          <h2>Pacientes</h2>
+
+          <div className="paciente-actions">
+            <div className="search-bar">
+              <input type="text" placeholder="Buscar por nome" />
+              <FaSearch className="search-icon" />
             </div>
-            <div className="card">
-              <h3>Materiais Restantes</h3>
-              <div className="placeholder">[Tabela de Materiais]</div>
+            <div className="btn-group">
+              <button className="btn-primary">Adicionar</button>
+              <button className="btn-secondary">Deletar</button>
             </div>
           </div>
-          <div className="chart-card">
-            <h3>Rendimento Mensal</h3>
-            <div className="placeholder">[Gráfico de Rendimento]</div>
+
+          <div className="paciente-list">
+            {[1, 2, 3, 4].map((_, idx) => (
+              <div key={idx} className="paciente-card">
+                <div className="paciente-info">
+                  <span className="avatar">👤</span>
+                  <span>Nome do paciente</span>
+                </div>
+                <button className="btn-secondary">Ficha médica</button>
+              </div>
+            ))}
           </div>
         </div>
       </main>
@@ -48,4 +61,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Pacientes;
