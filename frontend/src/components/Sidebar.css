@@ -1,0 +1,80 @@
+/* === SIDEBAR === */
+:root {
+    --primary: #4a4a4a;            /* cinza escuro para botões e títulos */
+    --sidebar-bg: #f1f1f1;         /* fundo da sidebar */        /* fundo principal */
+    --text: #1e1e1e;               /* texto principal */
+  }
+
+.sidebar {
+    width: 250px;
+    background: var(--sidebar-bg);
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 30px 20px;
+    border-right: 1px solid #ddd;
+
+    position: fixed;
+    height: 100vh;
+    overflow-y: auto;
+    top: 0;
+    left: 0;
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+    color: var(--text);
+  }
+  
+  .logo-icon {
+    font-size: 1.6rem;
+    margin-right: 10px;
+  }
+  
+  .nav-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .nav-list li a {
+    display: flex;
+    align-items: center;
+    color: var(--text);
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 10px 12px;
+    border-radius: 8px;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  
+  .nav-list li a:hover {
+    background: rgba(0, 0, 0, 0.05);
+    color: var(--primary);
+  }
+  
+  .icon {
+    margin-right: 12px;
+    font-size: 1.25rem;
+  }
+  
+  .logout {
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text);
+    padding: 10px 12px;
+    border-radius: 8px;
+    transition: background 0.2s ease;
+  }
+  
+  .logout:hover {
+    background: rgba(0, 0, 0, 0.05);
+  }

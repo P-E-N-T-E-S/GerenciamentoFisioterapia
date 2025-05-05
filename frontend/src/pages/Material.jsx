@@ -5,24 +5,12 @@ import {
   FaCalendarAlt, FaBoxOpen, FaSignOutAlt, FaTooth
 } from 'react-icons/fa';
 import '../styles/Home.css';
+import { Sidebar } from '../components/Sidebar';
 
 const Material = () => {
   return (
     <div className="app-container">
-      <aside className="sidebar">
-        <div className="logo">
-          <FaTooth className="logo-icon" />
-          <span>Clínica+ Saúde</span>
-        </div>
-        <ul className="nav-list">
-          <li><Link to="/"><FaHome className="icon" /> Homepage</Link></li>
-          <li><Link to="/pacientes"><FaUserInjured className="icon" /> Pacientes</Link></li>
-          <li><Link to="/consultas"><FaClipboardList className="icon" /> Consultas</Link></li>
-           <li><Link to="/calendario"><FaCalendarAlt className="icon" /> Calendário</Link></li>
-          <li><Link to="/material"><FaBoxOpen className="icon" /> Material</Link></li>
-        </ul>
-        <div className="logout"><FaSignOutAlt className="icon" /> Sair</div>
-      </aside>
+      <Sidebar />
 
       <main className="main-content">
         <header className="header">
