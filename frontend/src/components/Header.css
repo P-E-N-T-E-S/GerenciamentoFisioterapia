@@ -1,0 +1,23 @@
+.header {
+    background: #f9f9f9;
+    padding: 15px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    font-size: 1rem;
+    color: var(--text);
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    background-color: gray;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: context-menu;
+}

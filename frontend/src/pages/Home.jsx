@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { FaHome, FaUserInjured, FaClipboardList, FaCalendarAlt, FaBoxOpen, FaSignOutAlt, FaTooth } from 'react-icons/fa';
 import '../styles/Home.css';
 import { Sidebar } from '../components/Sidebar';
+import { Header } from '../components/Header';
 
 const Home = () => {
   return (
@@ -10,10 +11,7 @@ const Home = () => {
       <Sidebar />
 
       <main className="main-content">
-        <header className="header">
-          <span>Seja bem-vinda, <strong>Thaysa</strong>!</span>
-          <span className="profile">👤</span>
-        </header>
+        <Header />
 
         <div className="dashboard">
           <div className="cards-row">

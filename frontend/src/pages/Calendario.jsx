@@ -7,6 +7,7 @@ import {
 
 import '../styles/Home.css';
 import {Sidebar} from '../components/Sidebar.jsx';
+import { Header } from '../components/Header.jsx';
 
 const getWeekDays = () => {
   const today = new Date();
@@ -112,10 +113,7 @@ const Calendario = () => {
       <Sidebar/>
 
       <main className="main-content">
-        <header className="header">
-          <span>Seja bem-vinda, <strong>Thaysa</strong>!</span>
-          <span className="profile">👤</span>
-        </header>
+        <Header/>
 
         <div className="dashboard center-material">
           <div className="calendar-header">

@@ -6,6 +6,7 @@ import {
 } from 'react-icons/fa';
 import '../styles/Home.css';
 import { Sidebar } from '../components/Sidebar';
+import { Header } from '../components/Header';  
 
 const Pacientes = () => {
   return (
@@ -13,10 +14,7 @@ const Pacientes = () => {
       <Sidebar />
 
       <main className="main-content">
-        <header className="header">
-          <span>Seja bem-vinda, <strong>Thaysa</strong>!</span>
-          <span className="profile">👤</span>
-        </header>
+        <Header />
 
         <div className="dashboard center-material">
           <h2>Pacientes</h2>
