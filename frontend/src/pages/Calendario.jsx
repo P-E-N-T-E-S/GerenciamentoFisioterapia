@@ -71,6 +71,9 @@ const Calendario = () => {
     if (modo === 'Mensal') {
       const dias = getMonthDays();
       const weekDays = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'];
+      
+      const today = new Date().getDate();
+      const isToday = (dia) => dia === today.toString().padStart(2, '0') + '/' + (new Date().getMonth() + 1).toString().padStart(2, '0');
 
       return (
         <>
@@ -80,11 +83,13 @@ const Calendario = () => {
             ))}
           </div>
           <div className="calendar-grid-mes">
-            {dias.map((dia, i) => (
-              <div className="calendar-cell-mes" key={i}>
-                {dia}
-              </div>
-            ))}
+            {dias.map((dia, i) => {
+              return (
+                <div className={`calendar-cell-mes ${isToday(dia) ? 'today' : ''}`} key={i}>
+                  {dia}
+                </div>
+              )
+            })}
           </div>
         </>
       );

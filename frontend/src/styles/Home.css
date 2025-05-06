@@ -500,3 +500,15 @@ body {
   background: #f0f0f0;
 }
 
+.today {
+  background: #007bff;
+  color: white;
+  font-weight: 600;
+  border-radius: 6px;
+}
+
+.today:hover {
+  background: #0056b3;
+  color: white;
+}
+
