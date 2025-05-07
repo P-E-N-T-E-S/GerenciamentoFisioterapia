@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import '../styles/Home.css';
-import { Sidebar } from '../components/Sidebar';
-import { Header } from '../components/Header';
-import { AddPacienteModal } from '../components/AddPacienteModal';
-import { PacienteDetalhesModal } from '../components/PacienteDetalhesModal';
-import { DeletePacienteModal } from '../components/DeletePacienteModal'; // novo import
+
+import { Sidebar } from '../components/template/Sidebar';
+import { Header } from '../components/template/Header';
+import { AddPacienteModal } from '../components/modals/pacientes/AddPacienteModal';
+import { PacienteDetalhesModal } from '../components/modals/pacientes/PacienteDetalhesModal';
+import { DeletePacienteModal } from '../components/modals/pacientes/DeletePacienteModal'; // novo import
 
 const Pacientes = () => {
   const [openAddModal, setOpenAddModal] = useState(false);

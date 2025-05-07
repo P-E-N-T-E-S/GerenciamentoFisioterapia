@@ -6,8 +6,8 @@ import {
 } from 'react-icons/fa';
 
 import '../styles/Home.css';
-import {Sidebar} from '../components/Sidebar.jsx';
-import { Header } from '../components/Header.jsx';
+import {Sidebar} from '../components/template/Sidebar.jsx';
+import { Header } from '../components/template/Header.jsx';
 
 const getWeekDays = () => {
   const today = new Date();

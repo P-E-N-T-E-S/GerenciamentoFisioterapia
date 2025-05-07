@@ -5,8 +5,8 @@ import {
   FaBoxOpen, FaSignOutAlt, FaTooth, FaSearch
 } from 'react-icons/fa';
 import '../styles/Home.css';
-import { Sidebar } from '../components/Sidebar';
-import { Header } from '../components/Header';
+import { Sidebar } from '../components/template/Sidebar';
+import { Header } from '../components/template/Header';
 
 const Consultas = () => {
   return (
