@@ -1,0 +1,65 @@
+// src/components/PacienteDetalhesModal.jsx
+import React from 'react';
+import {
+  Modal, Box, Typography, Grid, IconButton, Divider, Stack
+} from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  bgcolor: 'background.paper',
+  borderRadius: 3,
+  boxShadow: 24,
+  p: 4,
+  width: 600,
+  maxHeight: '90vh',
+  overflowY: 'auto',
+};
+
+export const PacienteDetalhesModal = ({ open, handleClose, paciente }) => {
+  return (
+    <Modal open={open} onClose={handleClose}>
+      <Box sx={style}>
+        <Grid container justifyContent="space-between" alignItems="center">
+          <Typography variant="h6" fontWeight="bold">Dados do paciente</Typography>
+          <IconButton onClick={handleClose}><CloseIcon /></IconButton>
+        </Grid>
+
+        <Grid container spacing={2} mt={1}>
+          <Grid item xs={6}><Typography><strong>Nome do paciente</strong><br />{paciente.nome}</Typography></Grid>
+          <Grid item xs={6}><Typography><strong>CPF</strong><br />{paciente.cpf}</Typography></Grid>
+          <Grid item xs={6}><Typography><strong>Endereço</strong><br />{paciente.endereco}</Typography></Grid>
+          <Grid item xs={6}><Typography><strong>Profissão</strong><br />{paciente.profissao}</Typography></Grid>
+          <Grid item xs={6}><Typography><strong>Celular</strong><br />{paciente.celular}</Typography></Grid>
+        </Grid>
+
+        <Typography variant="h6" mt={4}>Consultas</Typography>
+
+        {paciente.consultas.map((consulta, idx) => (
+          <Box key={idx} mt={2} p={2} border="1px solid #ccc" borderRadius={2}>
+            <Grid container spacing={2}>
+              <Grid item>
+                <Box bgcolor="#f0f0f0" borderRadius={1} p={1} textAlign="center">
+                  <Typography variant="body2" fontWeight="bold">Seg</Typography>
+                  <Typography variant="h6">{consulta.dia}</Typography>
+                </Box>
+              </Grid>
+              <Grid item xs>
+                <Stack spacing={0.5}>
+                  <Typography><AccessTimeIcon fontSize="small" /> {consulta.hora}</Typography>
+                  <Typography><strong>Tipo:</strong> {consulta.tipo}</Typography>
+                  <Typography><strong>Pagamento:</strong> {consulta.pagamento}</Typography>
+                  <Typography><strong>Observações:</strong> {consulta.observacoes}</Typography>
+                </Stack>
+              </Grid>
+            </Grid>
+          </Box>
+        ))}
+      </Box>
+    </Modal>
+  );
+};
