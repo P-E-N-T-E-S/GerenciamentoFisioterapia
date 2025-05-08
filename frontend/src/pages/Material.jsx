@@ -1,9 +1,5 @@
 import React, {useState} from 'react';
-import { Link } from 'react-router-dom';
-import {
-  FaHome, FaUserInjured, FaClipboardList,
-  FaCalendarAlt, FaBoxOpen, FaSignOutAlt, FaTooth
-} from 'react-icons/fa';
+
 import '../styles/Home.css';
 
 import { Sidebar } from '../components/template/Sidebar';
