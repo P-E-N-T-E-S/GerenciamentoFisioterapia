@@ -30,9 +30,7 @@ export const DeletePacienteModal = ({ open, handleClose, pacientes }) => {
           {pacientes.map((paciente, idx) => (
             <ListItem key={idx} divider>
               <ListItemText primary={paciente.nome} secondary={paciente.cpf} />
-              <ListItemSecondaryAction>
-                <Button variant="outlined" color="error">Deletar</Button>
-              </ListItemSecondaryAction>
+              <Button variant="outlined" color="error">Deletar</Button>
             </ListItem>
           ))}
         </List>

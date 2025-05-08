@@ -17,16 +17,16 @@ export const AddMaterialModal = ({ open, handleClose}) => {
 
                 <Grid container direction={"column"} spacing={4} className='modal-content'>
                     <Grid item xs={6}>
-                        <TextField fullWidth label="Nome do material" placeholder="Placeholder" />
+                        <TextField fullWidth label="Nome do material" />
                     </Grid>
                     <Grid item xs={6}>
-                        <TextField fullWidth label="Quantidade" placeholder="Placeholder" />
+                        <TextField fullWidth label="Quantidade" />
                     </Grid>
                 </Grid>
 
                 <Grid container className='modal-footer'>
                     <Button variant="contained" color="primary">Adicionar</Button>
-                </Grid>
+                </Grid>  
 
             </Box>
         </Modal>

@@ -25,12 +25,12 @@ export const AddPacienteModal = ({ open, handleClose }) => {
         </Grid>
 
         <Grid container spacing={2} mt={1}>
-          <Grid item xs={6}><TextField fullWidth label="Nome do paciente" placeholder="Placeholder" /></Grid>
-          <Grid item xs={6}><TextField fullWidth label="CPF" placeholder="Placeholder" /></Grid>
-          <Grid item xs={6}><TextField fullWidth label="Endereço" placeholder="Placeholder" /></Grid>
-          <Grid item xs={6}><TextField fullWidth label="Profissão" placeholder="Placeholder" /></Grid>
-          <Grid item xs={6}><TextField fullWidth label="Celular" placeholder="Placeholder" /></Grid>
-          <Grid item xs={6}><TextField fullWidth label="E-mail" placeholder="Placeholder" /></Grid>
+          <Grid item xs={6}><TextField fullWidth label="Nome do paciente" /></Grid>
+          <Grid item xs={6}><TextField fullWidth label="CPF" /></Grid>
+          <Grid item xs={6}><TextField fullWidth label="Endereço" /></Grid>
+          <Grid item xs={6}><TextField fullWidth label="Profissão" /></Grid>
+          <Grid item xs={6}><TextField fullWidth label="Celular" /></Grid>
+          <Grid item xs={6}><TextField fullWidth label="E-mail" /></Grid>
         </Grid>
 
         <Box mt={3} textAlign="right">
