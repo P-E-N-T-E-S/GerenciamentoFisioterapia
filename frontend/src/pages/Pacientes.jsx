@@ -6,9 +6,9 @@ import { Sidebar } from '../components/template/Sidebar';
 import { Header } from '../components/template/Header';
 import { AddPacienteModal } from '../components/modals/pacientes/AddPacienteModal';
 import { PacienteDetalhesModal } from '../components/modals/pacientes/PacienteDetalhesModal';
-import { DeletePacienteModal } from '../components/modals/pacientes/DeletePacienteModal'; // novo import
+import { DeletePacienteModal } from '../components/modals/pacientes/DeletePacienteModal';
+import { FichaMedicaModal } from '../components/modals/pacientes/FichaMedicaModal';
 
-// Exemplo de paciente (substitua depois com dados reais do back-end)
 export const pacientes = [
   {
     nome: 'João Silva',
@@ -16,6 +16,15 @@ export const pacientes = [
     endereco: 'Rua A, 123',
     profissao: 'Professor',
     celular: '(81) 91234-5678',
+    fichaMedica: {
+      cirurgiao: 'Dr. Marcelo Lima',
+      cirurgiasAnteriores: 'Apendicectomia em 2018',
+      alergias: 'Dipirona',
+      dataCirurgia: '12/06/2024',
+      cirurgia: 'Colecistectomia',
+      hospital: 'Hospital Santa Cruz',
+      anotacoes: 'Paciente ansioso com a cirurgia.'
+    },
     consultas: [
       {
         tipo: 'intraoperatório',
@@ -23,29 +32,27 @@ export const pacientes = [
         hora: '09:00',
         metodoPagamento: 'pix',
         valor: 'R$ 200,00',
-        pagamentoRealizado: true, //
-        consultaRealizada: true, //
-        observacoes: 'Paciente teve evolução grande.'
-      },
-      {
-        tipo: 'intraoperatório',
-        dia: '15',
-        hora: '09:00',
-        metodoPagamento: 'pix',
-        valor: 'R$ 200,00',
-        pagamentoRealizado: false, //
-        consultaRealizada: true, //
+        pagamentoRealizado: true,
+        consultaRealizada: true,
         observacoes: 'Paciente teve evolução grande.'
       }
     ]
   },
-
   {
     nome: 'Maria Oliveira',
     cpf: '987.654.321-00',
     endereco: 'Rua B, 456',
     profissao: 'Engenheira',
     celular: '(81) 98765-4321',
+    fichaMedica: {
+      cirurgiao: 'Dra. Fernanda Souza',
+      cirurgiasAnteriores: 'Nenhuma',
+      alergias: 'Nenhuma',
+      dataCirurgia: '22/06/2024',
+      cirurgia: 'Cirurgia ortopédica',
+      hospital: 'Hospital da Restauração',
+      anotacoes: 'Paciente tranquila.'
+    },
     consultas: [
       {
         tipo: 'pré-operatório',
@@ -53,23 +60,20 @@ export const pacientes = [
         hora: '10:30',
         metodoPagamento: 'cartao',
         valor: 'R$ 150,00',
-        pagamentoRealizado: true, //
-        consultaRealizada: false, //
+        pagamentoRealizado: true,
+        consultaRealizada: false,
         observacoes: 'Paciente está estável.'
       }
     ]
-  },
-
-  // Adicione mais pacientes aqui
+  }
 ];
-
 
 const Pacientes = () => {
   const [openAddModal, setOpenAddModal] = useState(false);
   const [openDetailsModal, setOpenDetailsModal] = useState(false);
-  const [openDeleteModal, setOpenDeleteModal] = useState(false); // novo estado
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const [openFichaModal, setOpenFichaModal] = useState(false);
   const [pacienteSelecionado, setPacienteSelecionado] = useState(null);
-
 
   return (
     <div className="app-container">
@@ -106,7 +110,28 @@ const Pacientes = () => {
                   <span className="avatar">👤</span>
                   <span>{paciente.nome}</span>
                 </div>
-                <button className="btn-secondary">Ficha médica</button>
+                <div className="card-buttons">
+                  <button
+                    className="btn-secondary"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setPacienteSelecionado(paciente);
+                      setOpenFichaModal(true);
+                    }}
+                  >
+                    Ficha médica
+                  </button>
+                  <button
+                    className="btn-secondary"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setPacienteSelecionado(paciente);
+                      setOpenDetailsModal(true);
+                    }}
+                  >
+                    Dados paciente
+                  </button>
+                </div>
               </div>
             ))}
           </div>
@@ -119,6 +144,14 @@ const Pacientes = () => {
         <PacienteDetalhesModal
           open={openDetailsModal}
           handleClose={() => setOpenDetailsModal(false)}
+          paciente={pacienteSelecionado}
+        />
+      )}
+
+      {pacienteSelecionado && (
+        <FichaMedicaModal
+          open={openFichaModal}
+          handleClose={() => setOpenFichaModal(false)}
           paciente={pacienteSelecionado}
         />
       )}
