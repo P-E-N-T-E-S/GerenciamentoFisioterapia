@@ -16,24 +16,26 @@ const style = {
 };
 
 export const AddPacienteModal = ({ open, handleClose }) => {
+  const size = { xs: 2, sm: 4, md: 6 };
+
   return (
     <Modal open={open} onClose={handleClose}>
       <Box sx={style}>
-        <Grid container justifyContent="space-between" alignItems="center">
+        <Grid container justifyContent="space-between" alignItems="center" mb={4}>
           <Typography variant="h6" fontWeight="bold">Adicionar paciente</Typography>
           <IconButton onClick={handleClose}><CloseIcon /></IconButton>
         </Grid>
 
-        <Grid container spacing={2} mt={1}>
-          <Grid item xs={6}><TextField fullWidth label="Nome do paciente" /></Grid>
-          <Grid item xs={6}><TextField fullWidth label="CPF" /></Grid>
-          <Grid item xs={6}><TextField fullWidth label="Endereço" /></Grid>
-          <Grid item xs={6}><TextField fullWidth label="Profissão" /></Grid>
-          <Grid item xs={6}><TextField fullWidth label="Celular" /></Grid>
-          <Grid item xs={6}><TextField fullWidth label="E-mail" /></Grid>
+        <Grid container spacing={{ xs: 2, md: 3 }} mt={1} columns={{ xs: 4, sm: 8, md: 12 }}>
+          <Grid item xs={6} size={size}><TextField fullWidth label="Nome do paciente" /></Grid>
+          <Grid item xs={6} size={size}><TextField fullWidth label="CPF" /></Grid>
+          <Grid item xs={6} size={size}><TextField fullWidth label="Endereço" /></Grid>
+          <Grid item xs={6} size={size}><TextField fullWidth label="Profissão" /></Grid>
+          <Grid item xs={6} size={size}><TextField fullWidth label="Celular" /></Grid>
+          <Grid item xs={6} size={size}><TextField fullWidth label="E-mail" /></Grid>
         </Grid>
 
-        <Box mt={3} textAlign="right">
+        <Box mt={4} textAlign="right">
           <Button variant="contained" color="primary">Continuar</Button>
         </Box>
       </Box>

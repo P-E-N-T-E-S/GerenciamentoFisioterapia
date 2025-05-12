@@ -8,36 +8,44 @@ import { Sidebar } from '../components/template/Sidebar';
 import { Header } from '../components/template/Header';
 import { AddConsultaModal } from '../components/modals/consultas/AddConsultaModal';
 
-// dado hardcoded
-const consultasData = [
-  {
-    day: 'Seg',
-    number: 15,
-    time: '09:00',
-    patient: 'Maria da Silva',
-    type: 'intraoperatório',
-    payment: 'realizado',
-    completed: true
-  },
-  {
-    day: 'Ter',
-    number: 16,
-    time: '10:30',
-    patient: 'João Pedro',
-    type: 'pré-operatório',
-    payment: 'pendente',
-    completed: true
-  },
-  {
-    day: 'Qua',
-    number: 17,
-    time: '14:00',
-    patient: 'Ana Souza',
-    type: 'pós-operatório',
-    payment: 'pendente',
-    completed: false
-  }
-];
+// Importando o array de pacientes
+import { pacientes } from './Pacientes';
+// dado hardcoded vindo de Pacientes.jsx
+const consultasData = pacientes.flatMap(paciente => 
+  (paciente.consultas || []).map(consulta => ({
+    ...consulta,
+    paciente: paciente.nome
+  }))
+);
+// const consultasData = [
+//   {
+//     day: 'Seg',
+//     number: 15,
+//     time: '09:00',
+//     patient: 'Maria da Silva',
+//     type: 'intraoperatório',
+//     payment: 'realizado',
+//     completed: true
+//   },
+//   {
+//     day: 'Ter',
+//     number: 16,
+//     time: '10:30',
+//     patient: 'João Pedro',
+//     type: 'pré-operatório',
+//     payment: 'pendente',
+//     completed: true
+//   },
+//   {
+//     day: 'Qua',
+//     number: 17,
+//     time: '14:00',
+//     patient: 'Ana Souza',
+//     type: 'pós-operatório',
+//     payment: 'pendente',
+//     completed: false
+//   }
+// ];
 
 
 const Consultas = () => {
@@ -77,23 +85,25 @@ const Consultas = () => {
             {consultasData.map((consulta, i) => (
               <div className="consulta-card" key={i}>
                 <div className="consulta-date">
-                  <span className="day">{consulta.day}</span>
-                  <strong className="number">{consulta.number}</strong>
+                  <span className="day">seg</span>
+                  {/* <span className="day">{consulta.dia}</span> */}
+                  <strong className="number">{consulta.dia}</strong>
                 </div>
                 <div className="consulta-info">
-                  <p><strong>🕒</strong> {consulta.time}</p>
-                  <p><strong>👤</strong> {consulta.patient}</p>
-                  <p><strong>Tipo:</strong> {consulta.type}</p>
-                  <p><strong>Pagamento:</strong> {consulta.payment}</p>
+                  <p><strong>🕒</strong> {consulta.hora}</p>
+                  <p><strong>👤</strong> {consulta.paciente}</p>
+                  <p><strong>Tipo:</strong> {consulta.tipo}</p>
+                  <p><strong>Pagamento:</strong> {consulta.pagamentoRealizado ? 'realizado' : 'pendente'}</p>
                 </div>
-                <input type="checkbox" defaultChecked={consulta.completed} />
+                <input type="checkbox" defaultChecked={consulta.consultaRealizada} />
               </div>
             ))}
           </div>
         </div>
       </main>
 
-      <AddConsultaModal open={openAddModal} handleClose={() => setOpenAddModal(false) } />
+      <AddConsultaModal open={openAddModal} handleClose={() => setOpenAddModal(false) } 
+      pacientesExistentes={consultasData.map(consulta => consulta.paciente)}/>
     </div>
   );
 };

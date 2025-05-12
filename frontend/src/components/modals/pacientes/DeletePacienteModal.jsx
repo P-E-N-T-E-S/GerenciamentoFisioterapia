@@ -1,7 +1,7 @@
 // src/components/DeletePacienteModal.jsx
 import React from 'react';
 import {
-  Modal, Box, Typography, IconButton, List, ListItem, ListItemText, ListItemSecondaryAction, Button
+  Modal, Box, Typography, IconButton, List, ListItem, ListItemText, Button
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 

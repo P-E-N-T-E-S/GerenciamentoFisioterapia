@@ -17,13 +17,13 @@ const style = {
   };
   
 
-export const AddConsultaModal = ({ open, handleClose }) => {
+export const AddConsultaModal = ({ open, handleClose, pacientesExistentes }) => {
     const size = { xs: 2, sm: 4, md: 6 };
 
     const modalHeader = () => {
         return (
             <Grid container justifyContent="space-between" alignItems="center" mb={4}>
-                <Typography variant="h6" fontWeight="bold">Adicionar paciente</Typography>
+                <Typography variant="h6" fontWeight="bold">Adicionar consulta</Typography>
                 <IconButton onClick={handleClose}><CloseIcon /></IconButton>
             </Grid>
         )
@@ -34,7 +34,7 @@ export const AddConsultaModal = ({ open, handleClose }) => {
     const modalFooter = () => {
         return (
             <Box mt={4} textAlign="right">
-                <Button variant="contained" color="primary">Continuar</Button>
+                <Button variant="contained" color="primary">Confirmar</Button>
             </Box>
         )
     }
@@ -47,7 +47,14 @@ export const AddConsultaModal = ({ open, handleClose }) => {
 
                 {/* modal-content */}
                 <Grid container spacing={{ xs: 2, md: 3 }} mt={1} columns={{ xs: 4, sm: 8, md: 12 }}>
-                    <Grid size={size}><TextField fullWidth label="Paciente" /> </Grid>
+                    <Grid size={size}>
+                        <TextField select fullWidth label="Paciente">
+                            {pacientesExistentes.map( (paciente, index) => (
+                                    <MenuItem key={index} value={paciente}>{paciente}</MenuItem>
+                                ))}
+                        </TextField>  
+                    </Grid>
+
                     <Grid size={size}>
                         <TextField select fullWidth label="Tipo de consulta">
                             <MenuItem value="consulta">Consulta</MenuItem>
@@ -66,15 +73,15 @@ export const AddConsultaModal = ({ open, handleClose }) => {
                     </Grid>
                     <Grid size={size}><TextField fullWidth label="Valor" /> </Grid>
 
-                    <Grid size={size} container spacing={2} alignItems={"center"}>
+                    <Grid size={size} container spacing={3} flexDirection={"column"}>
                         <Box>
-                            <label style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                            <label style={{ display: "flex", alignItems: "center", gap: "16px" }}>
                                 <input type="checkbox" style={{ transform: "scale(1.5)" }} />
                                 Pagamento Realizado
                             </label>
                         </Box>
                         <Box>
-                            <label style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                            <label style={{ display: "flex", alignItems: "center", gap: "16px" }}>
                                 <input type="checkbox" style={{ transform: "scale(1.5)" }} />
                                 Consulta Realizada
                             </label>

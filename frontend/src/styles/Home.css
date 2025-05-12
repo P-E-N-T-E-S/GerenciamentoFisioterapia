@@ -323,6 +323,7 @@ body {
 .consulta-date {
   text-align: center;
   font-size: 0.85rem;
+  background-color: #f0f0f0;
 }
 
 .consulta-date .day {

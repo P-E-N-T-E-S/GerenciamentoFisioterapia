@@ -1,7 +1,7 @@
 // src/components/PacienteDetalhesModal.jsx
 import React from 'react';
 import {
-  Modal, Box, Typography, Grid, IconButton, Divider, Stack
+  Modal, Box, Typography, Grid, IconButton, Stack
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
@@ -52,7 +52,7 @@ export const PacienteDetalhesModal = ({ open, handleClose, paciente }) => {
                 <Stack spacing={0.5}>
                   <Typography><AccessTimeIcon fontSize="small" /> {consulta.hora}</Typography>
                   <Typography><strong>Tipo:</strong> {consulta.tipo}</Typography>
-                  <Typography><strong>Pagamento:</strong> {consulta.pagamento}</Typography>
+                  <Typography><strong>Pagamento:</strong> {consulta.pagamentoRealizado ? 'realizado' : 'pendente'}</Typography>
                   <Typography><strong>Observações:</strong> {consulta.observacoes}</Typography>
                 </Stack>
               </Grid>
