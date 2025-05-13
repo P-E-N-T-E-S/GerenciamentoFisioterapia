@@ -37,34 +37,34 @@ export const FichaMedicaModal = ({ open, handleClose, paciente }) => {
         {/* <Typography variant="subtitle1" fontWeight="bold" gutterBottom>Dados do Paciente</Typography> */}
         <Grid container spacing={{ xs: 2, md: 3 }} mt={1} columns={{ xs: 4, sm: 8, md: 12 }}>
           <Grid item size={size}>
-            <Typography><strong>Nome:</strong><br />&nbsp;{paciente?.nome || '-'}</Typography>
+            <Typography noWrap variant='inherit'><strong>Nome:</strong><br />&nbsp;{paciente?.nome || '-'}</Typography>
           </Grid>
           <Grid item size={size}>
-            <Typography><strong>Cirurgião:</strong><br />&nbsp;{ficha.cirurgiao || '-'}</Typography>
+            <Typography noWrap variant='inherit'><strong>Cirurgião:</strong><br />&nbsp;{ficha.cirurgiao || '-'}</Typography>
           </Grid>
           <Grid item size={size}>
-            <Typography><strong>Cirurgias anteriores:</strong><br />&nbsp;{ficha.cirurgiasAnteriores || '-'}</Typography>
+            <Typography noWrap variant='inherit'><strong>Cirurgias anteriores:</strong><br />&nbsp;{ficha.cirurgiasAnteriores || '-'}</Typography>
           </Grid>
           <Grid item size={size}>
-            <Typography><strong>Alergias:</strong><br />&nbsp;{ficha.alergias || '-'}</Typography>
+            <Typography noWrap variant='inherit'><strong>Alergias:</strong><br />&nbsp;{ficha.alergias || '-'}</Typography>
           </Grid>
 
 
         {/* Dados da Cirurgia */}
         {/* <Typography variant="subtitle1" fontWeight="bold" gutterBottom>Informações da Cirurgia</Typography> */}
           <Grid item size={size}>
-            <Typography><strong>Data da cirurgia:</strong><br />&nbsp;{ficha.dataCirurgia || '-'}</Typography>
+            <Typography noWrap variant='inherit'><strong>Data da cirurgia:</strong><br />&nbsp;{ficha.dataCirurgia || '-'}</Typography>
           </Grid>
           <Grid item size={size}>
-            <Typography><strong>Tipo de cirurgia:</strong><br />&nbsp;{ficha.cirurgia || '-'}</Typography>
+            <Typography noWrap variant='inherit'><strong>Tipo de cirurgia:</strong><br />&nbsp;{ficha.cirurgia || '-'}</Typography>
           </Grid>
           <Grid item size={size}>
-            <Typography><strong>Hospital:</strong><br />&nbsp;{ficha.hospital || '-'}</Typography>
+            <Typography noWrap variant='inherit'><strong>Hospital:</strong><br />&nbsp;{ficha.hospital || '-'}</Typography>
           </Grid>
           
           {/* Observações */}
           <Grid item size={size}>
-            <Typography><strong>Anotações:</strong><br />&nbsp;{ficha.anotacoes || '-'}</Typography>
+            <Typography noWrap variant='inherit'><strong>Anotações:</strong><br />&nbsp;{ficha.anotacoes || '-'}</Typography>
           </Grid>
 
         </Grid>

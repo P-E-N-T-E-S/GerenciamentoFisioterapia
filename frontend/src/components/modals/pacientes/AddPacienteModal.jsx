@@ -1,7 +1,10 @@
 // src/components/AddPacienteModal.jsx
-import React from 'react';
+import React, { useState } from 'react';
+
 import { Modal, Box, TextField, Button, IconButton, Grid, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+
+import { AddFichaMedicaModal } from './AddFichaMedicaModal';
 
 const style = {
   position: 'absolute',
@@ -16,7 +19,13 @@ const style = {
 };
 
 export const AddPacienteModal = ({ open, handleClose }) => {
+  const [openAddFichaMedicaModal, setOpenAddFichaMedicaModal] = useState(false); 
+
   const size = { xs: 2, sm: 4, md: 6 };
+
+  const handleAddFichaMedica = () => {
+    setOpenAddFichaMedicaModal(true);
+  };
 
   return (
     <Modal open={open} onClose={handleClose}>
@@ -36,8 +45,13 @@ export const AddPacienteModal = ({ open, handleClose }) => {
         </Grid>
 
         <Box mt={4} textAlign="right">
-          <Button variant="contained" color="primary">Continuar</Button>
+          <Button variant="contained" color="primary" onClick={handleAddFichaMedica}>Continuar</Button>
         </Box>
+
+        <AddFichaMedicaModal
+          open={openAddFichaMedicaModal}
+          handleClose={() => setOpenAddFichaMedicaModal(false)}
+        />
       </Box>
     </Modal>
   );

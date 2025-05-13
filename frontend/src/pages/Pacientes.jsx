@@ -2,12 +2,16 @@ import React, { useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import '../styles/Home.css';
 
+import { Button, IconButton } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+
 import { Sidebar } from '../components/template/Sidebar';
 import { Header } from '../components/template/Header';
 import { AddPacienteModal } from '../components/modals/pacientes/AddPacienteModal';
 import { PacienteDetalhesModal } from '../components/modals/pacientes/PacienteDetalhesModal';
 import { DeletePacienteModal } from '../components/modals/pacientes/DeletePacienteModal';
 import { FichaMedicaModal } from '../components/modals/pacientes/FichaMedicaModal';
+import { AddFichaMedicaModal } from '../components/modals/pacientes/AddFichaMedicaModal';
 
 export const pacientes = [
   {
@@ -65,14 +69,29 @@ export const pacientes = [
         observacoes: 'Paciente está estável.'
       }
     ]
-  }
+  },
+
+  {
+    nome: 'Carlos Pereira',
+    cpf: '456.789.123-00',
+    endereco: 'Rua C, 789',
+    profissao: 'Médico',
+    celular: '(81) 99876-5432',
+    fichaMedica: {},
+    consultas: []
+  },
 ];
 
 const Pacientes = () => {
+  // Modais de pacientes
   const [openAddModal, setOpenAddModal] = useState(false);
   const [openDetailsModal, setOpenDetailsModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
+
+  // Ficha médica
   const [openFichaModal, setOpenFichaModal] = useState(false);
+  const [openAddFichaMedicaModal, setOpenAddFichaMedicaModal] = useState(false);
+
   const [pacienteSelecionado, setPacienteSelecionado] = useState(null);
 
   return (
@@ -113,16 +132,28 @@ const Pacientes = () => {
                   </span>
                 </div>
                 <div className="card-buttons">
-                  <button
-                    className="btn-secondary"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setPacienteSelecionado(paciente);
-                      setOpenFichaModal(true);
-                    }}
-                  >
-                    Ficha médica
-                  </button>
+
+                  {Object.keys(paciente.fichaMedica).length > 0 ? (
+
+                      <button className="btn-secondary" onClick={(e) => {
+                          e.stopPropagation();
+                          setPacienteSelecionado(paciente);
+                          setOpenFichaModal(true);
+                        }}>
+                        Ficha médica
+                      </button>
+                  )
+                  : (
+                      <IconButton aria-label='Adicionar ficha médica'
+                          sx={{ borderRadius: 50, backgroundColor: '#ddd', color: '#000', mr: 2, '&:hover': { backgroundColor: '#ccc' } }}
+                          onClick={(e) => {
+                              e.stopPropagation();
+                              setPacienteSelecionado(paciente);
+                              setOpenAddFichaMedicaModal(true);
+                          }}>
+                          <AddIcon />
+                      </IconButton>
+                  )}
                 </div>
               </div>
             ))}
@@ -153,6 +184,15 @@ const Pacientes = () => {
         handleClose={() => setOpenDeleteModal(false)}
         pacientes={pacientes}
       />
+
+      {pacienteSelecionado && (
+        <AddFichaMedicaModal
+          open={openAddFichaMedicaModal}
+          handleClose={() => setOpenAddFichaMedicaModal(false)}
+          paciente={pacienteSelecionado}
+        />
+      )}
+
     </div>
   );
 };

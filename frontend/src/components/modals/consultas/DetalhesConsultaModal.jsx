@@ -27,7 +27,7 @@ export const DetalhesConsultaModal = ({ open, handleClose, consulta }) => {
     const modalHeader = () => {
         return (
             <Grid container justifyContent="space-between" alignItems="center" mb={4}>
-                <Typography variant="h6" fontWeight="bold">Adicionar consulta</Typography>
+                <Typography variant="h6" fontWeight="bold">Consulta</Typography>
                 <IconButton onClick={handleClose}><CloseIcon /></IconButton>
             </Grid>
         )
@@ -56,23 +56,23 @@ export const DetalhesConsultaModal = ({ open, handleClose, consulta }) => {
 
                     {/* Add content to display consulta details here */}
                     <Grid item size={size}>
-                        <Typography variant="body1"> <strong>Paciente:</strong><br />&nbsp;{consulta.paciente || '-'}</Typography>
+                        <Typography noWrap variant='inherit'> <strong>Paciente:</strong><br />&nbsp;{consulta.paciente || '-'}</Typography>
                     </Grid>
                     <Grid item size={size}>
-                        <Typography variant="body1"> <strong>Tipo de consulta:</strong><br />&nbsp;{consulta.tipo || '-'}</Typography>
+                        <Typography noWrap variant='inherit'> <strong>Tipo de consulta:</strong><br />&nbsp;{consulta.tipo || '-'}</Typography>
                     </Grid>
                     <Grid item size={size}>
-                        <Typography variant="body1"> <strong>Data:</strong><br />&nbsp;{consulta.data || '-'}</Typography>
+                        <Typography noWrap variant='inherit'> <strong>Data:</strong><br />&nbsp;{consulta.data || '-'}</Typography>
                     </Grid>
                     <Grid item size={size}>
-                        <Typography variant="body1"> <strong>Horário:</strong> <br />&nbsp;{consulta.hora || '-'} </Typography>
+                        <Typography noWrap variant='inherit'> <strong>Horário:</strong> <br />&nbsp;{consulta.hora || '-'} </Typography>
                     </Grid>
                     <Grid item size={size}>
-                        <Typography variant="body1"> <strong>Método de pagamento:</strong> <br />&nbsp;{consulta.metodoPagamento || '-'}
+                        <Typography noWrap variant='inherit'> <strong>Método de pagamento:</strong> <br />&nbsp;{consulta.metodoPagamento || '-'}
                         </Typography>
                     </Grid>
                     <Grid item size={size}>
-                        <Typography variant="body1"> <strong>Valor:</strong><br />&nbsp;{consulta.valor || '-'}</Typography>
+                        <Typography noWrap variant='inherit'> <strong>Valor:</strong><br />&nbsp;{consulta.valor || '-'}</Typography>
                     </Grid>
 
                     <Grid size={size} container spacing={2} flexDirection={"column"}>
@@ -88,7 +88,7 @@ export const DetalhesConsultaModal = ({ open, handleClose, consulta }) => {
                     </Grid>
 
                     <Grid item size={size}>
-                        <Typography variant="body1"> <strong>Observações:</strong> <br />&nbsp;{consulta.observacoes || '-'}</Typography>
+                        <Typography noWrap variant='inherit'> <strong>Observações:</strong> <br />&nbsp;{consulta.observacoes || '-'}</Typography>
                     </Grid>
                 </Grid>
 

@@ -57,6 +57,12 @@
     background: rgba(0, 0, 0, 0.05);
     color: var(--primary);
   }
+
+  .nav-list li a.active {
+    background: rgba(0, 0, 0, 0.1);
+    color: var(--primary);
+    font-weight: 700; 
+  }
   
   .icon {
     margin-right: 12px;
