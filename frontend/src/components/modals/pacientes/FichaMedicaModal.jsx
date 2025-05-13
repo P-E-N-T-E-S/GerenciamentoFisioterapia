@@ -1,8 +1,11 @@
 import React from 'react';
+
 import {
-  Modal, Box, Typography, Grid, IconButton, Button, Divider
+  Modal, Box, Typography, Grid, IconButton, Button
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 
 const style = {
   position: 'absolute',
@@ -19,62 +22,60 @@ const style = {
 };
 
 export const FichaMedicaModal = ({ open, handleClose, paciente }) => {
+  const size = { xs: 2, sm: 4, md: 6 };
   const ficha = paciente?.fichaMedica || {};
 
   return (
     <Modal open={open} onClose={handleClose}>
       <Box sx={style}>
-        <Grid container justifyContent="space-between" alignItems="center" mb={2}>
+        <Grid container justifyContent="space-between" alignItems="center" mb={4}>
           <Typography variant="h6" fontWeight="bold">Ficha Médica</Typography>
           <IconButton onClick={handleClose}><CloseIcon /></IconButton>
         </Grid>
 
         {/* Dados do Paciente */}
-        <Typography variant="subtitle1" fontWeight="bold" gutterBottom>Dados do Paciente</Typography>
-        <Grid container spacing={2} mb={2}>
-          <Grid item xs={12} sm={6}>
-            <Typography><strong>Nome:</strong><br />{paciente?.nome || '-'}</Typography>
+        {/* <Typography variant="subtitle1" fontWeight="bold" gutterBottom>Dados do Paciente</Typography> */}
+        <Grid container spacing={{ xs: 2, md: 3 }} mt={1} columns={{ xs: 4, sm: 8, md: 12 }}>
+          <Grid item size={size}>
+            <Typography><strong>Nome:</strong><br />&nbsp;{paciente?.nome || '-'}</Typography>
           </Grid>
-          <Grid item xs={12} sm={6}>
-            <Typography><strong>Cirurgião:</strong><br />{ficha.cirurgiao || '-'}</Typography>
+          <Grid item size={size}>
+            <Typography><strong>Cirurgião:</strong><br />&nbsp;{ficha.cirurgiao || '-'}</Typography>
           </Grid>
-          <Grid item xs={12} sm={6}>
-            <Typography><strong>Cirurgias anteriores:</strong><br />{ficha.cirurgiasAnteriores || '-'}</Typography>
+          <Grid item size={size}>
+            <Typography><strong>Cirurgias anteriores:</strong><br />&nbsp;{ficha.cirurgiasAnteriores || '-'}</Typography>
           </Grid>
-          <Grid item xs={12} sm={6}>
-            <Typography><strong>Alergias:</strong><br />{ficha.alergias || '-'}</Typography>
+          <Grid item size={size}>
+            <Typography><strong>Alergias:</strong><br />&nbsp;{ficha.alergias || '-'}</Typography>
           </Grid>
-        </Grid>
 
-        <Divider sx={{ my: 2 }} />
 
         {/* Dados da Cirurgia */}
-        <Typography variant="subtitle1" fontWeight="bold" gutterBottom>Informações da Cirurgia</Typography>
-        <Grid container spacing={2} mb={2}>
-          <Grid item xs={12} sm={6}>
-            <Typography><strong>Data da cirurgia:</strong><br />{ficha.dataCirurgia || '-'}</Typography>
+        {/* <Typography variant="subtitle1" fontWeight="bold" gutterBottom>Informações da Cirurgia</Typography> */}
+          <Grid item size={size}>
+            <Typography><strong>Data da cirurgia:</strong><br />&nbsp;{ficha.dataCirurgia || '-'}</Typography>
           </Grid>
-          <Grid item xs={12} sm={6}>
-            <Typography><strong>Tipo de cirurgia:</strong><br />{ficha.cirurgia || '-'}</Typography>
+          <Grid item size={size}>
+            <Typography><strong>Tipo de cirurgia:</strong><br />&nbsp;{ficha.cirurgia || '-'}</Typography>
           </Grid>
-          <Grid item xs={12}>
-            <Typography><strong>Hospital:</strong><br />{ficha.hospital || '-'}</Typography>
+          <Grid item size={size}>
+            <Typography><strong>Hospital:</strong><br />&nbsp;{ficha.hospital || '-'}</Typography>
           </Grid>
+          
+          {/* Observações */}
+          <Grid item size={size}>
+            <Typography><strong>Anotações:</strong><br />&nbsp;{ficha.anotacoes || '-'}</Typography>
+          </Grid>
+
         </Grid>
 
-        <Divider sx={{ my: 2 }} />
-
-        {/* Observações */}
-        <Typography variant="subtitle1" fontWeight="bold" gutterBottom>Anotações</Typography>
-        <Typography mb={3}>{ficha.anotacoes || '-'}</Typography>
-
         {/* Botões */}
-        <Grid container spacing={2} justifyContent="flex-end">
+        <Grid container spacing={2} justifyContent="flex-end" mt={4}>
           <Grid item>
-            <Button variant="outlined" color="grey">Editar</Button>
+            <Button variant='contained' startIcon={<EditIcon />}>Editar</Button>
           </Grid>
           <Grid item>
-            <Button variant="outlined" color="grey">Deletar</Button>
+            <Button variant='outlined' startIcon={<DeleteIcon />} color="error">Deletar</Button>
           </Grid>
         </Grid>
       </Box>

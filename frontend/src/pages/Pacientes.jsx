@@ -101,14 +101,16 @@ const Pacientes = () => {
               <div
                 key={idx}
                 className="paciente-card"
-                onClick={() => {
-                  setPacienteSelecionado(paciente);
-                  setOpenDetailsModal(true);
-                }}
               >
                 <div className="paciente-info">
                   <span className="avatar">👤</span>
-                  <span>{paciente.nome}</span>
+                  <span className="paciente-name"
+                  onClick={() => {
+                  setPacienteSelecionado(paciente);
+                  setOpenDetailsModal(true);
+                }}>
+                  {paciente.nome}
+                  </span>
                 </div>
                 <div className="card-buttons">
                   <button
@@ -120,16 +122,6 @@ const Pacientes = () => {
                     }}
                   >
                     Ficha médica
-                  </button>
-                  <button
-                    className="btn-secondary"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setPacienteSelecionado(paciente);
-                      setOpenDetailsModal(true);
-                    }}
-                  >
-                    Dados paciente
                   </button>
                 </div>
               </div>

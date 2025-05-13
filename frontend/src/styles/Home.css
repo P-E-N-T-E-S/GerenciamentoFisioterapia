@@ -274,8 +274,25 @@ body {
   width: 100%; 
 }
 
+.paciente-name {
+  cursor: pointer;
+  color: var(--primary);
+}
+
+.paciente-name:hover {
+  text-decoration: underline;
+}
+
 .avatar {
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
   font-size: 1.4rem;
+  background-color: gray;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 /* === CONSULTAS === */
 .tabs {
@@ -348,6 +365,17 @@ body {
   flex-direction: column;
   gap: 4px;
 }
+
+.consulta-info:hover {
+  text-decoration: underline;
+}
+
+.consulta-info p {
+  display: inline;
+  overflow: auto;
+  cursor: pointer;
+}
+
 
 .consulta-card input[type="checkbox"] {
   width: 20px;

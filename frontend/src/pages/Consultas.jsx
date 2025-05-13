@@ -10,6 +10,7 @@ import { AddConsultaModal } from '../components/modals/consultas/AddConsultaModa
 
 // Importando o array de pacientes
 import { pacientes } from './Pacientes';
+import { DetalhesConsultaModal } from '../components/modals/consultas/DetalhesConsultaModal';
 // dado hardcoded vindo de Pacientes.jsx
 const consultasData = pacientes.flatMap(paciente => 
   (paciente.consultas || []).map(consulta => ({
@@ -50,6 +51,8 @@ const consultasData = pacientes.flatMap(paciente =>
 
 const Consultas = () => {
   const [openAddModal, setOpenAddModal] = useState(false);
+  const [openDetailsModal, setOpenDetailsModal] = useState(false);
+  const [consultaSelecionada, setConsultaSelecionada] = useState(null);
 
 
   return (
@@ -89,7 +92,10 @@ const Consultas = () => {
                   {/* <span className="day">{consulta.dia}</span> */}
                   <strong className="number">{consulta.dia}</strong>
                 </div>
-                <div className="consulta-info">
+                <div className="consulta-info" onClick={() => {
+                setConsultaSelecionada(consulta);
+                setOpenDetailsModal(true);
+              }}>
                   <p><strong>🕒</strong> {consulta.hora}</p>
                   <p><strong>👤</strong> {consulta.paciente}</p>
                   <p><strong>Tipo:</strong> {consulta.tipo}</p>
@@ -104,6 +110,15 @@ const Consultas = () => {
 
       <AddConsultaModal open={openAddModal} handleClose={() => setOpenAddModal(false) } 
       pacientesExistentes={consultasData.map(consulta => consulta.paciente)}/>
+
+      {consultaSelecionada && (
+        <DetalhesConsultaModal 
+          open={openDetailsModal} 
+          handleClose={() => setOpenDetailsModal(false)} 
+          consulta={consultaSelecionada}
+        />
+      )}
+
     </div>
   );
 };

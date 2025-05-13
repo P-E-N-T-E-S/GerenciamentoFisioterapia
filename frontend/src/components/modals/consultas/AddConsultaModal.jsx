@@ -29,8 +29,6 @@ export const AddConsultaModal = ({ open, handleClose, pacientesExistentes }) => 
         )
     }
 
-
-
     const modalFooter = () => {
         return (
             <Box mt={4} textAlign="right">
