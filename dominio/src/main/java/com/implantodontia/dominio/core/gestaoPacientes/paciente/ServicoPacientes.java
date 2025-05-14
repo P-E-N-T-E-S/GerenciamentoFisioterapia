@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.implantodontia.dominio.core.gestaoConsulta.consulta.Consulta;
+import com.implantodontia.dominio.core.gestaoPacientes.paciente.validation.AbstractFichaMedicaValidator;
+import com.implantodontia.dominio.core.gestaoPacientes.paciente.validation.ValidadorFichaMedicaPadrao;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -54,9 +57,22 @@ public class ServicoPacientes {
 
 
     public boolean simularGeracaoPdf(PacienteId pacienteId) {
-        FichaMedica ficha = obterFichaMedica(pacienteId);
-        return ficha != null && ficha.validarDadosObrigatorios();
-    }
+        // Exemplo em alguma classe de serviço
+        FichaMedica fichaParaValidar = obterFichaMedica(pacienteId);
+
+        AbstractFichaMedicaValidator validador = new ValidadorFichaMedicaPadrao(); // Ou outra subclasse específica
+        boolean isFichaValida = validador.validar(fichaParaValidar);
+
+        // if (isFichaValida) {
+        //     System.out.println("A ficha médica é válida, prosseguindo com a operação...");
+        //     // Prossiga com a lógica que depende de uma ficha válida
+        // } else {
+        //     System.err.println("A ficha médica é inválida. Operação não pode continuar.");
+        //     // Trate o caso de ficha inválida
+        // }
+
+            return fichaParaValidar != null && isFichaValida;
+        }
 
     public FichaMedica obterFichaMedica(PacienteId pacienteId) {
         Paciente paciente = buscarPacientePorId(pacienteId);
