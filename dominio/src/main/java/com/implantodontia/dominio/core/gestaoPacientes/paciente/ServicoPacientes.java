@@ -11,30 +11,34 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ServicoPacientes {
-    private List<Paciente> pacientes = new ArrayList<>();
-    private List<String> notificacoes = new ArrayList<>();
+
+    private PacienteRepository pacienteRepository;
+
+    private NotificacaoRepository notificacaoRepository;
+
+    public ServicoPacientes(PacienteRepository pacienteRepository, NotificacaoRepository notificacaoRepository) {
+        this.pacienteRepository = pacienteRepository;
+        this.notificacaoRepository = notificacaoRepository;
+    }
 
     public void cadastrarPaciente(Paciente paciente) {
         if (paciente.getContato() == null || paciente.getContato().isBlank()) {
             throw new IllegalArgumentException("Contato obrigatório");
         }
-        pacientes.add(paciente);
+        pacienteRepository.cadastrar(paciente);
         String notificacao = String.format(
                 "Alerta: Novo paciente cadastrado por %s. Nome: %s, Contato: %s",
                 paciente.getMedicoResponsavel(),
                 paciente.getNome(),
                 paciente.getContato()
         );
-        notificacoes.add(notificacao);
+        notificacaoRepository.salvar(notificacao);
     }
 
 
     // História 2
     private Paciente buscarPacientePorId(PacienteId id) {
-        return pacientes.stream()
-                .filter(p -> p.getPacienteId().equals(id))
-                .findFirst()
-                .orElse(null);
+        return pacienteRepository.buscarPorId(id);
     }
 
     public boolean gerarPdfFichaMedica(FichaMedica ficha) {
