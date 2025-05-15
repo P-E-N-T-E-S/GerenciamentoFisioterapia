@@ -18,7 +18,7 @@ public class ServicoPacientes {
 
     private NotificacaoService notificacaoService;
 
-    public ServicoPacientes(PacienteRepository pacienteRepository, NotificacaoService notificacaoService {
+    public ServicoPacientes(PacienteRepository pacienteRepository, NotificacaoService notificacaoService) {
         this.pacienteRepository = pacienteRepository;
         this.notificacaoService = notificacaoService;
     }

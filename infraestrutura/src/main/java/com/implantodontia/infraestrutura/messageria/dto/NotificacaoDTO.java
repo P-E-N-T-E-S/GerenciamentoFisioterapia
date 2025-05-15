@@ -47,5 +47,15 @@ public class NotificacaoDTO implements Serializable {
     public void setCriacao(LocalDateTime criacao) {
         this.criacao = criacao;
     }
+
+    @Override
+    public String toString() {
+        return "NotificacaoDTO{" +
+                "destinatario='" + destinatario + '\'' +
+                ", mensagem='" + mensagem + '\'' +
+                ", tipo='" + tipo + '\'' +
+                ", criacao=" + criacao +
+                '}';
+    }
 }
 
