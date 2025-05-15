@@ -6,11 +6,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.implantodontia.dominio.core.gestaoConsulta.consulta.Procedimento;
+import com.implantodontia.dominio.core.gestaoConsulta.consulta.Procedimento.TipoProcedimento;
+
 import org.springframework.stereotype.Service;
 
 @Service
 public class HistoricoProcedimentosService {
     private final List<Procedimento> procedimentos = new ArrayList<>();
+    private EstrategiaFiltroProcedimento estrategiaFiltro;
 
     public HistoricoProcedimentosService() {}
 
@@ -18,25 +21,31 @@ public class HistoricoProcedimentosService {
         procedimentos.add(procedimento);
     }
 
+    public void setEstrategiaFiltro(EstrategiaFiltroProcedimento estrategia) {
+        this.estrategiaFiltro = estrategia;
+    }
+
+    public List<Procedimento> filtrarProcedimentos() {
+        if (estrategiaFiltro == null) {
+            throw new IllegalStateException("Estratégia de filtro não definida");
+        }
+        return estrategiaFiltro.filtrar(procedimentos);
+    }
+
+    // Mantendo os métodos antigos para compatibilidade, mas agora usando a estratégia
     public List<Procedimento> filtrarPorDataExata(LocalDate data) {
-        return procedimentos.stream()
-                .filter(p -> p.getDataRealizacao().equals(data))
-                .collect(Collectors.toList());
+        setEstrategiaFiltro(new FiltroPorDataExata(data));
+        return filtrarProcedimentos();
     }
 
     public List<Procedimento> filtrarPorMesAno(int mes, int ano) {
-        return procedimentos.stream()
-                .filter(p ->
-                        p.getDataRealizacao().getMonthValue() == mes
-                                && p.getDataRealizacao().getYear() == ano
-                )
-                .collect(Collectors.toList());
+        setEstrategiaFiltro(new FiltroPorMesAno(mes, ano));
+        return filtrarProcedimentos();
     }
 
-    public List<Procedimento> filtrarPorTipo(Procedimento.TipoProcedimento tipo) {
-        return procedimentos.stream()
-                .filter(p -> p.getTipo() == tipo)
-                .collect(Collectors.toList());
+    public List<Procedimento> filtrarPorTipo(TipoProcedimento tipo) {
+        setEstrategiaFiltro(new FiltroPorTipo(tipo));
+        return filtrarProcedimentos();
     }
 
     public void limparProcedimentos() {

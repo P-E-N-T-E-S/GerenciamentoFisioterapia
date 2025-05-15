@@ -1,40 +1,46 @@
 package com.implantodontia.dominio.core.gestaoPacientes.paciente;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import com.implantodontia.dominio.core.gestaoConsulta.consulta.Consulta;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.implantodontia.dominio.core.gestaoConsulta.notificacao.NotificacaoService;
+import com.implantodontia.dominio.core.gestaoConsulta.notificacao.enums.TipoNotificacao;
+import com.implantodontia.dominio.core.gestaoPacientes.paciente.validation.AbstractFichaMedicaValidator;
+import com.implantodontia.dominio.core.gestaoPacientes.paciente.validation.ValidadorFichaMedicaPadrao;
+
 import org.springframework.stereotype.Service;
 
 @Service
 public class ServicoPacientes {
-    private List<Paciente> pacientes = new ArrayList<>();
-    private List<String> notificacoes = new ArrayList<>();
 
-    public void cadastrarPaciente(Paciente paciente) {
+    private PacienteRepository pacienteRepository;
+
+    private NotificacaoService notificacaoService;
+
+    public ServicoPacientes(PacienteRepository pacienteRepository, NotificacaoService notificacaoService) {
+        this.pacienteRepository = pacienteRepository;
+        this.notificacaoService = notificacaoService;
+    }
+
+    public void cadastrarPaciente(Paciente paciente, boolean notificarUsuario) {
         if (paciente.getContato() == null || paciente.getContato().isBlank()) {
             throw new IllegalArgumentException("Contato obrigatório");
         }
-        pacientes.add(paciente);
-        String notificacao = String.format(
-                "Alerta: Novo paciente cadastrado por %s. Nome: %s, Contato: %s",
-                paciente.getMedicoResponsavel(),
-                paciente.getNome(),
-                paciente.getContato()
-        );
-        notificacoes.add(notificacao);
+        pacienteRepository.cadastrar(paciente);
+        if (notificarUsuario) {
+            String notificacao = String.format(
+                    "Alerta: Novo paciente cadastrado por %s. Nome: %s, Contato: %s",
+                    paciente.getMedicoResponsavel(),
+                    paciente.getNome(),
+                    paciente.getContato()
+            );
+            notificacaoService.notificarUsuario("fisioterapeuta@email", notificacao, TipoNotificacao.CLIENTE_NOVO);
+        }
     }
 
-
-    // História 2
     private Paciente buscarPacientePorId(PacienteId id) {
-        return pacientes.stream()
-                .filter(p -> p.getPacienteId().equals(id))
-                .findFirst()
-                .orElse(null);
+        return pacienteRepository.buscarPorId(id);
     }
 
     public boolean gerarPdfFichaMedica(FichaMedica ficha) {
@@ -50,9 +56,22 @@ public class ServicoPacientes {
 
 
     public boolean simularGeracaoPdf(PacienteId pacienteId) {
-        FichaMedica ficha = obterFichaMedica(pacienteId);
-        return ficha != null && ficha.validarDadosObrigatorios();
-    }
+        // Exemplo em alguma classe de serviço
+        FichaMedica fichaParaValidar = obterFichaMedica(pacienteId);
+
+        AbstractFichaMedicaValidator validador = new ValidadorFichaMedicaPadrao(); // Ou outra subclasse específica
+        boolean isFichaValida = validador.validar(fichaParaValidar);
+
+        // if (isFichaValida) {
+        //     System.out.println("A ficha médica é válida, prosseguindo com a operação...");
+        //     // Prossiga com a lógica que depende de uma ficha válida
+        // } else {
+        //     System.err.println("A ficha médica é inválida. Operação não pode continuar.");
+        //     // Trate o caso de ficha inválida
+        // }
+
+            return fichaParaValidar != null && isFichaValida;
+        }
 
     public FichaMedica obterFichaMedica(PacienteId pacienteId) {
         Paciente paciente = buscarPacientePorId(pacienteId);
@@ -103,17 +122,5 @@ public class ServicoPacientes {
     public boolean gerarPdfFichaMedica(Paciente paciente, FichaMedica ficha) {
         // Implementação real usaria biblioteca PDF como Apache PDFBox ou iText
         return ficha.validarDadosObrigatorios();
-    }
-
-    public List<Paciente> getPacientes() {
-        return pacientes;
-    }
-
-    public List<String> getNotificacoes() {
-        return notificacoes;
-    }
-
-    public void limparNotificacoes() {
-        notificacoes.clear();
     }
 }

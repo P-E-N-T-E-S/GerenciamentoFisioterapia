@@ -12,7 +12,7 @@
     <modules>
         <module>apresentacao</module>
         <module>testes</module>
-        <module>persistencia</module>
+        <module>infraestrutura</module>
         <module>dominio</module>
     </modules>
 

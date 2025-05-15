@@ -1,0 +1,27 @@
+package com.implantodontia.dominio.core.gestaoConsulta.notificacao.enums;
+
+public enum TipoNotificacao {
+    CLIENTE_NOVO("cliente novo"),
+    AGENDAMENTO("agendamento"),
+    PAGAMENTO("pagamento");
+
+    private final String tipo;
+
+    TipoNotificacao(String tipo) {
+        this.tipo = tipo;
+    }
+
+    @Override
+    public String toString() {
+        return this.tipo;
+    }
+
+    public static TipoNotificacao fromString(String tipo) {
+        for(TipoNotificacao t : TipoNotificacao.values()) {
+            if(t.tipo.equals(tipo)) {
+                return t;
+            }
+        }
+        return null;
+    }
+}

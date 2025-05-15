@@ -2,16 +2,13 @@ package com.implantodontia.steps;
 
 
 import com.implantodontia.dominio.core.gestaoConsulta.consulta.Consulta;
-import com.implantodontia.dominio.core.gestaoConsulta.consulta.NotificacaoPagamentoPacienteServico;
+import com.implantodontia.dominio.core.gestaoConsulta.notificacao.NotificacaoPagamentoPacienteServico;
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.Cpf;
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.Endereco;
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.Paciente;
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.PacienteId;
 import com.implantodontia.dominio.core.material.Material;
-import io.cucumber.java.bs.A;
 import io.cucumber.java.en.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.Assert.*;
 

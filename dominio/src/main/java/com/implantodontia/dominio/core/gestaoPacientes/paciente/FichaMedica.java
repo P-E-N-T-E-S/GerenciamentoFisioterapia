@@ -46,4 +46,12 @@ public class FichaMedica {
         return observacoes;
     }
 
+    public String getHistoricoMedico() {
+        return historicoMedico;
+    }
+
+    public String getAlergias() {
+        return alergias;
+    }
+
 }
