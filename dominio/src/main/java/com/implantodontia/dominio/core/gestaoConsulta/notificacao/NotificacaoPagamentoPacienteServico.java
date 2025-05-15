@@ -1,8 +1,9 @@
-package com.implantodontia.dominio.core.gestaoConsulta.consulta;
+package com.implantodontia.dominio.core.gestaoConsulta.notificacao;
 
 import java.time.LocalDate;
 import java.util.Map;
 
+import com.implantodontia.dominio.core.gestaoConsulta.consulta.Consulta;
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.Paciente;
 import org.springframework.stereotype.Service;
 

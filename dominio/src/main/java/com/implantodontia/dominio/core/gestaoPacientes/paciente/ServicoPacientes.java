@@ -1,15 +1,14 @@
 package com.implantodontia.dominio.core.gestaoPacientes.paciente;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import com.implantodontia.dominio.core.gestaoConsulta.consulta.Consulta;
+import com.implantodontia.dominio.core.gestaoConsulta.notificacao.NotificacaoService;
+import com.implantodontia.dominio.core.gestaoConsulta.notificacao.enums.TipoNotificacao;
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.validation.AbstractFichaMedicaValidator;
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.validation.ValidadorFichaMedicaPadrao;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,29 +16,29 @@ public class ServicoPacientes {
 
     private PacienteRepository pacienteRepository;
 
-    private NotificacaoRepository notificacaoRepository;
+    private NotificacaoService notificacaoService;
 
-    public ServicoPacientes(PacienteRepository pacienteRepository, NotificacaoRepository notificacaoRepository) {
+    public ServicoPacientes(PacienteRepository pacienteRepository, NotificacaoService notificacaoService {
         this.pacienteRepository = pacienteRepository;
-        this.notificacaoRepository = notificacaoRepository;
+        this.notificacaoService = notificacaoService;
     }
 
-    public void cadastrarPaciente(Paciente paciente) {
+    public void cadastrarPaciente(Paciente paciente, boolean notificarUsuario) {
         if (paciente.getContato() == null || paciente.getContato().isBlank()) {
             throw new IllegalArgumentException("Contato obrigatório");
         }
         pacienteRepository.cadastrar(paciente);
-        String notificacao = String.format(
-                "Alerta: Novo paciente cadastrado por %s. Nome: %s, Contato: %s",
-                paciente.getMedicoResponsavel(),
-                paciente.getNome(),
-                paciente.getContato()
-        );
-        notificacaoRepository.salvar(notificacao);
+        if (notificarUsuario) {
+            String notificacao = String.format(
+                    "Alerta: Novo paciente cadastrado por %s. Nome: %s, Contato: %s",
+                    paciente.getMedicoResponsavel(),
+                    paciente.getNome(),
+                    paciente.getContato()
+            );
+            notificacaoService.notificarUsuario("fisioterapeuta@email", notificacao, TipoNotificacao.CLIENTE_NOVO);
+        }
     }
 
-
-    // História 2
     private Paciente buscarPacientePorId(PacienteId id) {
         return pacienteRepository.buscarPorId(id);
     }
@@ -123,17 +122,5 @@ public class ServicoPacientes {
     public boolean gerarPdfFichaMedica(Paciente paciente, FichaMedica ficha) {
         // Implementação real usaria biblioteca PDF como Apache PDFBox ou iText
         return ficha.validarDadosObrigatorios();
-    }
-
-    public List<Paciente> getPacientes() {
-        return pacientes;
-    }
-
-    public List<String> getNotificacoes() {
-        return notificacoes;
-    }
-
-    public void limparNotificacoes() {
-        notificacoes.clear();
     }
 }
