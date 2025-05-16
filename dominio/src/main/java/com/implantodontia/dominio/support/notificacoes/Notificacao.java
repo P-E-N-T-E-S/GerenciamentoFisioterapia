@@ -1,6 +1,6 @@
-package com.implantodontia.dominio.core.gestaoConsulta.notificacao;
+package com.implantodontia.dominio.support.notificacoes;
 
-import com.implantodontia.dominio.core.gestaoConsulta.notificacao.enums.TipoNotificacao;
+import com.implantodontia.dominio.support.notificacoes.enums.TipoNotificacao;
 
 import java.time.LocalDateTime;
 

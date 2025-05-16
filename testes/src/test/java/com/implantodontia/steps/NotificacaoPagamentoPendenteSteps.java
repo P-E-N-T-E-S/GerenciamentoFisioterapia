@@ -2,7 +2,7 @@ package com.implantodontia.steps;
 
 
 import com.implantodontia.dominio.core.gestaoConsulta.consulta.Consulta;
-import com.implantodontia.dominio.core.gestaoConsulta.notificacao.NotificacaoPagamentoPacienteServico;
+import com.implantodontia.dominio.support.notificacoes.NotificacaoPagamentoPacienteServico;
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.Cpf;
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.Endereco;
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.Paciente;
