@@ -1,8 +1,8 @@
 package com.implantodontia.infraestrutura.messageria;
 
-import com.implantodontia.dominio.core.gestaoConsulta.notificacao.Notificacao;
-import com.implantodontia.dominio.core.gestaoConsulta.notificacao.NotificacaoProdutor;
-import com.implantodontia.dominio.core.gestaoConsulta.notificacao.enums.TipoNotificacao;
+import com.implantodontia.dominio.support.notificacoes.Notificacao;
+import com.implantodontia.dominio.support.notificacoes.NotificacaoProdutor;
+import com.implantodontia.dominio.support.notificacoes.enums.TipoNotificacao;
 import com.implantodontia.infraestrutura.messageria.dto.NotificacaoDTO;
 import com.implantodontia.infraestrutura.messageria.mapper.NotificacaoMapper;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;

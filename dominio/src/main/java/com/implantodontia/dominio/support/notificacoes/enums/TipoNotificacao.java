@@ -1,4 +1,4 @@
-package com.implantodontia.dominio.core.gestaoConsulta.notificacao.enums;
+package com.implantodontia.dominio.support.notificacoes.enums;
 
 public enum TipoNotificacao {
     CLIENTE_NOVO("cliente novo"),
