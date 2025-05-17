@@ -22,7 +22,7 @@ public class NotificacaoConsumerManual implements NotificacaoConsumidor {
     public List<Notificacao> consumirMensagens(TipoNotificacao tipo) {
         Object obj;
         String fila = mapearFila(tipo);
-        List<Notificacao> notificacoes = List.of();
+        List<Notificacao> notificacoes = new java.util.ArrayList<>(List.of());
         do {
             obj = rabbitTemplate.receiveAndConvert(fila);
             if (obj instanceof NotificacaoDTO dto) {
@@ -39,6 +39,7 @@ public class NotificacaoConsumerManual implements NotificacaoConsumidor {
             case CLIENTE_NOVO -> RabbitMQConfig.FILA_NOVOS_CLIENTES;
             case AGENDAMENTO -> RabbitMQConfig.FILA_RELEMBRETE;
             case PAGAMENTO -> RabbitMQConfig.FILA_PAGAMENTO;
+            case TODAS -> RabbitMQConfig.FILA_TODAS_NOTIFICACOES;
             default -> throw new IllegalArgumentException("Tipo de notificação não suportado: " + tipo);
         };
     }

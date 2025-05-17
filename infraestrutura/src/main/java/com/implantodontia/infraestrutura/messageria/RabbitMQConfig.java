@@ -15,10 +15,12 @@ public class RabbitMQConfig {
     public static final String NOVOS_CLIENTES_ROUTING_KEY = "notificacao.novos-clientes";
     public static final String RELEMBRETE_ROUTING_KEY = "notificacao.relembrar-agendamentos";
     public static final String PAGAMENTOS_ROUTING_KEY = "notificacao.pagamentos";
+    public static final String TODAS_NOTIFICACOES_ROUTING_KEY = "notificacao.#";
 
     public static final String FILA_NOVOS_CLIENTES = "fila.novos-clientes";
     public static final String FILA_RELEMBRETE = "fila.relembrar-agendamentos";
     public static final String FILA_PAGAMENTO = "fila.pagamento";
+    public static final String FILA_TODAS_NOTIFICACOES = "fila.notificacoes";
 
     @Bean
     public TopicExchange exchange() {
@@ -38,6 +40,11 @@ public class RabbitMQConfig {
     @Bean
     public Queue filaPagamento() {
         return new Queue(FILA_PAGAMENTO);
+    }
+
+    @Bean
+    public Queue filaTodasNotificacoes() {
+        return new Queue(FILA_TODAS_NOTIFICACOES);
     }
 
     @Bean
@@ -62,6 +69,14 @@ public class RabbitMQConfig {
                 .bind(filaPagamento())
                 .to(exchange())
                 .with(PAGAMENTOS_ROUTING_KEY);
+    }
+
+    @Bean
+    public Binding bindingTodasNotificacoes() {
+        return BindingBuilder
+                .bind(filaTodasNotificacoes())
+                .to(exchange())
+                .with(TODAS_NOTIFICACOES_ROUTING_KEY);
     }
 }
 

@@ -3,7 +3,8 @@ package com.implantodontia.dominio.support.notificacoes.enums;
 public enum TipoNotificacao {
     CLIENTE_NOVO("cliente novo"),
     AGENDAMENTO("agendamento"),
-    PAGAMENTO("pagamento");
+    PAGAMENTO("pagamento"),
+    TODAS("todas");
 
     private final String tipo;
 
