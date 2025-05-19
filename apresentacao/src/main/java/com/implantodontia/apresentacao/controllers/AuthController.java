@@ -1,4 +1,4 @@
-package com.implantodontia.apresentacao;
+package com.implantodontia.apresentacao.controllers;
 
 import com.implantodontia.infraestrutura.security.auth.AuthDTO;
 import com.implantodontia.infraestrutura.security.auth.AuthService;
