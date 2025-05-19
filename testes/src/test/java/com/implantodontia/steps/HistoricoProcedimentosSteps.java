@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import com.implantodontia.dominio.core.gestaoConsulta.consulta.Procedimento;
-import com.implantodontia.dominio.support.relatorio.HistoricoProcedimentosService;
+import com.implantodontia.dominio.support.relatorio.procedimento.HistoricoProcedimentosService;
 
 import static org.junit.jupiter.api.Assertions.*;
 

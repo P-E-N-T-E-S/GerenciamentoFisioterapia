@@ -8,11 +8,6 @@ public class Procedimento {
     private final String detalhes;
     private final String local;
 
-    public enum TipoProcedimento {
-        CONSULTA_PADRAO,
-        INTRA_OPERATORIO
-    }
-
     public Procedimento(LocalDate dataRealizacao, TipoProcedimento tipo,
                         String detalhes, String local) {
         this.dataRealizacao = dataRealizacao;

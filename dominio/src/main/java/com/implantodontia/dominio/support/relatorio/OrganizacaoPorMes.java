@@ -1,3 +1,5 @@
+package com.implantodontia.dominio.support.relatorio;
+
 import java.util.ArrayList;
 import java.util.Map;
 

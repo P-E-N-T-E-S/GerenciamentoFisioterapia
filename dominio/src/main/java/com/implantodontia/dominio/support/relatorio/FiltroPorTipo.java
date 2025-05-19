@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.implantodontia.dominio.core.gestaoConsulta.consulta.Procedimento;
-import com.implantodontia.dominio.core.gestaoConsulta.consulta.Procedimento.TipoProcedimento;
+import com.implantodontia.dominio.core.gestaoConsulta.consulta.TipoProcedimento;
 
 public class FiltroPorTipo implements EstrategiaFiltroProcedimento {
     private final TipoProcedimento tipo;
