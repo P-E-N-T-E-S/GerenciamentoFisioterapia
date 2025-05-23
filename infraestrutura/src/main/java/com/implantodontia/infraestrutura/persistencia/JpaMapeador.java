@@ -46,18 +46,18 @@ public class JpaMapeador extends ModelMapper {
             @Override
             protected PacienteJPA convert(Paciente source) {
                 PacienteJPA pacienteJPA = new PacienteJPA();
-                pacienteJPA.setId(source.getId().getId());
+                pacienteJPA.setId(source.getPacienteId().getId());
                 pacienteJPA.setCpf(source.getCpf().getCodigo());
                 pacienteJPA.setNome(source.getNome());
                 pacienteJPA.setContato(source.getContato());
                 pacienteJPA.setMedicoResponsavel(source.getMedicoResponsavel());
 
                 // Endereço
-                pacienteJPA.setLogradouro(source.getEndereco().logradouro);
-                pacienteJPA.setNumero(source.getEndereco().numero);
-                pacienteJPA.setComplemento(source.getEndereco().complemento);
-                pacienteJPA.setCidade(source.getEndereco().cidade);
-                pacienteJPA.setCep(source.getEndereco().cep);
+                pacienteJPA.setLogradouro(source.getEndereco().getLogradouro());
+                pacienteJPA.setNumero(source.getEndereco().getNumero());
+                pacienteJPA.setComplemento(source.getEndereco().getComplemento());
+                pacienteJPA.setCidade(source.getEndereco().getCidade());
+                pacienteJPA.setCep(source.getEndereco().getCep());
 
                 if (source.getFichaMedica() != null) {
                     FichaMedicaJPA fichaJPA = new FichaMedicaJPA();
@@ -87,10 +87,10 @@ public class JpaMapeador extends ModelMapper {
                 Paciente paciente = new Paciente(
                         new PacienteId(source.getId()),
                         new Cpf(source.getCpf()),
+                        endereco,
                         source.getNome(),
                         source.getContato(),
-                        source.getMedicoResponsavel(),
-                        endereco
+                        source.getMedicoResponsavel()
                 );
 
                 if (source.getFichaMedica() != null) {
