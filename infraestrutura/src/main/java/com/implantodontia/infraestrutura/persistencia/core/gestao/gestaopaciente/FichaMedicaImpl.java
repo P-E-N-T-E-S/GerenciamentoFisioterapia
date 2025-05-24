@@ -1,4 +1,4 @@
-package com.implantodontia.infraestrutura.persistencia.core.gestao;
+package com.implantodontia.infraestrutura.persistencia.core.gestao.gestaopaciente;
 
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.fichamedica.FichaMedica;
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.fichamedica.FichaMedicaRepositorio;

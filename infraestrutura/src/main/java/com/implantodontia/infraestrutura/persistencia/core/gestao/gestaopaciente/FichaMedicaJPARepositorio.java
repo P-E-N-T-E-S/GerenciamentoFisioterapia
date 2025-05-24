@@ -1,4 +1,4 @@
-package com.implantodontia.infraestrutura.persistencia.core.gestao;
+package com.implantodontia.infraestrutura.persistencia.core.gestao.gestaopaciente;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

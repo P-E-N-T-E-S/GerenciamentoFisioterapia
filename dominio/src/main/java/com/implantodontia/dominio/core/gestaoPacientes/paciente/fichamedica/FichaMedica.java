@@ -11,6 +11,14 @@ public class FichaMedica {
     private String observacoes;
     private LocalDateTime ultimaAtualizacao;
 
+    public FichaMedica(PacienteId pacienteId, String historicoMedico, String alergias, String observacoes, LocalDateTime ultimaAtualizacao) {
+        this.pacienteId = pacienteId;
+        this.historicoMedico = historicoMedico;
+        this.alergias = alergias;
+        this.observacoes = observacoes;
+        this.ultimaAtualizacao = ultimaAtualizacao;
+    }
+
     public FichaMedica(PacienteId pacienteId) {
         this.pacienteId = pacienteId;
     }

@@ -1,5 +1,6 @@
 package com.implantodontia.infraestrutura.persistencia.core.administracao.paciente;
 
+import com.implantodontia.infraestrutura.persistencia.core.gestao.gestaopaciente.FichaMedicaJPA;
 import jakarta.persistence.*;
 
 @Entity
