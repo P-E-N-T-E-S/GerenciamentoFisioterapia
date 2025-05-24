@@ -1,6 +1,6 @@
 package com.implantodontia.dominio.core.gestaoPacientes.paciente.validation;
 
-import com.implantodontia.dominio.core.gestaoPacientes.paciente.FichaMedica;
+import com.implantodontia.dominio.core.gestaoPacientes.paciente.fichamedica.FichaMedica;
 import java.time.LocalDateTime;
 
 public class ValidadorFichaMedicaPadrao extends AbstractFichaMedicaValidator {

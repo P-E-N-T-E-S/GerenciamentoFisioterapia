@@ -33,5 +33,6 @@ public class JpaMapeador extends ModelMapper {
                 return new Usuario(source.getLogin(), source.getEmail(), source.getSenha(), Cargo.fromIdentificador(source.getCargo()));
             }
         });
+
     }
 }

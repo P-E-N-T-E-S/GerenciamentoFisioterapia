@@ -1,5 +1,7 @@
 package com.implantodontia.steps;
 
+import com.implantodontia.dominio.core.gestaoPacientes.paciente.fichamedica.FichaMedica;
+import com.implantodontia.dominio.core.gestaoPacientes.paciente.fichamedica.FichaMedicaServico;
 import io.cucumber.java.en.*;
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.*;
 
@@ -11,6 +13,7 @@ public class FichaMedicaSteps {
 
     private PacienteId pacienteId;
     private FichaMedica fichaMedica;
+    private FichaMedicaServico fichaMedicas;
     private ServicoPacientes servico = new ServicoPacientes();
     private boolean pdfSimulado;
     private boolean alertaAtivado;
@@ -27,7 +30,7 @@ public class FichaMedicaSteps {
         preencherDadosFicha();
 
         paciente.vincularFichaMedica(fichaMedica);
-        servico.cadastrarPaciente(paciente);
+        servico.cadastrarPaciente(paciente, true);
     }
 
     @When("eu pedir para exportar a ficha desse paciente")
@@ -45,7 +48,7 @@ public class FichaMedicaSteps {
 
     @Then("o arquivo deve conter todos os dados clínicos do paciente")
     public void verificarDadosClinicos() {
-        assertTrue(fichaMedica.validarDadosObrigatorios(),
+        assertTrue(fichaMedicas.validarDadosObrigatorios(fichaMedica),
                 "Ficha deve ter dados obrigatórios preenchidos");
     }
 
@@ -70,7 +73,7 @@ public class FichaMedicaSteps {
 
     @Then("devo poder adicionar observações na ficha")
     public void adicionarObservacoes() {
-        fichaMedica.adicionarObservacao("Nova observação de teste - " + System.currentTimeMillis());
+        fichaMedicas.adicionarObservacao(fichaMedica, "Nova observação de teste - " + System.currentTimeMillis());
         assertFalse(fichaMedica.getObservacoes().isEmpty(),
                 "Observações deveriam estar preenchidas após atualização");
     }
@@ -87,7 +90,7 @@ public class FichaMedicaSteps {
     }
 
     private void preencherDadosFicha() {
-        fichaMedica.preencherDadosClinicos(
+        fichaMedicas.preencherDadosClinicos(fichaMedica,
                 "Histórico médico de exemplo",
                 "Nenhuma alergia conhecida",
                 LocalDateTime.now()

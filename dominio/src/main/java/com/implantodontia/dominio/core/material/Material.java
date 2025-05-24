@@ -3,11 +3,11 @@ package com.implantodontia.dominio.core.material;
 
 public class Material {
     private int quantidade;
-    private String Nome;
+    private String nome;
 
     public Material(int quantidade, String nome) {
         this.quantidade = quantidade;
-        Nome = nome;
+        this.nome = nome;
     }
 
     public void adicionarMaterial(int quantidade){
@@ -23,6 +23,6 @@ public class Material {
     }
 
     public String getNome() {
-        return Nome;
+        return nome;
     }
 }

@@ -1,5 +1,7 @@
 package com.implantodontia.dominio.core.gestaoPacientes.paciente;
 
+import com.implantodontia.dominio.core.gestaoPacientes.paciente.fichamedica.FichaMedica;
+
 import static org.apache.commons.lang3.Validate.notNull;
 
 public class Paciente {

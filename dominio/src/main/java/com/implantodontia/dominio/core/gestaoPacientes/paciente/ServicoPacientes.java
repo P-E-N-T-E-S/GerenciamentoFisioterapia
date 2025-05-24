@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.Map;
 
 import com.implantodontia.dominio.core.gestaoConsulta.consulta.Consulta;
+import com.implantodontia.dominio.core.gestaoPacientes.paciente.fichamedica.FichaMedica;
 import com.implantodontia.dominio.support.notificacoes.NotificacaoService;
 import com.implantodontia.dominio.support.notificacoes.enums.TipoNotificacao;
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.validation.AbstractFichaMedicaValidator;

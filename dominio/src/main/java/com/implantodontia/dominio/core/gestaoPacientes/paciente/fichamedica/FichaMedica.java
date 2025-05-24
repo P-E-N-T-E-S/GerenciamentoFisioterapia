@@ -1,4 +1,6 @@
-package com.implantodontia.dominio.core.gestaoPacientes.paciente;
+package com.implantodontia.dominio.core.gestaoPacientes.paciente.fichamedica;
+
+import com.implantodontia.dominio.core.gestaoPacientes.paciente.PacienteId;
 
 import java.time.LocalDateTime;
 
@@ -13,21 +15,16 @@ public class FichaMedica {
         this.pacienteId = pacienteId;
     }
 
-    public void preencherDadosClinicos(String historicoMedico, String alergias, LocalDateTime now) {
+    public void setHistoricoMedico(String historicoMedico) {
         this.historicoMedico = historicoMedico;
+    }
+
+    public void setAlergias(String alergias) {
         this.alergias = alergias;
-        this.ultimaAtualizacao = LocalDateTime.now();
     }
 
-    public boolean validarDadosObrigatorios(){
-        return historicoMedico != null && !historicoMedico.isBlank()
-                && alergias != null && !alergias.isBlank();
-    }
-
-
-    public void adicionarObservacao(String observacao) {
-        this.observacoes = observacao;
-        this.ultimaAtualizacao = LocalDateTime.now();
+    public void setObservacoes(String observacoes) {
+        this.observacoes = observacoes;
     }
 
     public PacienteId getPacienteId() {
