@@ -48,4 +48,40 @@ public class Paciente {
     public String getNome() { return nome; }
     public String getContato() { return contato; }
     public String getMedicoResponsavel() { return medicoResponsavel; }
+
+    public void setPacienteId(PacienteId pacienteId) {
+        this.pacienteId = pacienteId;
+    }
+
+    public Cpf getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(Cpf cpf) {
+        this.cpf = cpf;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setContato(String contato) {
+        this.contato = contato;
+    }
+
+    public void setMedicoResponsavel(String medicoResponsavel) {
+        this.medicoResponsavel = medicoResponsavel;
+    }
+
+    public void setFichaMedica(FichaMedica fichaMedica) {
+        this.fichaMedica = fichaMedica;
+    }
 }
