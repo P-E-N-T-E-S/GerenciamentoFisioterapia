@@ -2,7 +2,7 @@ package com.implantodontia.dominio.core.gestaoPacientes.paciente;
 
 import java.time.LocalDateTime;
 
-public class FichaMedica {
+public abstract class FichaMedica {
     private final PacienteId pacienteId;
     private String historicoMedico;
     private String alergias;
@@ -13,22 +13,28 @@ public class FichaMedica {
         this.pacienteId = pacienteId;
     }
 
-    public void preencherDadosClinicos(String historicoMedico, String alergias, LocalDateTime now) {
+    public final void preencherDadosClinicos(String historicoMedico, String alergias, LocalDateTime now) {
         this.historicoMedico = historicoMedico;
         this.alergias = alergias;
         this.ultimaAtualizacao = LocalDateTime.now();
+        validarDadosEspecificos();
     }
 
-    public boolean validarDadosObrigatorios(){
+    protected abstract boolean validarDadosEspecificos();
+
+    public final boolean validarDadosObrigatorios() {
         return historicoMedico != null && !historicoMedico.isBlank()
-                && alergias != null && !alergias.isBlank();
+                && alergias != null && !alergias.isBlank()
+                && validarDadosEspecificos();
     }
 
-
-    public void adicionarObservacao(String observacao) {
+    public final void adicionarObservacao(String observacao) {
         this.observacoes = observacao;
         this.ultimaAtualizacao = LocalDateTime.now();
+        processarObservacao(observacao);
     }
+
+    protected abstract void processarObservacao(String observacao);
 
     public PacienteId getPacienteId() {
         return pacienteId;
