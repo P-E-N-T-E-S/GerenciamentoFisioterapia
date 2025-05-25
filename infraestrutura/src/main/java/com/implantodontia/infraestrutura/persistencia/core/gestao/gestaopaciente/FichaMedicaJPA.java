@@ -1,5 +1,6 @@
-package com.implantodontia.infraestrutura.persistencia.core.administracao.paciente;
+package com.implantodontia.infraestrutura.persistencia.core.gestao.gestaopaciente;
 
+import com.implantodontia.infraestrutura.persistencia.core.administracao.paciente.PacienteJPA;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -8,18 +9,17 @@ import java.time.LocalDateTime;
 @Table(name = "ficha_medica")
 public class FichaMedicaJPA {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @OneToOne
+    @JoinColumn(name = "paciente_id")
+    private PacienteJPA paciente;
 
     private String historicoMedico;
     private String alergias;
     private String observacoes;
     private LocalDateTime ultimaAtualizacao;
-
-    @OneToOne
-    @JoinColumn(name = "paciente_id")
-    private PacienteJPA paciente;
 
     public Long getId() {
         return id;
@@ -53,19 +53,19 @@ public class FichaMedicaJPA {
         this.observacoes = observacoes;
     }
 
-    public LocalDateTime getUltimaAtualizacao() {
-        return ultimaAtualizacao;
-    }
-
-    public void setUltimaAtualizacao(LocalDateTime ultimaAtualizacao) {
-        this.ultimaAtualizacao = ultimaAtualizacao;
-    }
-
     public PacienteJPA getPaciente() {
         return paciente;
     }
 
     public void setPaciente(PacienteJPA paciente) {
         this.paciente = paciente;
+    }
+
+    public LocalDateTime getUltimaAtualizacao() {
+        return ultimaAtualizacao;
+    }
+
+    public void setUltimaAtualizacao(LocalDateTime ultimaAtualizacao) {
+        this.ultimaAtualizacao = ultimaAtualizacao;
     }
 }

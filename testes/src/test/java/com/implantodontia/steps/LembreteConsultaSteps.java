@@ -31,7 +31,7 @@ public class LembreteConsultaSteps {
         Consulta consulta = new Consulta(
                 dataHora,
                 "Consulta Urgente",
-                new Material(),
+                new Material(1, "Gaze"),
                 false,
                 LocalDate.now().plusDays(10),
                 local,
@@ -71,7 +71,7 @@ public class LembreteConsultaSteps {
         Consulta consulta = new Consulta(
                 dataHora,
                 "Consulta de Rotina",
-                new Material(),
+                new Material(1, "Gaze"),
                 true,
                 LocalDate.now().plusDays(10),
                 local,
@@ -105,7 +105,7 @@ public class LembreteConsultaSteps {
         Consulta consulta = new Consulta(
                 dataHora,
                 "Consulta sem Lembrete",
-                new Material(),
+                new Material(1, "Gaze"),
                 true,
                 LocalDate.now().plusDays(10),
                 local,
