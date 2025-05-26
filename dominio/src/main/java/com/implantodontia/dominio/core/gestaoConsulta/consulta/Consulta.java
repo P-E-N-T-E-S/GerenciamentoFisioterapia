@@ -97,6 +97,14 @@ public class Consulta {
         return clientePagou;
     }
 
+    public boolean isClientePagou() {
+        return clientePagou;
+    }
+
+    public void setClientePagou(boolean clientePagou) {
+        this.clientePagou = clientePagou;
+    }
+
     public LocalDate getDataVencimento() {
         return data_vencimento;
     }
