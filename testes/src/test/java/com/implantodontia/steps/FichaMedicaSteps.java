@@ -26,7 +26,7 @@ public class FichaMedicaSteps {
     public void criarPacienteComFicha() {
         Paciente paciente = criarPacienteExemplo();
         this.pacienteId = paciente.getPacienteId();
-        this.fichaMedica = new FichaMedica(pacienteId);
+        // this.fichaMedica = new FichaMedica(pacienteId);
         preencherDadosFicha();
 
         paciente.vincularFichaMedica(fichaMedica);

@@ -1,4 +1,5 @@
-package com.implantodontia.dominio.core.gestaoPacientes.paciente;
+package com.implantodontia.dominio.core.gestaoPacientes.paciente.fichamedica;
+import com.implantodontia.dominio.core.gestaoPacientes.paciente.PacienteId;
 
 import java.time.LocalDateTime;
 
@@ -32,6 +33,18 @@ public abstract class FichaMedica {
         this.observacoes = observacao;
         this.ultimaAtualizacao = LocalDateTime.now();
         processarObservacao(observacao);
+    }
+
+    public void setHistoricoMedico(String historicoMedico) {
+        this.historicoMedico = historicoMedico;
+    }
+
+    public void setAlergias(String alergias) {
+        this.alergias = alergias;
+    }
+
+    public void setObservacoes(String observacoes) {
+        this.observacoes = observacoes;
     }
 
     protected abstract void processarObservacao(String observacao);
