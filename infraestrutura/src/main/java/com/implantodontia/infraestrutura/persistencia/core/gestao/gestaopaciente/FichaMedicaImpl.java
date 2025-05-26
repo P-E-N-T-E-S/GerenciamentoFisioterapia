@@ -5,16 +5,17 @@ import com.implantodontia.dominio.core.gestaoPacientes.paciente.fichamedica.Fich
 import com.implantodontia.infraestrutura.persistencia.JpaMapeador;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public class FichaMedicaImpl implements FichaMedicaRepositorio {
 
-    private FichaMedicaJPARepositorio fichaMedicaRepositorio;
-    private JpaMapeador mapeador;
+    private final FichaMedicaJPARepositorio fichaMedicaRepositorio;
+    private final JpaMapeador mapeador;
 
-    public FichaMedicaImpl(FichaMedicaJPARepositorio fichaMedicaJPARepositorio, JpaMapeador mapeador) {
-        this.fichaMedicaRepositorio = fichaMedicaJPARepositorio;
+    public FichaMedicaImpl(FichaMedicaJPARepositorio fichaMedicaRepositorio, JpaMapeador mapeador) {
+        this.fichaMedicaRepositorio = fichaMedicaRepositorio;
         this.mapeador = mapeador;
     }
 
@@ -25,8 +26,11 @@ public class FichaMedicaImpl implements FichaMedicaRepositorio {
     }
 
     @Override
-    public Optional<FichaMedica> listarFichaMedica() {
-        return Optional.empty();
+    public List<FichaMedica> listarFichaMedica() {
+        List<FichaMedicaJPA> fichas = fichaMedicaRepositorio.findAll();
+        return fichas.stream()
+                .map(f -> mapeador.map(f, FichaMedica.class))
+                .toList();
     }
 
     @Override
@@ -36,9 +40,8 @@ public class FichaMedicaImpl implements FichaMedicaRepositorio {
     }
 
     @Override
-    public FichaMedica buscarPorPaciente() {
-        return null;
+    public FichaMedica buscarPorPaciente(long idPaciente) {
+        Optional<FichaMedicaJPA> fichaMedicaJPA = fichaMedicaRepositorio.findByPacienteId(idPaciente);
+        return fichaMedicaJPA.map(f -> mapeador.map(f, FichaMedica.class)).orElse(null);
     }
-
-
 }

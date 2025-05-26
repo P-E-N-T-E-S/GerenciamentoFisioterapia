@@ -10,7 +10,9 @@ import com.implantodontia.infraestrutura.persistencia.core.gestao.gestaopaciente
 import org.modelmapper.AbstractConverter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.config.Configuration;
+import org.springframework.stereotype.Component;
 
+@Component
 public class JpaMapeador extends ModelMapper {
 
     public JpaMapeador() {
