@@ -8,6 +8,8 @@ import java.util.List;
 public interface MaterialRepository {
     void salvar(Material material);
     void deletar(Material material);
+    void editar(Material material, long id);
+
     Material buscarPorNome(String nome);
     List<Material> buscarTodos();
 }

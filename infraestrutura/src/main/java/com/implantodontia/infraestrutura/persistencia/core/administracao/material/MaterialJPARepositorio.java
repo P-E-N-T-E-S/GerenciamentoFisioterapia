@@ -6,4 +6,5 @@ import java.util.Optional;
 
 public interface MaterialJPARepositorio extends JpaRepository<MaterialJPA, Long> {
     Optional<MaterialJPA> findByNome(String nome);
+    MaterialJPA findById(long id);
 }

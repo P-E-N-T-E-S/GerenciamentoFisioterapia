@@ -4,6 +4,8 @@ import com.implantodontia.dominio.core.adm.Usuario;
 import com.implantodontia.dominio.core.adm.enums.Cargo;
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.*;
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.fichamedica.FichaMedica;
+import com.implantodontia.dominio.core.material.Material;
+import com.implantodontia.infraestrutura.persistencia.core.administracao.material.MaterialJPA;
 import com.implantodontia.infraestrutura.persistencia.core.administracao.paciente.PacienteJPA;
 import com.implantodontia.infraestrutura.persistencia.core.administracao.usuario.UsuarioJPA;
 import com.implantodontia.infraestrutura.persistencia.core.gestao.gestaopaciente.FichaMedicaJPA;
@@ -181,4 +183,31 @@ public class JpaMapeador extends ModelMapper {
             }
         });
     }
+
+    private void configurarMaterialMapeamento() {
+        addConverter(new AbstractConverter<Material, MaterialJPA>() {
+            @Override
+            protected MaterialJPA convert(Material source) {
+                if (source == null) return null;
+
+                MaterialJPA materialJPA = new MaterialJPA();
+                materialJPA.setNome(source.getNome());
+                materialJPA.setQuantidade(source.getQuantidade());
+
+                return materialJPA;
+            }
+        });
+
+        addConverter(new AbstractConverter<MaterialJPA, Material>() {
+            @Override
+            protected Material convert(MaterialJPA source) {
+                if (source == null) return null;
+                var nome = source.getNome();
+                var quantidade = source.getQuantidade();
+                var material = new Material(quantidade, nome);
+                return material;
+            }
+        });
+    }
+
 }
