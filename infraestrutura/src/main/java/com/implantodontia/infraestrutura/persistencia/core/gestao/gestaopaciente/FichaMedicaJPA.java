@@ -9,7 +9,8 @@ import java.time.LocalDateTime;
 @Table(name = "ficha_medica")
 public class FichaMedicaJPA {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @OneToOne

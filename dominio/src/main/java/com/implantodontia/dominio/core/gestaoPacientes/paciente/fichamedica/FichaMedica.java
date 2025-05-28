@@ -1,4 +1,6 @@
-package com.implantodontia.dominio.core.gestaoPacientes.paciente;
+package com.implantodontia.dominio.core.gestaoPacientes.paciente.fichamedica;
+
+import com.implantodontia.dominio.core.gestaoPacientes.paciente.PacienteId;
 
 import java.time.LocalDateTime;
 
