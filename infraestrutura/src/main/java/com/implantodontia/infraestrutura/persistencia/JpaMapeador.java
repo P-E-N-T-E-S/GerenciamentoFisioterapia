@@ -2,15 +2,21 @@ package com.implantodontia.infraestrutura.persistencia;
 
 import com.implantodontia.dominio.core.adm.Usuario;
 import com.implantodontia.dominio.core.adm.enums.Cargo;
+import com.implantodontia.dominio.core.gestaoConsulta.consulta.Consulta;
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.*;
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.fichamedica.FichaMedica;
+import com.implantodontia.dominio.core.material.Material;
+import com.implantodontia.infraestrutura.persistencia.core.administracao.material.MaterialJPA;
 import com.implantodontia.infraestrutura.persistencia.core.administracao.paciente.PacienteJPA;
 import com.implantodontia.infraestrutura.persistencia.core.administracao.usuario.UsuarioJPA;
+import com.implantodontia.infraestrutura.persistencia.core.gestao.gestaoconsulta.GestaoConsultaJPA;
 import com.implantodontia.infraestrutura.persistencia.core.gestao.gestaopaciente.FichaMedicaJPA;
 import org.modelmapper.AbstractConverter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.config.Configuration;
+import org.springframework.stereotype.Component;
 
+@Component
 public class JpaMapeador extends ModelMapper {
 
     public JpaMapeador() {
@@ -21,6 +27,8 @@ public class JpaMapeador extends ModelMapper {
         configurarUsuarioMapeamento();
         configurarPacienteMapeamento();
         configurarFichaMedicaMapeamento();
+        configurarConsultaMapeamento();
+        configurarMaterialMapeamento();
     }
 
     // ============================
@@ -179,4 +187,87 @@ public class JpaMapeador extends ModelMapper {
             }
         });
     }
+
+
+    private void configurarConsultaMapeamento() {
+        addConverter(new AbstractConverter<Consulta, GestaoConsultaJPA>() {
+            @Override
+            protected GestaoConsultaJPA convert(Consulta source) {
+                GestaoConsultaJPA gestaoConsultaJPA = new GestaoConsultaJPA();
+                gestaoConsultaJPA.setDataHora(source.getDataHora());
+                gestaoConsultaJPA.setDescricao(source.getDescricao());
+                gestaoConsultaJPA.setClientePagou(source.isClientePagou());
+                gestaoConsultaJPA.setDataVencimento(source.getDataVencimento());
+                gestaoConsultaJPA.setLocal(source.getLocal());
+
+                if (source.getMateriais() != null) {
+                    MaterialJPA materialJPA = map(source.getMateriais(), MaterialJPA.class);
+                    gestaoConsultaJPA.setMateriais(materialJPA);
+                }
+
+                if (source.getPaciente() != null) {
+                    PacienteJPA pacienteJPA = map(source.getPaciente(), PacienteJPA.class);
+                    gestaoConsultaJPA.setPaciente(pacienteJPA);
+                }
+
+                return gestaoConsultaJPA;
+            }
+
+        });
+
+        addConverter(new AbstractConverter<GestaoConsultaJPA, Consulta>() {
+            @Override
+            protected Consulta convert(GestaoConsultaJPA source) {
+                if (source == null) return null;
+
+                Paciente paciente = null;
+
+                if (source.getPaciente() != null) {
+                    paciente = map(source.getPaciente(), Paciente.class);
+                }
+
+                Material material = null;
+
+                if (source.getMateriais() != null) {
+                    material = map(source.getMateriais(), Material.class);
+                }
+                return new Consulta(
+                        source.getDataHora(),
+                        source.getDescricao(),
+                        material,
+                        source.isClientePagou(),
+                        source.getDataVencimento(),
+                        source.getLocal(),
+                        paciente
+                );
+            }
+        });
+    }
+
+    private void configurarMaterialMapeamento() {
+        addConverter(new AbstractConverter<Material, MaterialJPA>() {
+            @Override
+            protected MaterialJPA convert(Material source) {
+                if (source == null) return null;
+
+                MaterialJPA materialJPA = new MaterialJPA();
+                materialJPA.setNome(source.getNome());
+                materialJPA.setQuantidade(source.getQuantidade());
+
+                return materialJPA;
+            }
+        });
+
+        addConverter(new AbstractConverter<MaterialJPA, Material>() {
+            @Override
+            protected Material convert(MaterialJPA source) {
+                if (source == null) return null;
+                var nome = source.getNome();
+                var quantidade = source.getQuantidade();
+                var material = new Material(quantidade, nome);
+                return material;
+            }
+        });
+    }
+
 }
