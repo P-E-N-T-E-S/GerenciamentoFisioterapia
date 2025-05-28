@@ -1,6 +1,6 @@
-package com.implantodontia.infraestrutura.persistencia.core.gestao.gestaopaciente;
+package com.implantodontia.infraestrutura.persistencia.core.gestaopaciente.fichamedica;
 
-import com.implantodontia.infraestrutura.persistencia.core.administracao.paciente.PacienteJPA;
+import com.implantodontia.infraestrutura.persistencia.core.gestaopaciente.paciente.PacienteJPA;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;

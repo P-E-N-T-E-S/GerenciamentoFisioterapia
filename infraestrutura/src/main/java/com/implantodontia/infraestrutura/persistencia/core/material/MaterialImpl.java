@@ -1,4 +1,4 @@
-package com.implantodontia.infraestrutura.persistencia.core.administracao.material;
+package com.implantodontia.infraestrutura.persistencia.core.material;
 
 import com.implantodontia.dominio.core.material.Material;
 import com.implantodontia.dominio.core.material.MaterialRepository;

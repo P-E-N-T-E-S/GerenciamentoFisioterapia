@@ -21,4 +21,19 @@ public class ConsultaService {
     public List<Consulta> buscarPorData(LocalDate data) {
         return repository.buscarPorData(data);
     }
+
+    public List<Consulta> listarConsultas(){
+        return repository.listarConsultas();
+    }
+
+    public Consulta buscarPorId(Long id){
+        return repository.buscarPorId(id);
+    }
+
+    public void deletarPorId(Long id){
+        Consulta consulta = buscarPorId(id);
+        if(consulta != null) {
+            repository.deletar(consulta);
+        }
+    }
 }

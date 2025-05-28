@@ -1,14 +1,16 @@
-package com.implantodontia.infraestrutura.persistencia.core.gestao.gestaoconsulta;
+package com.implantodontia.infraestrutura.persistencia.core.gestaoconsulta;
 
 import com.implantodontia.dominio.core.gestaoConsulta.consulta.Consulta;
 import com.implantodontia.dominio.core.gestaoConsulta.consulta.ConsultaRepository;
 import com.implantodontia.infraestrutura.persistencia.JpaMapeador;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Repository
 public class GestaoConsultaImpl implements ConsultaRepository {
 
     private final GestaoConsultaJPARepositorio gestaoConsultaRepositorio;
@@ -23,6 +25,11 @@ public class GestaoConsultaImpl implements ConsultaRepository {
     public void salvar(Consulta consulta){
         GestaoConsultaJPA consultaJPA = mapeador.map(consulta, GestaoConsultaJPA.class);
         gestaoConsultaRepositorio.save(consultaJPA);
+    }
+
+    @Override
+    public void deletar(Consulta consulta) {
+        gestaoConsultaRepositorio.delete(mapeador.map(consulta, GestaoConsultaJPA.class));
     }
 
     @Override

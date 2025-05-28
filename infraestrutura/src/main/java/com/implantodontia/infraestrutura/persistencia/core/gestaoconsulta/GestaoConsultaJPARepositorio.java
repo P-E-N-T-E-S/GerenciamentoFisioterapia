@@ -1,6 +1,5 @@
-package com.implantodontia.infraestrutura.persistencia.core.gestao.gestaoconsulta;
+package com.implantodontia.infraestrutura.persistencia.core.gestaoconsulta;
 
-import com.implantodontia.dominio.core.gestaoConsulta.consulta.Consulta;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDateTime;

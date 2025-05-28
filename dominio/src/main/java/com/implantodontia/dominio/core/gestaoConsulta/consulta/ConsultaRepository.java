@@ -5,6 +5,7 @@ import java.util.List;
 
 public interface ConsultaRepository {
     void salvar(Consulta consulta);
+    void deletar(Consulta consulta);
     List<Consulta> buscarPorData(LocalDate data);
     List<Consulta> listarConsultas();
     Consulta buscarPorId(Long id);

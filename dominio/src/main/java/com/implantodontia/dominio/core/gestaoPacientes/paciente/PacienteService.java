@@ -1,6 +1,7 @@
 package com.implantodontia.dominio.core.gestaoPacientes.paciente;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
 
 import com.implantodontia.dominio.core.gestaoConsulta.consulta.Consulta;
@@ -13,13 +14,13 @@ import com.implantodontia.dominio.core.gestaoPacientes.paciente.validation.Valid
 import org.springframework.stereotype.Service;
 
 @Service
-public class ServicoPacientes {
+public class PacienteService {
 
     private PacienteRepository pacienteRepository;
 
     private NotificacaoService notificacaoService;
 
-    public ServicoPacientes(PacienteRepository pacienteRepository, NotificacaoService notificacaoService) {
+    public PacienteService(PacienteRepository pacienteRepository, NotificacaoService notificacaoService) {
         this.pacienteRepository = pacienteRepository;
         this.notificacaoService = notificacaoService;
     }
@@ -40,8 +41,12 @@ public class ServicoPacientes {
         }
     }
 
-    private Paciente buscarPacientePorId(PacienteId id) {
+    public Paciente buscarPacientePorId(PacienteId id) {
         return pacienteRepository.buscarPorId(id);
+    }
+
+    public List<Paciente> listarPacientes() {
+        return pacienteRepository.listarPacientes();
     }
 
     public boolean gerarPdfFichaMedica(FichaMedica ficha) {

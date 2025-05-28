@@ -35,6 +35,7 @@ public class MaterialServico {
                 String notificacao =  ("preciso adquirir mais " + material.getNome()); //TODO: colocar isso em uma mensageria, eu não gosto de desenvolver essa bomba
             }
         }
+        materialRepository.salvar(material);
     }
 
     public List<Material> listarMateriais() {

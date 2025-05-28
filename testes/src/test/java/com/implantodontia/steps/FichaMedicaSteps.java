@@ -14,7 +14,7 @@ public class FichaMedicaSteps {
     private PacienteId pacienteId;
     private FichaMedica fichaMedica;
     private FichaMedicaServico fichaMedicas;
-    private ServicoPacientes servico = new ServicoPacientes();
+    private PacienteService servico = new PacienteService();
     private boolean pdfSimulado;
     private boolean alertaAtivado;
 

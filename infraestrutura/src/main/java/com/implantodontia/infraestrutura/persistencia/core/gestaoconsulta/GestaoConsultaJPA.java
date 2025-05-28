@@ -1,11 +1,10 @@
-package com.implantodontia.infraestrutura.persistencia.core.gestao.gestaoconsulta;
+package com.implantodontia.infraestrutura.persistencia.core.gestaoconsulta;
 
-import com.implantodontia.infraestrutura.persistencia.core.administracao.material.MaterialJPA;
-import com.implantodontia.infraestrutura.persistencia.core.administracao.paciente.PacienteJPA;
+import com.implantodontia.infraestrutura.persistencia.core.material.MaterialJPA;
+import com.implantodontia.infraestrutura.persistencia.core.gestaopaciente.paciente.PacienteJPA;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 
 
 @Entity

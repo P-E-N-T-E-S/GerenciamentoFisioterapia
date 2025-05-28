@@ -5,12 +5,13 @@ import com.implantodontia.dominio.core.adm.enums.Cargo;
 import com.implantodontia.dominio.core.gestaoConsulta.consulta.Consulta;
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.*;
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.fichamedica.FichaMedica;
+import com.implantodontia.dominio.core.gestaoPacientes.paciente.fichamedica.FichaMedicaImplanta;
 import com.implantodontia.dominio.core.material.Material;
-import com.implantodontia.infraestrutura.persistencia.core.administracao.material.MaterialJPA;
-import com.implantodontia.infraestrutura.persistencia.core.administracao.paciente.PacienteJPA;
+import com.implantodontia.infraestrutura.persistencia.core.material.MaterialJPA;
+import com.implantodontia.infraestrutura.persistencia.core.gestaopaciente.paciente.PacienteJPA;
 import com.implantodontia.infraestrutura.persistencia.core.administracao.usuario.UsuarioJPA;
-import com.implantodontia.infraestrutura.persistencia.core.gestao.gestaoconsulta.GestaoConsultaJPA;
-import com.implantodontia.infraestrutura.persistencia.core.gestao.gestaopaciente.FichaMedicaJPA;
+import com.implantodontia.infraestrutura.persistencia.core.gestaoconsulta.GestaoConsultaJPA;
+import com.implantodontia.infraestrutura.persistencia.core.gestaopaciente.fichamedica.FichaMedicaJPA;
 import org.modelmapper.AbstractConverter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.config.Configuration;
@@ -131,7 +132,7 @@ public class JpaMapeador extends ModelMapper {
                 // Ficha Médica
                 FichaMedicaJPA fichaJPA = source.getFichaMedica();
                 if (fichaJPA != null) {
-                    FichaMedica ficha = new FichaMedica(new PacienteId(source.getId()));
+                    FichaMedica ficha = new FichaMedicaImplanta(new PacienteId(source.getId()));
                     ficha.preencherDadosClinicos(
                             fichaJPA.getHistoricoMedico(),
                             fichaJPA.getAlergias(),
@@ -177,13 +178,10 @@ public class JpaMapeador extends ModelMapper {
                 Long pacienteId = source.getPaciente() != null ? source.getPaciente().getId() : null;
                 PacienteId pacienteIdObj = pacienteId != null ? new PacienteId(pacienteId) : null;
 
-                return new FichaMedica(
-                        pacienteIdObj,
-                        source.getAlergias(),
-                        source.getHistoricoMedico(),
-                        source.getObservacoes(),
-                        source.getUltimaAtualizacao()
-                );
+                FichaMedicaImplanta ficha = new FichaMedicaImplanta(pacienteIdObj);
+                ficha.preencherDadosClinicos(source.getHistoricoMedico(), source.getAlergias(), source.getUltimaAtualizacao());
+
+                return ficha;
             }
         });
     }
@@ -264,8 +262,7 @@ public class JpaMapeador extends ModelMapper {
                 if (source == null) return null;
                 var nome = source.getNome();
                 var quantidade = source.getQuantidade();
-                var material = new Material(quantidade, nome);
-                return material;
+                return new Material(quantidade, nome);
             }
         });
     }

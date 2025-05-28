@@ -24,7 +24,7 @@ public class AgendamentoScheduler {
     public void gerarLembretes(){
         List<Consulta> consultaList = consultaService.buscarPorData(LocalDate.now());
         consultaList.forEach(consulta -> {
-            notificacaoService.notificarUsuario("fisioterapeuta@gmail.com", "Você tem um procedimento pendente para o hoje ", TipoNotificacao.AGENDAMENTO);
+            notificacaoService.notificarUsuario("fisioterapeuta@gmail.com", "Você tem um procedimento pendente para o hoje de "+consulta.getPaciente().getNome(), TipoNotificacao.AGENDAMENTO);
         });
     }
 }

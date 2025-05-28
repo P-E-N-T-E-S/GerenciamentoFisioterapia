@@ -15,7 +15,6 @@ public class Paciente {
 
 
     public Paciente(PacienteId pacienteId, Cpf cpf, Endereco endereco, String nome, String contato, String medicoResponsavel) {
-        notNull(pacienteId, "O Id do paciente nao pode ser nulo");
         notNull(cpf, "O CPF do paciente nao pode ser nulo");
         notNull(endereco, "O endereco do paciente nao pode ser nulo");
         notNull(nome, "O nome do paciente nao pode ser nulo");

@@ -1,6 +1,5 @@
-package com.implantodontia.infraestrutura.persistencia.core.gestao.gestaopaciente;
+package com.implantodontia.infraestrutura.persistencia.core.gestaopaciente.fichamedica;
 
-import com.implantodontia.dominio.core.gestaoPacientes.paciente.fichamedica.FichaMedica;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

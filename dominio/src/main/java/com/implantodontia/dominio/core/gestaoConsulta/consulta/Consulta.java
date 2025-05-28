@@ -16,7 +16,7 @@ public class Consulta {
     private LocalDate data_vencimento;
     private boolean clientePagou;
     private String descricao;
-    private Material materiais; //TODO: AJeitar essa bomba
+    private Material materiais;
     private String local;
 
     public Consulta(LocalDateTime dataHora, String descricao, Material materiais,
@@ -28,57 +28,6 @@ public class Consulta {
         this.data_vencimento = dataVencimento;
         this.local = local;
         this.paciente = paciente;
-    }
-
-    public static Map<String, String> gerarLembretesConsultas(Map<String, Consulta> agenda, LocalDate hoje) {
-        Map<String, String> lembretes = new HashMap<>();
-        DateTimeFormatter dataFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        DateTimeFormatter horaFormatter = DateTimeFormatter.ofPattern("HH:mm");
-
-        for (Map.Entry<String, Consulta> entry : agenda.entrySet()) {
-            Consulta consulta = entry.getValue();
-            LocalDate dataConsulta = consulta.getDataHora().toLocalDate();
-
-            long diasAntecedencia = ChronoUnit.DAYS.between(hoje, dataConsulta);
-
-            if (diasAntecedencia == 1 || diasAntecedencia == 7) {
-                String mensagem = "Lembrete: Consulta '" + consulta.getDescricao() + "' agendada para " +
-                        dataConsulta.format(dataFormatter) + " às " +
-                        consulta.getDataHora().format(horaFormatter) +
-                        " em " + consulta.getLocal();
-                lembretes.put(entry.getKey(), mensagem);
-            }
-        }
-        return lembretes;
-    }
-
-    public Map<String, Consulta> filtrarPorData(Map<String, Consulta> agenda, LocalDate datafiltro) {
-        Map<String, Consulta> resultado = new HashMap<>();
-        for (Map.Entry<String, Consulta> entry : agenda.entrySet()) {
-            if (entry.getValue().getDataHora().toLocalDate().equals(datafiltro)) {
-                resultado.put(entry.getKey(), entry.getValue());
-            }
-        }
-        return resultado;
-    }
-
-    public Paciente getPaciente() {
-        return paciente;
-    }
-
-    public static Map<String, String> gerarNotificacoesPendencias(Map<String, Consulta> agenda, LocalDate hoje) {
-        Map<String, String> notificacoes = new HashMap<>();
-
-        for (Map.Entry<String, Consulta> entry : agenda.entrySet()) {
-            Consulta consulta = entry.getValue();
-            if (!consulta.getClientePagou() && consulta.getDataVencimento().isBefore(hoje)) {
-                long diasAtraso = ChronoUnit.DAYS.between(consulta.getDataVencimento(), hoje);
-                String mensagem = "Consulta '" + consulta.getDescricao() +
-                        "' está com pagamento atrasado há " + diasAtraso + " dias.";
-                notificacoes.put(entry.getKey(), mensagem);
-            }
-        }
-        return notificacoes;
     }
 
     public LocalDateTime getDataHora() {
@@ -120,5 +69,9 @@ public class Consulta {
                 ", descricao='" + descricao + '\'' +
                 ", local='" + local + '\'' +
                 '}';
+    }
+
+    public Paciente getPaciente() {
+        return this.paciente;
     }
 }
