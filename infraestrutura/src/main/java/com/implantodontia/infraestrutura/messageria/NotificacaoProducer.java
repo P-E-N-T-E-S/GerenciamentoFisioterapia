@@ -19,21 +19,12 @@ public class NotificacaoProducer implements NotificacaoProdutor {
 
     public void atualizar(Notificacao notificacao) {
         NotificacaoDTO dto = NotificacaoMapper.toDTO(notificacao);
-        String routingKey = mapearRoutingKey(notificacao.getTipo());
+        String routingKey = RabbitMQConfig.TODAS_NOTIFICACOES_ROUTING_KEY;
         rabbitTemplate.convertAndSend(
                 RabbitMQConfig.EXCHANGE,
                 routingKey,
                 dto
         );
-    }
-
-    private String mapearRoutingKey(TipoNotificacao tipo) {
-        return switch (tipo) {
-            case CLIENTE_NOVO -> RabbitMQConfig.NOVOS_CLIENTES_ROUTING_KEY;
-            case AGENDAMENTO -> RabbitMQConfig.RELEMBRETE_ROUTING_KEY;
-            case PAGAMENTO -> RabbitMQConfig.PAGAMENTOS_ROUTING_KEY;
-            default -> throw new IllegalArgumentException("Tipo de notificação não suportado: " + tipo);
-        };
     }
 
     @Override

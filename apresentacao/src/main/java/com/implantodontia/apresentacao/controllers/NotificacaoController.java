@@ -22,6 +22,6 @@ public class NotificacaoController {
 
     @GetMapping()
     public ResponseEntity<List<Notificacao>> obterTodasNotificacoes() {
-        return ResponseEntity.ok(notificacaoConsumidor.consumirMensagens(TipoNotificacao.TODAS));
+        return ResponseEntity.ok(notificacaoConsumidor.consumirMensagens());
     }
 }

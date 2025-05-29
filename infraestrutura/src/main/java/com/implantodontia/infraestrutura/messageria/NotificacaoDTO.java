@@ -9,6 +9,9 @@ public class NotificacaoDTO implements Serializable {
     private String tipo;
     private LocalDateTime criacao;
 
+    public NotificacaoDTO() {
+    }
+
     public NotificacaoDTO(String destinatario, String mensagem, String tipo, LocalDateTime criacao) {
         this.destinatario = destinatario;
         this.mensagem = mensagem;

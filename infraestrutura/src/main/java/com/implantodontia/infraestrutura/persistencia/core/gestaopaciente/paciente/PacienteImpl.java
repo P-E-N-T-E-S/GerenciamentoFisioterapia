@@ -14,6 +14,11 @@ public class PacienteImpl implements PacienteRepository {
     private PacienteJPARepositorio repositorio;
     private JpaMapeador mapper;
 
+    public PacienteImpl(PacienteJPARepositorio repositorio, JpaMapeador mapper) {
+        this.repositorio = repositorio;
+        this.mapper = mapper;
+    }
+
     @Override
     public void cadastrar(Paciente paciente) {
         repositorio.save(mapper.map(paciente, PacienteJPA.class));

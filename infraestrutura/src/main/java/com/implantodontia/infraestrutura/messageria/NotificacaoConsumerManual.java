@@ -6,6 +6,7 @@ import com.implantodontia.dominio.support.notificacoes.enums.TipoNotificacao;
 import com.implantodontia.infraestrutura.messageria.config.RabbitMQConfig;
 import com.implantodontia.infraestrutura.messageria.mapper.NotificacaoMapper;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -15,33 +16,25 @@ public class NotificacaoConsumerManual implements NotificacaoConsumidor {
 
     private final RabbitTemplate rabbitTemplate;
 
-    public NotificacaoConsumerManual(RabbitTemplate rabbitTemplate) {
+    // Injeção do MessageConverter opcional (caso queira garantir no construtor)
+    public NotificacaoConsumerManual(RabbitTemplate rabbitTemplate, MessageConverter messageConverter) {
         this.rabbitTemplate = rabbitTemplate;
+        this.rabbitTemplate.setMessageConverter(messageConverter);
     }
 
-    public List<Notificacao> consumirMensagens(TipoNotificacao tipo) {
+    public List<Notificacao> consumirMensagens() {
         Object obj;
-        String fila = mapearFila(tipo);
+        String fila = RabbitMQConfig.FILA_NOTIFICACOES;
         List<Notificacao> notificacoes = new java.util.ArrayList<>(List.of());
         do {
             obj = rabbitTemplate.receiveAndConvert(fila);
             if (obj instanceof NotificacaoDTO dto) {
                 Notificacao notificacao = NotificacaoMapper.toDomain(dto);
                 notificacoes.add(notificacao);
-                // Aqui você pode repassar ao serviço de domínio
             }
         } while (obj != null);
         return notificacoes;
     }
 
-    private String mapearFila(TipoNotificacao tipo) {
-        return switch (tipo) {
-            case CLIENTE_NOVO -> RabbitMQConfig.FILA_NOVOS_CLIENTES;
-            case AGENDAMENTO -> RabbitMQConfig.FILA_RELEMBRETE;
-            case PAGAMENTO -> RabbitMQConfig.FILA_PAGAMENTO;
-            case TODAS -> RabbitMQConfig.FILA_TODAS_NOTIFICACOES;
-            default -> throw new IllegalArgumentException("Tipo de notificação não suportado: " + tipo);
-        };
-    }
 }
 

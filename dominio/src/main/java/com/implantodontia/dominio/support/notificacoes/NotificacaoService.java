@@ -48,8 +48,8 @@ public class NotificacaoService implements NotificacaoSubject {
         notificarObservers();
     }
 
-    public List<Notificacao> obterNotificacoes(TipoNotificacao tipo) {
-        return consumer.consumirMensagens(tipo);
+    public List<Notificacao> obterNotificacoes() {
+        return consumer.consumirMensagens();
     }
 }
 

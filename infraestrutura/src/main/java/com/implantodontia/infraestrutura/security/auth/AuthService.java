@@ -47,7 +47,7 @@ public class AuthService {
 
             String token = jwtUtils.generateTokenFromUserDetails(userDetails);
 
-            AcessDTO acessDTO = new AcessDTO(token, notificacaoService.obterNotificacoes(TipoNotificacao.TODAS).stream().map(NotificacaoMapper::toDTO).toList());
+            AcessDTO acessDTO = new AcessDTO(token);
 
             return acessDTO;
         }catch (BadCredentialsException e){
