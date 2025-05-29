@@ -1,4 +1,4 @@
-package com.implantodontia.infraestrutura.messageria;
+package com.implantodontia.infraestrutura.messageria.config;
 
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;

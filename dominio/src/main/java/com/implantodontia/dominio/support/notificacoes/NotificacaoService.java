@@ -7,16 +7,13 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
 public class NotificacaoService implements NotificacaoSubject {
 
-    private final NotificacaoProdutor producer;
     private final NotificacaoConsumidor consumer;
     private final List<NotificacaoObserver> observers;
     private Notificacao ultimaNotificacao;
 
-    public NotificacaoService(NotificacaoProdutor producer, NotificacaoConsumidor consumer) {
-        this.producer = producer;
+    public NotificacaoService(NotificacaoConsumidor consumer) {
         this.consumer = consumer;
         this.observers = new ArrayList<>();
     }
@@ -47,7 +44,6 @@ public class NotificacaoService implements NotificacaoSubject {
 
     public void notificarUsuario(String destino, String mensagem, TipoNotificacao tipo) {
         Notificacao evento = new Notificacao(destino, mensagem, tipo, LocalDateTime.now());
-        producer.enviar(evento);
         this.ultimaNotificacao = evento;
         notificarObservers();
     }

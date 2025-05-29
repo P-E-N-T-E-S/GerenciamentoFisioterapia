@@ -1,4 +1,4 @@
-package com.implantodontia.infraestrutura.messageria.dto;
+package com.implantodontia.infraestrutura.messageria;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

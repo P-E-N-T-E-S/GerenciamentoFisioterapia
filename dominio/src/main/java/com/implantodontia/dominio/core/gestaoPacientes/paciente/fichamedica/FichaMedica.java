@@ -62,4 +62,15 @@ public abstract class FichaMedica {
         return alergias;
     }
 
+    public void setHistoricoMedico(String historicoMedico) {
+        this.historicoMedico = historicoMedico;
+    }
+
+    public void setAlergias(String alergias) {
+        this.alergias = alergias;
+    }
+
+    public void setObservacoes(String observacoes) {
+        this.observacoes = observacoes;
+    }
 }

@@ -149,9 +149,9 @@ public class JpaMapeador extends ModelMapper {
     }
 
     private void configurarFichaMedicaMapeamento() {
-        addConverter(new AbstractConverter<FichaMedica, FichaMedicaJPA>() {
+        addConverter(new AbstractConverter<FichaMedicaImplanta, FichaMedicaJPA>() {
             @Override
-            protected FichaMedicaJPA convert(FichaMedica source) {
+            protected FichaMedicaJPA convert(FichaMedicaImplanta source) {
                 if (source == null) return null;
 
                 FichaMedicaJPA fichaMedicaJPA = new FichaMedicaJPA();
@@ -170,9 +170,9 @@ public class JpaMapeador extends ModelMapper {
             }
         });
 
-        addConverter(new AbstractConverter<FichaMedicaJPA, FichaMedica>() {
+        addConverter(new AbstractConverter<FichaMedicaJPA, FichaMedicaImplanta>() {
             @Override
-            protected FichaMedica convert(FichaMedicaJPA source) {
+            protected FichaMedicaImplanta convert(FichaMedicaJPA source) {
                 if (source == null) return null;
 
                 Long pacienteId = source.getPaciente() != null ? source.getPaciente().getId() : null;

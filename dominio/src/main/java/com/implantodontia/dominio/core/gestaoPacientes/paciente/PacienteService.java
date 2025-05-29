@@ -13,7 +13,6 @@ import com.implantodontia.dominio.core.gestaoPacientes.paciente.validation.Valid
 
 import org.springframework.stereotype.Service;
 
-@Service
 public class PacienteService {
 
     private PacienteRepository pacienteRepository;

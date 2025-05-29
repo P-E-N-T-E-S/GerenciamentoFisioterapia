@@ -3,7 +3,7 @@ package com.implantodontia.infraestrutura.messageria;
 import com.implantodontia.dominio.support.notificacoes.Notificacao;
 import com.implantodontia.dominio.support.notificacoes.NotificacaoConsumidor;
 import com.implantodontia.dominio.support.notificacoes.enums.TipoNotificacao;
-import com.implantodontia.infraestrutura.messageria.dto.NotificacaoDTO;
+import com.implantodontia.infraestrutura.messageria.config.RabbitMQConfig;
 import com.implantodontia.infraestrutura.messageria.mapper.NotificacaoMapper;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Component;

@@ -2,7 +2,7 @@ package com.implantodontia.infraestrutura.messageria.mapper;
 
 import com.implantodontia.dominio.support.notificacoes.Notificacao;
 import com.implantodontia.dominio.support.notificacoes.enums.TipoNotificacao;
-import com.implantodontia.infraestrutura.messageria.dto.NotificacaoDTO;
+import com.implantodontia.infraestrutura.messageria.NotificacaoDTO;
 
 public class NotificacaoMapper {
 

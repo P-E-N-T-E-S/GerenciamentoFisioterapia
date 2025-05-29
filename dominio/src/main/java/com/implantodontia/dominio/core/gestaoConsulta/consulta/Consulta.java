@@ -2,10 +2,7 @@ package com.implantodontia.dominio.core.gestaoConsulta.consulta;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
-import java.util.HashMap;
-import java.util.Map;
+
 
 import com.implantodontia.dominio.core.material.Material;
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.Paciente;

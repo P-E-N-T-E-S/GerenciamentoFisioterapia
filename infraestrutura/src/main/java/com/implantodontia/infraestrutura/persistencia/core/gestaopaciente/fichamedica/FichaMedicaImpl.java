@@ -1,6 +1,8 @@
 package com.implantodontia.infraestrutura.persistencia.core.gestaopaciente.fichamedica;
 
+import com.implantodontia.dominio.core.gestaoPacientes.paciente.PacienteId;
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.fichamedica.FichaMedica;
+import com.implantodontia.dominio.core.gestaoPacientes.paciente.fichamedica.FichaMedicaImplanta;
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.fichamedica.FichaMedicaRepositorio;
 import com.implantodontia.infraestrutura.persistencia.JpaMapeador;
 import org.springframework.stereotype.Repository;
@@ -13,28 +15,26 @@ public class FichaMedicaImpl implements FichaMedicaRepositorio {
 
     private final FichaMedicaJPARepositorio fichaMedicaRepositorio;
     private final JpaMapeador mapeador;
-    private final FichaMedicaJPARepositorio fichaMedicaJPARepositorio;
 
-    public FichaMedicaImpl(FichaMedicaJPARepositorio fichaMedicaRepositorio, JpaMapeador mapeador, FichaMedicaJPARepositorio fichaMedicaJPARepositorio) {
+    public FichaMedicaImpl(FichaMedicaJPARepositorio fichaMedicaRepositorio, JpaMapeador mapeador) {
         this.fichaMedicaRepositorio = fichaMedicaRepositorio;
         this.mapeador = mapeador;
-        this.fichaMedicaJPARepositorio = fichaMedicaJPARepositorio;
     }
 
     @Override
-    public void salvar(FichaMedica fichaMedica) {
+    public void salvar(FichaMedicaImplanta fichaMedica) {
         FichaMedicaJPA fichaMedicaJPA = mapeador.map(fichaMedica, FichaMedicaJPA.class);
         fichaMedicaRepositorio.save(fichaMedicaJPA);
     }
 
     @Override
-    public void deletar(FichaMedica fichaMedica) {
+    public void deletar(FichaMedicaImplanta fichaMedica) {
         FichaMedicaJPA fichaMedicaJPA = mapeador.map(fichaMedica, FichaMedicaJPA.class);
-        fichaMedicaJPARepositorio.delete(fichaMedicaJPA);
+        fichaMedicaRepositorio.delete(fichaMedicaJPA);
     }
 
     @Override
-    public void editar(FichaMedica fichaMedica, long id) {
+    public void editar(FichaMedicaImplanta fichaMedica, long id) {
         FichaMedicaJPA fichaMedicaJPA = mapeador.map(fichaMedica, FichaMedicaJPA.class);
         FichaMedicaJPA atual = fichaMedicaRepositorio.findById(id);
 
@@ -50,22 +50,22 @@ public class FichaMedicaImpl implements FichaMedicaRepositorio {
     }
 
     @Override
-    public List<FichaMedica> listarFichaMedica() {
+    public List<FichaMedicaImplanta> listarFichaMedica() {
         List<FichaMedicaJPA> fichas = fichaMedicaRepositorio.findAll();
         return fichas.stream()
-                .map(f -> mapeador.map(f, FichaMedica.class))
+                .map(f -> mapeador.map(f, FichaMedicaImplanta.class))
                 .toList();
     }
 
     @Override
-    public FichaMedica buscarPorId(long id) {
+    public FichaMedicaImplanta buscarPorId(long id) {
         FichaMedicaJPA fichaMedicaJPA = fichaMedicaRepositorio.findById(id);
-        return mapeador.map(fichaMedicaJPA, FichaMedica.class);
+        return mapeador.map(fichaMedicaJPA, FichaMedicaImplanta.class);
     }
 
     @Override
-    public FichaMedica buscarPorPaciente(long idPaciente) {
-        Optional<FichaMedicaJPA> fichaMedicaJPA = fichaMedicaRepositorio.findByPacienteId(idPaciente);
-        return fichaMedicaJPA.map(f -> mapeador.map(f, FichaMedica.class)).orElse(null);
+    public FichaMedicaImplanta buscarPorPaciente(PacienteId idPaciente) {
+        Optional<FichaMedicaJPA> fichaMedicaJPA = fichaMedicaRepositorio.findByPacienteId(idPaciente.getId());
+        return fichaMedicaJPA.map(f -> mapeador.map(f, FichaMedicaImplanta.class)).orElse(null);
     }
 }

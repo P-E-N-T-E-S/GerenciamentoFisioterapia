@@ -1,6 +1,6 @@
 package com.implantodontia.infraestrutura.security.auth;
 
-import com.implantodontia.infraestrutura.messageria.dto.NotificacaoDTO;
+import com.implantodontia.infraestrutura.messageria.NotificacaoDTO;
 
 import java.util.List;
 

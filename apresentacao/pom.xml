@@ -7,17 +7,19 @@
         <artifactId>implantodontia</artifactId>
         <version>1.0.0</version>
     </parent>
-
     <artifactId>apresentacao</artifactId>
     <properties>
         <java.version>21</java.version>
+        <dominio.version>0.0.1-SNAPSHOT</dominio.version>
+        <infraestrutura.version>1.0.0</infraestrutura.version>
+        <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
     </properties>
     <dependencies>
+        <!-- Dependências Spring -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -28,26 +30,23 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-integration</artifactId>
         </dependency>
-
         <!-- Integração com RabbitMQ -->
         <dependency>
             <groupId>org.springframework.integration</groupId>
             <artifactId>spring-integration-amqp</artifactId>
         </dependency>
+        <!-- Dependências internas -->
         <dependency>
             <groupId>com.implantodontia</groupId>
             <artifactId>dominio</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
+            <version>${dominio.version}</version>
         </dependency>
         <dependency>
             <groupId>com.implantodontia</groupId>
             <artifactId>infraestrutura</artifactId>
-            <version>1.0.0</version>
-            <scope>compile</scope>
+            <version>${infraestrutura.version}</version>
         </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
@@ -57,12 +56,12 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
                 <configuration>
-                    <source>16</source>
-                    <target>16</target>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
                 </configuration>
             </plugin>
         </plugins>
     </build>
-
 </project>
