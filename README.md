@@ -45,7 +45,7 @@ O sistema tem como função fazer o gerenciamento do dia a dia da fisioterapeuta
 
 <details>
 
-<summary>Entrega 1</summary>
+<summary>Entregáveis</summary>
 <ul>
     <li>
     <a  href="https://pentes.avion.io/share/rMEx4uoSs35LaZw2G"
@@ -71,11 +71,6 @@ O sistema tem como função fazer o gerenciamento do dia a dia da fisioterapeuta
 
 </details>
 <details>
-
-<summary>Entrega 2</summary>
-<ul>
-</ul>
-</details>
 
 ## 👩‍💻 Membros
 
