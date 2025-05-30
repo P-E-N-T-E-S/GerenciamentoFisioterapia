@@ -4,6 +4,8 @@ import com.implantodontia.dominio.core.gestaoPacientes.paciente.Paciente;
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.PacienteId;
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.PacienteRepository;
 import com.implantodontia.infraestrutura.persistencia.JpaMapeador;
+import com.implantodontia.infraestrutura.persistencia.core.gestaopaciente.endereco.EnderecoJPA;
+import com.implantodontia.infraestrutura.persistencia.core.gestaopaciente.endereco.EnderecoJPARepositorio;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,16 +14,22 @@ import java.util.List;
 public class PacienteImpl implements PacienteRepository {
 
     private PacienteJPARepositorio repositorio;
+    private EnderecoJPARepositorio enderecoRepositorio;
     private JpaMapeador mapper;
 
-    public PacienteImpl(PacienteJPARepositorio repositorio, JpaMapeador mapper) {
+    public PacienteImpl(PacienteJPARepositorio repositorio, EnderecoJPARepositorio enderecoRepositorio, JpaMapeador mapper) {
         this.repositorio = repositorio;
+        this.enderecoRepositorio = enderecoRepositorio;
         this.mapper = mapper;
     }
 
     @Override
     public void cadastrar(Paciente paciente) {
-        repositorio.save(mapper.map(paciente, PacienteJPA.class));
+        PacienteJPA pacienteJPA = mapper.map(paciente, PacienteJPA.class);
+        if(enderecoRepositorio.findById(pacienteJPA.getEndereco().getNome()).isEmpty()) {
+            enderecoRepositorio.save(pacienteJPA.getEndereco());
+        }
+        repositorio.save(pacienteJPA);
     }
 
     @Override

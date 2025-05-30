@@ -47,8 +47,9 @@ public class PacienteController {
         return ResponseEntity.ok(pacienteService.buscarPacientePorId(new PacienteId(id)));
     }
 
-    private Endereco convertEndereco(EnderecoDTO enderecoDTO) {
+    protected Endereco convertEndereco(EnderecoDTO enderecoDTO) {
         return new Endereco(
+                enderecoDTO.nome(),
                 enderecoDTO.logradouro(),
                 enderecoDTO.numero(),
                 enderecoDTO.complemento(),

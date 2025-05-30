@@ -3,10 +3,12 @@ package com.implantodontia.infraestrutura.persistencia;
 import com.implantodontia.dominio.core.adm.Usuario;
 import com.implantodontia.dominio.core.adm.enums.Cargo;
 import com.implantodontia.dominio.core.gestaoConsulta.consulta.Consulta;
+import com.implantodontia.dominio.core.gestaoConsulta.consulta.ConsultaId;
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.*;
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.fichamedica.FichaMedica;
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.fichamedica.FichaMedicaImplanta;
 import com.implantodontia.dominio.core.material.Material;
+import com.implantodontia.infraestrutura.persistencia.core.gestaopaciente.endereco.EnderecoJPA;
 import com.implantodontia.infraestrutura.persistencia.core.material.MaterialJPA;
 import com.implantodontia.infraestrutura.persistencia.core.gestaopaciente.paciente.PacienteJPA;
 import com.implantodontia.infraestrutura.persistencia.core.administracao.usuario.UsuarioJPA;
@@ -16,6 +18,8 @@ import org.modelmapper.AbstractConverter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.config.Configuration;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class JpaMapeador extends ModelMapper {
@@ -46,6 +50,29 @@ public class JpaMapeador extends ModelMapper {
                 usuarioJPA.setCargo(source.getCargo().getCodigo());
                 usuarioJPA.setEmail(source.getEmail());
                 return usuarioJPA;
+            }
+        });
+        
+        addConverter(new AbstractConverter<Endereco, EnderecoJPA>() {
+            @Override
+            protected EnderecoJPA convert(Endereco source) {
+                if (source == null) return null;
+                EnderecoJPA enderecoJPA = new EnderecoJPA();
+                enderecoJPA.setNome(source.getNome());
+                enderecoJPA.setLogradouro(source.getLogradouro());
+                enderecoJPA.setNumero(source.getNumero());
+                enderecoJPA.setComplemento(source.getComplemento());
+                enderecoJPA.setCidade(source.getCidade());
+                enderecoJPA.setCep(source.getCep());
+                return enderecoJPA;
+            }
+        });
+
+        addConverter(new AbstractConverter<EnderecoJPA, Endereco>() {
+
+            @Override
+            protected Endereco convert(EnderecoJPA source) {
+                return new Endereco(source.getNome(), source.getLogradouro(), source.getNumero(), source.getComplemento(), source.getCidade(), source.getCep());
             }
         });
 
@@ -81,13 +108,8 @@ public class JpaMapeador extends ModelMapper {
 
                 // Endereço
                 Endereco endereco = source.getEndereco();
-                if (endereco != null) {
-                    pacienteJPA.setLogradouro(endereco.getLogradouro());
-                    pacienteJPA.setNumero(endereco.getNumero());
-                    pacienteJPA.setComplemento(endereco.getComplemento());
-                    pacienteJPA.setCidade(endereco.getCidade());
-                    pacienteJPA.setCep(endereco.getCep());
-                }
+
+                pacienteJPA.setEndereco(map(endereco, EnderecoJPA.class));
 
                 // Ficha Médica
                 FichaMedica ficha = source.getFichaMedica();
@@ -112,13 +134,7 @@ public class JpaMapeador extends ModelMapper {
             protected Paciente convert(PacienteJPA source) {
                 if (source == null) return null;
 
-                Endereco endereco = new Endereco(
-                        source.getLogradouro(),
-                        source.getNumero(),
-                        source.getComplemento(),
-                        source.getCidade(),
-                        source.getCep()
-                );
+                Endereco endereco = map(source.getEndereco(), Endereco.class);
 
                 Paciente paciente = new Paciente(
                         new PacienteId(source.getId()),
@@ -192,14 +208,15 @@ public class JpaMapeador extends ModelMapper {
             @Override
             protected GestaoConsultaJPA convert(Consulta source) {
                 GestaoConsultaJPA gestaoConsultaJPA = new GestaoConsultaJPA();
+                gestaoConsultaJPA.setId(source.getConsultaId().getId());
                 gestaoConsultaJPA.setDataHora(source.getDataHora());
                 gestaoConsultaJPA.setDescricao(source.getDescricao());
                 gestaoConsultaJPA.setClientePagou(source.isClientePagou());
                 gestaoConsultaJPA.setDataVencimento(source.getDataVencimento());
-                gestaoConsultaJPA.setLocal(source.getLocal());
+                gestaoConsultaJPA.setEndereco(map(source.getLocal(), EnderecoJPA.class));
 
                 if (source.getMateriais() != null) {
-                    MaterialJPA materialJPA = map(source.getMateriais(), MaterialJPA.class);
+                    List<MaterialJPA> materialJPA = source.getMateriais().stream().map(m -> map(m, MaterialJPA.class)).toList();
                     gestaoConsultaJPA.setMateriais(materialJPA);
                 }
 
@@ -224,19 +241,20 @@ public class JpaMapeador extends ModelMapper {
                     paciente = map(source.getPaciente(), Paciente.class);
                 }
 
-                Material material = null;
+                List<Material> material = null;
 
                 if (source.getMateriais() != null) {
-                    material = map(source.getMateriais(), Material.class);
+                    material = source.getMateriais().stream().map(m -> map(m, Material.class)).toList();
                 }
                 return new Consulta(
+                        new ConsultaId(source.getId()),
                         source.getDataHora(),
+                        paciente,
+                        source.getDataVencimento(),
+                        source.isClientePagou(),
                         source.getDescricao(),
                         material,
-                        source.isClientePagou(),
-                        source.getDataVencimento(),
-                        source.getLocal(),
-                        paciente
+                        map(source.getEndereco(), Endereco.class)
                 );
             }
         });

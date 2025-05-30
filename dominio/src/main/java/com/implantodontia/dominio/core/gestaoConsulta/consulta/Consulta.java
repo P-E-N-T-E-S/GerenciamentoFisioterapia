@@ -2,36 +2,39 @@ package com.implantodontia.dominio.core.gestaoConsulta.consulta;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 
+import com.implantodontia.dominio.core.gestaoPacientes.paciente.Endereco;
 import com.implantodontia.dominio.core.material.Material;
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.Paciente;
 
 public class Consulta {
+    private ConsultaId consultaId;
     private LocalDateTime dataHora;
     private Paciente paciente;
     private LocalDate data_vencimento;
     private boolean clientePagou;
     private String descricao;
-    private Material materiais;
-    private String local;
+    private List<Material> materiais;
+    private Endereco local;
 
-    public Consulta(LocalDateTime dataHora, String descricao, Material materiais,
-                    boolean clientePagou, LocalDate dataVencimento, String local, Paciente paciente) {
+    public Consulta(ConsultaId consultaId, LocalDateTime dataHora, Paciente paciente, LocalDate data_vencimento, boolean clientePagou, String descricao, List<Material> materiais, Endereco local) {
+        this.consultaId = consultaId;
         this.dataHora = dataHora;
+        this.paciente = paciente;
+        this.data_vencimento = data_vencimento;
+        this.clientePagou = clientePagou;
         this.descricao = descricao;
         this.materiais = materiais;
-        this.clientePagou = clientePagou;
-        this.data_vencimento = dataVencimento;
         this.local = local;
-        this.paciente = paciente;
     }
 
     public LocalDateTime getDataHora() {
         return dataHora;
     }
 
-    public String getLocal() {
+    public Endereco getLocal() {
         return local;
     }
 
@@ -55,20 +58,19 @@ public class Consulta {
         return data_vencimento;
     }
 
-    public Material getMateriais() {
+    public List<Material> getMateriais() {
         return materiais;
-    }
-
-    @Override
-    public String toString() {
-        return "Consulta{" +
-                "dataHora=" + dataHora +
-                ", descricao='" + descricao + '\'' +
-                ", local='" + local + '\'' +
-                '}';
     }
 
     public Paciente getPaciente() {
         return this.paciente;
+    }
+
+    public ConsultaId getConsultaId() {
+        return consultaId;
+    }
+
+    public void setConsultaId(ConsultaId consultaId) {
+        this.consultaId = consultaId;
     }
 }

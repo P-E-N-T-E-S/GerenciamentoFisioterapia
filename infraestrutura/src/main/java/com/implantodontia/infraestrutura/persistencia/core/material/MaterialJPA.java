@@ -1,6 +1,9 @@
 package com.implantodontia.infraestrutura.persistencia.core.material;
 
+import com.implantodontia.infraestrutura.persistencia.core.gestaoconsulta.GestaoConsultaJPA;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table (name = "material")
@@ -11,6 +14,9 @@ public class MaterialJPA {
 
     int quantidade;
     String nome;
+
+    @ManyToMany(mappedBy = "materiais")
+    List<GestaoConsultaJPA> consultas;
 
     public long getId() {
         return id;
@@ -34,5 +40,13 @@ public class MaterialJPA {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public List<GestaoConsultaJPA> getConsultas() {
+        return consultas;
+    }
+
+    public void setConsultas(List<GestaoConsultaJPA> consultas) {
+        this.consultas = consultas;
     }
 }

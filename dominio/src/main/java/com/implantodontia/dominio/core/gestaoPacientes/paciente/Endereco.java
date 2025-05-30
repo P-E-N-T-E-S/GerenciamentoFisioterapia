@@ -5,17 +5,19 @@ import java.util.Objects;
 import static org.apache.commons.lang3.Validate.notNull;
 
 public class Endereco {
-    String logradouro;
-    String numero;
-    String complemento;
-    String cidade;
-    String cep;
+    private String nome;
+    private String logradouro;
+    private String numero;
+    private String complemento;
+    private String cidade;
+    private String cep;
 
-    public Endereco(String logradouro, String numero, String complemento, String cidade, String cep) {
+    public Endereco(String nome, String logradouro, String numero, String complemento, String cidade, String cep) {
         notNull(logradouro, "O logradouro não pode ser nulo");
         notNull(numero, "O número não pode ser nulo");
         notNull(cidade, "A cidade não pode ser nula");
         notNull(cep, "O CEP não pode ser nulo");
+        this.nome = nome;
         this.logradouro = logradouro;
         this.numero = numero;
         this.complemento = complemento;
@@ -44,6 +46,10 @@ public class Endereco {
     @Override
     public int hashCode() {
         return Objects.hash(logradouro, numero, complemento, cidade, cep);
+    }
+
+    public String getNome() {
+        return nome;
     }
 
     public String getLogradouro() {

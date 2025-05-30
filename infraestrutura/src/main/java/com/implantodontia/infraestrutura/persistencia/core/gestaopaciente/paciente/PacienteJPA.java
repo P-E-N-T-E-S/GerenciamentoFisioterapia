@@ -1,5 +1,6 @@
 package com.implantodontia.infraestrutura.persistencia.core.gestaopaciente.paciente;
 
+import com.implantodontia.infraestrutura.persistencia.core.gestaopaciente.endereco.EnderecoJPA;
 import com.implantodontia.infraestrutura.persistencia.core.gestaopaciente.fichamedica.FichaMedicaJPA;
 import jakarta.persistence.*;
 
@@ -16,14 +17,11 @@ public class PacienteJPA {
     private String contato;
     private String medicoResponsavel;
 
-    // Endereço
-    private String logradouro;
-    private String numero;
-    private String complemento;
-    private String cidade;
-    private String cep;
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn (name = "endereco_id")
+    private EnderecoJPA endereco;
 
-    @OneToOne(mappedBy = "paciente", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(mappedBy = "paciente", orphanRemoval = true)
     private FichaMedicaJPA fichaMedica;
 
     public Long getId() {
@@ -66,51 +64,19 @@ public class PacienteJPA {
         this.medicoResponsavel = medicoResponsavel;
     }
 
-    public String getLogradouro() {
-        return logradouro;
-    }
-
-    public void setLogradouro(String logradouro) {
-        this.logradouro = logradouro;
-    }
-
-    public String getNumero() {
-        return numero;
-    }
-
-    public void setNumero(String numero) {
-        this.numero = numero;
-    }
-
-    public String getComplemento() {
-        return complemento;
-    }
-
-    public void setComplemento(String complemento) {
-        this.complemento = complemento;
-    }
-
-    public String getCidade() {
-        return cidade;
-    }
-
-    public void setCidade(String cidade) {
-        this.cidade = cidade;
-    }
-
-    public String getCep() {
-        return cep;
-    }
-
-    public void setCep(String cep) {
-        this.cep = cep;
-    }
-
     public FichaMedicaJPA getFichaMedica() {
         return fichaMedica;
     }
 
     public void setFichaMedica(FichaMedicaJPA fichaMedica) {
         this.fichaMedica = fichaMedica;
+    }
+
+    public EnderecoJPA getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(EnderecoJPA endereco) {
+        this.endereco = endereco;
     }
 }

@@ -1,10 +1,12 @@
 package com.implantodontia.infraestrutura.persistencia.core.gestaoconsulta;
 
+import com.implantodontia.infraestrutura.persistencia.core.gestaopaciente.endereco.EnderecoJPA;
 import com.implantodontia.infraestrutura.persistencia.core.material.MaterialJPA;
 import com.implantodontia.infraestrutura.persistencia.core.gestaopaciente.paciente.PacienteJPA;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Entity
@@ -19,29 +21,25 @@ public class GestaoConsultaJPA {
     private String descricao;
     private boolean clientePagou;
     private LocalDate dataVencimento;
-    private String local;
 
-    @ManyToOne
-    @JoinColumn(name = "material_id")
-    private MaterialJPA materiais;
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinTable(
+            name = "material_consulta",
+            joinColumns = @JoinColumn(name = "id_consulta"),
+            inverseJoinColumns = @JoinColumn(name = "nome_material")
+    )
+    private List<MaterialJPA> materiais;
 
     @ManyToOne
     @JoinColumn (name = "paciente_id")
     private PacienteJPA paciente;
 
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn (name = "endereco_id")
+    private EnderecoJPA endereco;
+
 
     public GestaoConsultaJPA() {}
-
-    public GestaoConsultaJPA(Long id, LocalDateTime dataHora, String descricao, LocalDate dataVencimento, boolean clientePagou, String local, PacienteJPA pacientes, MaterialJPA materials) {
-        this.id = id;
-        this.dataHora = dataHora;
-        this.descricao = descricao;
-        this.dataVencimento = dataVencimento;
-        this.clientePagou = clientePagou;
-        this.local = local;
-        this.paciente = pacientes;
-        this.materiais = materials;
-    }
 
 
     public Long getId() {
@@ -84,13 +82,6 @@ public class GestaoConsultaJPA {
         this.dataVencimento = dataVencimento;
     }
 
-    public String getLocal() {
-        return local;
-    }
-
-    public void setLocal(String local) {
-        this.local = local;
-    }
 
     public PacienteJPA getPaciente() {
         return paciente;
@@ -100,11 +91,19 @@ public class GestaoConsultaJPA {
         this.paciente = paciente;
     }
 
-    public MaterialJPA getMateriais() {
+    public List<MaterialJPA> getMateriais() {
         return materiais;
     }
 
-    public void setMateriais(MaterialJPA materiais) {
+    public void setMateriais(List<MaterialJPA> materiais) {
         this.materiais = materiais;
+    }
+
+    public EnderecoJPA getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(EnderecoJPA endereco) {
+        this.endereco = endereco;
     }
 }
