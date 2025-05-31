@@ -6,7 +6,7 @@ import {
 import CloseIcon from '@mui/icons-material/Close';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-
+import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 const style = {
   position: 'absolute',
   top: '50%',
@@ -71,6 +71,11 @@ export const FichaMedicaModal = ({ open, handleClose, paciente }) => {
 
         {/* Botões */}
         <Grid container spacing={2} justifyContent="flex-end" mt={4}>
+        <Grid item>
+    <Button variant="outlined" startIcon={<PictureAsPdfIcon />} color="primary">
+      PDF
+       </Button>
+  </Grid>
           <Grid item>
             <Button variant='contained' startIcon={<EditIcon />}>Editar</Button>
           </Grid>

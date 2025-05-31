@@ -4,14 +4,14 @@ import './Sidebar.css';
 import { Link, NavLink } from 'react-router-dom';
 import {
   FaHome, FaUserInjured, FaClipboardList, FaCalendarAlt,
-  FaBoxOpen, FaSignOutAlt, FaTooth
+  FaBoxOpen, FaSignOutAlt
 } from 'react-icons/fa';
 
 export const Sidebar = () => {
   return (
       <div className="sidebar">
           <Link to="/" className="logo" style={{ textDecoration: 'none', color: 'inherit' }}>
-              <FaTooth className="logo-icon" />
+              
               <span>Clínica+ Saúde</span>
           </Link>
           <ul className="nav-list">

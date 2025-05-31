@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-
 import '../styles/Home.css';
-import {Sidebar} from '../components/template/Sidebar.jsx';
+import { Sidebar } from '../components/template/Sidebar.jsx';
 import { Header } from '../components/template/Header.jsx';
 
 const getWeekDays = () => {
@@ -22,12 +21,11 @@ const getMonthDays = () => {
   const month = today.getMonth();
 
   const firstDay = new Date(year, month, 1);
-  const startWeekday = firstDay.getDay() === 0 ? 6 : firstDay.getDay() - 1; // ajusta para começar na segunda
+  const startWeekday = firstDay.getDay() === 0 ? 6 : firstDay.getDay() - 1;
   const lastDay = new Date(year, month + 1, 0).getDate();
 
   const days = [];
 
-  // espaços vazios antes do primeiro dia do mês
   for (let i = 0; i < startWeekday; i++) {
     days.push('');
   }
@@ -50,6 +48,11 @@ const getYearMonths = () => {
 const Calendario = () => {
   const [modo, setModo] = useState('Mensal');
 
+  const nomeDoMes = new Date().toLocaleDateString('pt-BR', {
+    month: 'long',
+    year: 'numeric'
+  });
+
   const renderGrid = () => {
     if (modo === 'Semanal') {
       const dias = getWeekDays();
@@ -67,9 +70,10 @@ const Calendario = () => {
     if (modo === 'Mensal') {
       const dias = getMonthDays();
       const weekDays = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'];
-      
+
       const today = new Date().getDate();
-      const isToday = (dia) => dia === today.toString().padStart(2, '0') + '/' + (new Date().getMonth() + 1).toString().padStart(2, '0');
+      const isToday = (dia) =>
+        dia === today.toString().padStart(2, '0') + '/' + (new Date().getMonth() + 1).toString().padStart(2, '0');
 
       return (
         <>
@@ -79,13 +83,11 @@ const Calendario = () => {
             ))}
           </div>
           <div className="calendar-grid-mes">
-            {dias.map((dia, i) => {
-              return (
-                <div className={`calendar-cell-mes ${isToday(dia) ? 'today' : ''}`} key={i}>
-                  {dia}
-                </div>
-              )
-            })}
+            {dias.map((dia, i) => (
+              <div className={`calendar-cell-mes ${isToday(dia) ? 'today' : ''}`} key={i}>
+                {dia}
+              </div>
+            ))}
           </div>
         </>
       );
@@ -105,14 +107,14 @@ const Calendario = () => {
 
   return (
     <div className="app-container">
-      <Sidebar/>
+      <Sidebar />
 
       <main className="main-content">
-        <Header/>
+        <Header />
 
         <div className="dashboard center-material">
           <div className="calendar-header">
-            <h2>Calendário</h2>
+            <h2>Calendário - {nomeDoMes.charAt(0).toUpperCase() + nomeDoMes.slice(1)}</h2>
             <select className="dropdown" value={modo} onChange={(e) => setModo(e.target.value)}>
               <option>Semanal</option>
               <option>Mensal</option>

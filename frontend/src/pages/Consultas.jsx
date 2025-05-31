@@ -80,7 +80,8 @@ const Consultas = () => {
               Adicionar
             </button>
             <select className="dropdown">
-              <option>Filtro</option>
+              <option>Todas</option>
+              <option>Hoje</option>
             </select>
           </div>
 

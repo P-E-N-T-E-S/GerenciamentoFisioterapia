@@ -385,9 +385,15 @@ body {
 
 .calendar-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+.calendar-header h2 {
+  font-size: 1.8rem;
+  margin: 0;
 }
 
 .calendar-grid {
@@ -407,7 +413,12 @@ body {
   display: flex;
   flex-direction: column;
 }
-
+.calendar-header .dropdown {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
 .calendar-cell:last-child {
   border-right: none;
 }
@@ -419,7 +430,64 @@ body {
   text-align: center;
   border-bottom: 1px solid #ccc;
 }
+.calendar-weekdays,
+.calendar-grid-mes {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+  margin-top: 10px;
+}
 
+.calendar-weekdays div {
+  font-weight: 600;
+  text-align: center;
+}
+
+.calendar-cell-mes {
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  border: 1px solid #ddd;
+}
+
+.calendar-cell-mes:hover {
+  background-color: #e0e0e0;
+  cursor: pointer;
+}
+
+.calendar-cell-mes.today {
+  background-color: #1976d2;
+  color: white;
+  font-weight: bold;
+  border: none;
+}
+
+.calendar-grid-ano {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.calendar-cell-ano {
+  background-color: #f5f5f5;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 500;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  transition: all 0.2s;
+}
+
+.calendar-cell-ano:hover {
+  background-color: #dce9f7;
+  cursor: pointer;
+}
 /* Responsivo */
 @media (max-width: 768px) {
   .calendar-grid {
@@ -544,3 +612,103 @@ body {
   flex: 1; 
 }
 
+
+
+/* === LOGIN === */
+
+.login-container {
+  max-width: 350px;
+  margin: 100px auto;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background: #fff;
+  text-align: center;
+}
+
+.login-container h2 {
+  margin-bottom: 20px;
+}
+
+.login-container input {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.login-container button {
+  padding: 10px;
+  font-size: 1rem;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.login-page {
+  height: 100vh;
+  background: linear-gradient(135deg, #f0f4f8, #dbe9f6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Caixa central */
+.login-box {
+  background-color: white;
+  padding: 40px;
+  width: 100%;
+  max-width: 380px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  text-align: center;
+}
+
+.login-box h2 {
+  font-size: 1.8rem;
+  margin-bottom: 4px;
+}
+
+.login-subtitle {
+  font-size: 0.95rem;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.login-box input {
+  padding: 12px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: border 0.2s;
+}
+
+.login-box input:focus {
+  border-color: #1976d2;
+}
+
+/* Botão bonito */
+.btn-login {
+  padding: 12px;
+  font-size: 1rem;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.btn-login:hover {
+  background-color: #135ca8;
+  transform: scale(1.02);
+}

@@ -5,6 +5,7 @@ import Material from './pages/Material';
 import Pacientes from './pages/Pacientes';
 import Consultas from './pages/Consultas';
 import Calendario from './pages/Calendario';
+import Login from './pages/Login';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/pacientes" element={<Pacientes />} />
         <Route path="/consultas" element={<Consultas />} />
         <Route path="/calendario" element={<Calendario />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </Router>
   );
