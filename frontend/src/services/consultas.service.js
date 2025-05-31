@@ -13,10 +13,12 @@ export const getConsultaById = async (id) => {
 }
 
 // Listar consultas por data
-// export const getConsultaByDate = async (date) => {
-//     const response = await api.get(`/consultas/data/${date}`);
-//     return response.data;
-// }
+export const getConsultaByDate = async (date) => {
+    const response = await api.get('/consultas/data', {
+        params: { data: date }
+    });
+    return response.data;
+}
 
 // Criar uma nova consulta
 export const createConsulta = async (consultaData) => {
