@@ -12,7 +12,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -43,8 +42,30 @@ public class PacienteController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Paciente> buscarPorId(@PathVariable Long id){
+    public ResponseEntity<Paciente> buscarPorId(@PathVariable("id") Long id){
         return ResponseEntity.ok(pacienteService.buscarPacientePorId(new PacienteId(id)));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<String> editarPorId(@PathVariable("id") Long id, @RequestBody PacienteDTO pacienteDto) {
+        pacienteService.editarPaciente(new Paciente(new PacienteId(id),
+                new Cpf(pacienteDto.cpf()),
+                        convertEndereco(pacienteDto.endereco()),
+                        pacienteDto.nome(),
+                        pacienteDto.contato(),
+                        pacienteDto.medicoResponsavel()));
+        return new ResponseEntity<>("Paciente Atualizado", HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> excluirPorId(@PathVariable("id") Long id){
+        pacienteService.excluirPaciente(new  PacienteId(id));
+        return new ResponseEntity<>("Paciente Excluido", HttpStatus.OK);
+    }
+
+    @GetMapping("/nome")
+    public ResponseEntity<List<Paciente>> pesquisarPorNome(@RequestParam("nome") String nome) {
+        return ResponseEntity.ok(pacienteService.pesquisarPorNome(nome));
     }
 
     protected Endereco convertEndereco(EnderecoDTO enderecoDTO) {

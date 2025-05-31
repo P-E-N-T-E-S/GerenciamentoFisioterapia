@@ -92,40 +92,18 @@ public class PacienteService {
                 ficha.getObservacoes().isBlank();
     }
 
-
-//
-
-
-    public String verificarPagamentoPendenteDia(Paciente paciente, Map<String, Consulta> agenda, LocalDate datafiltro){
-        for (Map.Entry<String, Consulta> entry : agenda.entrySet()) {
-            String nome = entry.getValue().getPaciente().getNome();
-            if (nome.equals(paciente.getNome()) && !entry.getValue().getClientePagou()) {
-                LocalDate dataVencimento = entry.getValue().getDataVencimento();
-                if (dataVencimento.isBefore(datafiltro.plusDays(1)) && dataVencimento.isAfter(datafiltro.minusDays(2))){
-                    return ("Pagamento pendente do paciente: " + entry.getValue().getPaciente().getNome() + " - para o dia " + entry.getValue().getDataHora().toLocalDate());
-                }
-            }
+    public void editarPaciente(Paciente paciente) {
+        if(pacienteRepository.buscarPorId(paciente.getPacienteId()) == null){
+            return;
         }
-
-        return "Não existem pagamentos pendentes para o paciente";
+        pacienteRepository.atualizar(paciente);
     }
 
-    public String verificarPagamentoPendenteSemana(Paciente paciente, Map<String, Consulta> agenda, LocalDate datafiltro){
-        for (Map.Entry<String, Consulta> entry : agenda.entrySet()) {
-            String nome = entry.getValue().getPaciente().getNome();
-            if (nome.equals(paciente.getNome())) {
-                LocalDate dataVencimento = entry.getValue().getDataVencimento();
-                if (dataVencimento.isBefore(datafiltro.plusDays(7)) && dataVencimento.isAfter(datafiltro.minusDays(2))){
-                    return ("Pagamento pendente do paciente: " + entry.getValue().getPaciente().getNome() + " - para o dia " + entry.getValue().getDataHora().toLocalDate());
-                }
-            }
-        }
-
-        return "Não existem pagamentos pendentes para o paciente";
+    public List<Paciente> pesquisarPorNome(String nome) {
+        return pacienteRepository.pesquisarPorNome(nome);
     }
 
-    public boolean gerarPdfFichaMedica(Paciente paciente, FichaMedica ficha) {
-        // Implementação real usaria biblioteca PDF como Apache PDFBox ou iText
-        return ficha.validarDadosObrigatorios();
+    public void excluirPaciente(PacienteId pacienteId) {
+        pacienteRepository.deletar(pacienteId);
     }
 }

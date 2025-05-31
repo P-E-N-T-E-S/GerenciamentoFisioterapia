@@ -25,9 +25,8 @@ public class MaterialImpl implements MaterialRepository {
     }
 
     @Override
-    public void deletar(Material material) {
-        MaterialJPA materialJPA = mapeador.map(material, MaterialJPA.class);
-        materialJPARepositorio.delete(materialJPA);
+    public void deletar(Long id) {
+        materialJPARepositorio.findById(id).ifPresent(materialJPA -> materialJPARepositorio.delete(materialJPA));
     }
 
     @Override
@@ -40,6 +39,16 @@ public class MaterialImpl implements MaterialRepository {
             atual.setQuantidade(material.getQuantidade());
             materialJPARepositorio.save(atual);
         }else{
+            materialJPARepositorio.save(materialJPA);
+        }
+    }
+
+    @Override
+    public void editarPorNome(Material material, String nome) {
+        MaterialJPA materialJPA = materialJPARepositorio.findByNome(nome).orElse(null);
+        if(materialJPA != null) {
+            materialJPA.setNome(material.getNome());
+            materialJPA.setQuantidade(material.getQuantidade());
             materialJPARepositorio.save(materialJPA);
         }
     }

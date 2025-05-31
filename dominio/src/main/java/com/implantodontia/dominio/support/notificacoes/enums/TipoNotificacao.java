@@ -4,6 +4,7 @@ public enum TipoNotificacao {
     CLIENTE_NOVO("cliente novo"),
     AGENDAMENTO("agendamento"),
     PAGAMENTO("pagamento"),
+    MATERIAIS("materiais"),
     TODAS("todas");
 
     private final String tipo;

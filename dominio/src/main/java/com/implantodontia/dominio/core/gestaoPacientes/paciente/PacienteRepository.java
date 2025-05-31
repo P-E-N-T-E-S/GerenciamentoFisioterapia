@@ -9,5 +9,7 @@ public interface PacienteRepository {
     void cadastrar(Paciente paciente);
     Paciente buscarPorId(PacienteId id);
     void deletar(PacienteId id);
+    void atualizar(Paciente paciente);
+    List<Paciente> pesquisarPorNome(String nome);
     List<Paciente> listarPacientes();
 }

@@ -7,8 +7,9 @@ import java.util.List;
 @Repository
 public interface MaterialRepository {
     void salvar(Material material);
-    void deletar(Material material);
+    void deletar(Long id);
     void editar(Material material, long id);
+    void editarPorNome(Material material, String nome);
 
     Material buscarPorNome(String nome);
     List<Material> buscarTodos();

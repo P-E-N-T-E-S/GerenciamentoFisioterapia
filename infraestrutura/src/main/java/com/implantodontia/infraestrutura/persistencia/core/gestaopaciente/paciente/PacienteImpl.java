@@ -43,6 +43,16 @@ public class PacienteImpl implements PacienteRepository {
     }
 
     @Override
+    public void atualizar(Paciente paciente) {
+        repositorio.save(mapper.map(paciente, PacienteJPA.class));
+    }
+
+    @Override
+    public List<Paciente> pesquisarPorNome(String nome) {
+        return repositorio.findByNomeContaining(nome).stream().map(paciente -> mapper.map(paciente, Paciente.class)).toList();
+    }
+
+    @Override
     public List<Paciente> listarPacientes() {
         return repositorio.findAll().stream().map(jpa -> mapper.map(jpa, Paciente.class)).toList();
     }
