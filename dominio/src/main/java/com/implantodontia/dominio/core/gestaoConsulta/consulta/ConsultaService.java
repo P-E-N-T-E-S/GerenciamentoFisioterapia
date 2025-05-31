@@ -1,7 +1,5 @@
 package com.implantodontia.dominio.core.gestaoConsulta.consulta;
 
-import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
 import java.util.List;
 
@@ -18,7 +16,7 @@ public class ConsultaService {
     }
 
     public List<Consulta> buscarPorData(LocalDate data) {
-        return repository.buscarPorData(data);
+        return repository.buscarConsultaPorData(data);
     }
 
     public List<Consulta> listarConsultas(){

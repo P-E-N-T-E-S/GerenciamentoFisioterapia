@@ -40,7 +40,7 @@ public class GestaoConsultaImpl implements ConsultaRepository {
     }
 
     @Override
-    public List<Consulta> buscarPorData(LocalDate data){
+    public List<Consulta> buscarConsultaPorData(LocalDate data){
         LocalDateTime inicio = data.atStartOfDay();
         LocalDateTime fim = data.plusDays(1).atStartOfDay().minusNanos(1);
 

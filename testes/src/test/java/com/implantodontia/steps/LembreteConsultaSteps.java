@@ -118,4 +118,5 @@ public class LembreteConsultaSteps {
     public void verificarAusenciaLembrete() {
         assertTrue(lembretes.isEmpty());
     }
-}
+    
+    }
