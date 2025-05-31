@@ -23,10 +23,7 @@ const Home = () => {
               <div className="placeholder">[Tabela de Materiais]</div>
             </div>
           </div>
-          <div className="chart-card">
-            <h3>Rendimento Mensal</h3>
-            <div className="placeholder">[Gráfico de Rendimento]</div>
-          </div>
+          
         </div>
       </main>
     </div>

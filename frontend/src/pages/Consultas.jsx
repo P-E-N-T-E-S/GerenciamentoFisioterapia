@@ -67,8 +67,7 @@ const Consultas = () => {
 
           <div className="tabs">
             <button className="tab active">Hoje</button>
-            <button className="tab">Futuro</button>
-            <button className="tab">Histórico</button>
+            <button className="tab">Geral</button>
           </div>
 
           <div className="consulta-actions">
@@ -79,10 +78,7 @@ const Consultas = () => {
             <button className="btn-primary" onClick={() => setOpenAddModal(true)}>
               Adicionar
             </button>
-            <select className="dropdown">
-              <option>Todas</option>
-              <option>Hoje</option>
-            </select>
+            
           </div>
 
           <div className="consulta-list">
