@@ -6,15 +6,21 @@ export const getAllMateriais = async () => {
     return response.data;
 }
 
-// Criar um novo material
-// export const createMaterial = async (materialData) => {
-//     const response = await api.post('/material', materialData);
-//     return response.data;
-// }
+// “Criar” / Adicionar quantidade de um material
+export const createMaterial = async (materialData) => {
+    const response = await api.put('/material/adicionar', materialData);
+    return response.data;
+}
+
+// Remover uma quantidade de um material
+export const removeMaterial = async (materialData) => {
+    const response = await api.put('/material/remover', materialData);
+    return response.data;
+}
 
 // Atualizar um material existente
 export const updateMaterial = async (id, materialData) => {
-    const response = await api.put(`/material/${id}`, materialData);
+    const response = await api.put(`/material/atualizar/${id}`, materialData);
     return response.data;
 }
 

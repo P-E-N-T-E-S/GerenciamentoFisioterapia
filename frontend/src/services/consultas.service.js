@@ -27,12 +27,12 @@ export const createConsulta = async (consultaData) => {
 }
 
 // Atualizar uma consulta existente
-// export const updateConsulta = async (id, consultaData) => {
-//     const response = await api.put(`/consultas/${id}`, consultaData);
-//     return response.data;
-// }
+export const updateConsulta = async (id, consultaData) => {
+    const response = await api.put(`/consultas/${id}`, consultaData);
+    return response.data;
+}
 
-// Deletar uma consulta
+// Deletar uma consulta 
 export const deleteConsulta = async (id) => {
     const response = await api.delete(`/consultas/${id}`);
     return response.data;
