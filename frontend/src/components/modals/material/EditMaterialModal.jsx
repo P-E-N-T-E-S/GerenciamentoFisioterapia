@@ -4,6 +4,7 @@ import {
   Modal, Box, Typography, Grid, TextField, Button, IconButton
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import { useUpdateMaterial } from '../../../hooks/useMateriais';
 
 const style = {
   position: 'absolute',
@@ -20,6 +21,7 @@ const style = {
 export const EditMaterialModal = ({ open, handleClose, material }) => {
   const [nome, setNome] = useState('');
   const [quantidade, setQuantidade] = useState('');
+  const updateMaterial = useUpdateMaterial();
 
   useEffect(() => {
     if (material) {
@@ -28,9 +30,12 @@ export const EditMaterialModal = ({ open, handleClose, material }) => {
     }
   }, [material]);
 
-  const handleSubmit = () => {
-    // Aqui entraria a lógica de atualização real
-    console.log('Material editado:', { nome, quantidade });
+  const handleSubmit = async () => {
+    if (!nome || !quantidade) return;
+    await updateMaterial.mutateAsync({
+      id: material.id,
+      materialData: { nome, quantidade: Number(quantidade) }
+    });
     handleClose();
   };
 

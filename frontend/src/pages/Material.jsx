@@ -84,20 +84,18 @@ const Material = () => {
         </div>
       </main>
 
-      <AddMaterialModal
-        open={openAddModal}
-        handleClose={() => setOpenAddModal(false)}
-        onSave={handleAddMaterial}
-      />
+    <AddMaterialModal
+      open={openAddModal}
+      handleClose={() => setOpenAddModal(false)}
+    />
 
-      {materialSelecionado && (
-        <EditMaterialModal
-          open={openEditModal}
-          handleClose={() => setOpenEditModal(false)}
-          material={materialSelecionado}
-          onSave={handleEditMaterial}
-        />
-      )}
+    {materialSelecionado && (
+      <EditMaterialModal
+        open={openEditModal}
+        handleClose={() => setOpenEditModal(false)}
+        material={materialSelecionado}
+      />
+    )}
     </div>
   );
 };
