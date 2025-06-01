@@ -45,7 +45,7 @@ async function handleLogin() {
           type="password"
           placeholder="Senha"
           value={password}
-          onChange={(e) => setSenha(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
         />
         <button className="btn-login" onClick={handleLogin}>Entrar</button>
         <button className="btn-cadastro" onClick={handleCadastro}>Cadastrar</button>
