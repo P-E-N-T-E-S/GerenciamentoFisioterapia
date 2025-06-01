@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../styles/Home.css';
 import { Sidebar } from '../components/template/Sidebar';
 import { Header } from '../components/template/Header';
@@ -19,6 +19,8 @@ import {
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const Home = () => {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
   const { data: materiais, isLoading, isError } = useMateriais();
 
   // Dados para o gráfico
@@ -46,7 +48,18 @@ const Home = () => {
 
   return (
     <div className="app-container">
-      <Sidebar />
+
+
+    {/* Botão para abrir/fechar o sidebar */}
+      <button 
+        className="menu-toggle"
+        onClick={() => setSidebarOpen(!sidebarOpen)}
+        aria-label='Abrir menu'
+      >
+        &#9776;
+      </button>
+
+      <Sidebar open={sidebarOpen} setOpen={setSidebarOpen} />
 
       <main className="main-content">
         <Header />

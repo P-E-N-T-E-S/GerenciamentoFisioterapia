@@ -58,6 +58,8 @@ const Calendario = () => {
   const [modo, setModo] = useState('Mensal');
   const [dataSelecionada, setDataSelecionada] = useState('');
 
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
   const { data: consultas, isLoading } = useConsultaByDate(dataSelecionada);
 
   const nomeDoMes = new Date().toLocaleDateString('pt-BR', {
@@ -125,7 +127,17 @@ const Calendario = () => {
 
   return (
     <div className="app-container">
-      <Sidebar />
+
+      {/* Botão para abrir/fechar o sidebar */}
+      <button
+        className="menu-toggle"
+        onClick={() => setSidebarOpen(!sidebarOpen)}
+        aria-label="Abrir menu"
+      >
+        &#9776;
+      </button>
+      <Sidebar open={sidebarOpen} setOpen={setSidebarOpen} />
+
       <main className="main-content">
         <Header />
         <div className="dashboard center-material">

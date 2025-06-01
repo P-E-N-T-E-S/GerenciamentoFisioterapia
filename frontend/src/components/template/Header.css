@@ -7,6 +7,13 @@
     border-bottom: 1px solid #ccc;
     font-size: 1rem;
     color: var(--text);
+    overflow: hidden;
+
+    position: fixed;
+    width: calc(100% - 250px);
+    top: 0;
+    left: 250px;
+    z-index: 1000;
 }
 
 .profile {
@@ -20,4 +27,31 @@
     width: 40px;
     height: 40px;
     cursor: context-menu;
+}
+
+
+@media (max-width: 900px) {
+    .header {
+        width: calc(100% - 70px);
+        left: 70px;
+        padding: 12px 12px;
+        font-size: 0.95rem;
+    }
+
+    .profile {
+        display: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .header {
+        width: 100%;
+        left: 0;
+        padding: 10px 8px;
+        font-size: 0.9rem;
+    }
+
+    .profile {
+        display: none;
+    }
 }

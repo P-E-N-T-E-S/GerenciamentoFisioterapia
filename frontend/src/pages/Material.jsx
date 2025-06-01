@@ -13,11 +13,22 @@ const Material = () => {
   const [openEditModal, setOpenEditModal] = useState(false);
   const [materialSelecionado, setMaterialSelecionado] = useState(null);
 
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
   const { data: materiais, isLoading, isError } = useMateriais();
 
   return (
     <div className="app-container">
-      <Sidebar />
+
+      {/* Botão para abrir/fechar o sidebar */}
+      <button
+        className="menu-toggle"
+        onClick={() => setSidebarOpen(!sidebarOpen)}
+        aria-label="Abrir menu"
+      >
+        &#9776;
+      </button>
+      <Sidebar open={sidebarOpen} setOpen={setSidebarOpen} />
 
       <main className="main-content">
         <Header />

@@ -25,10 +25,21 @@ const Consultas = () => {
   const [openDetailsModal, setOpenDetailsModal] = useState(false);
   const [consultaSelecionada, setConsultaSelecionada] = useState(null);
 
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
 
   return (
     <div className="app-container">
-      <Sidebar />
+
+    {/* Botão para abrir/fechar o sidebar */}
+      <button
+        className="menu-toggle"
+        onClick={() => setSidebarOpen(!sidebarOpen)}
+        aria-label="Abrir menu"
+      >
+        &#9776;
+      </button>
+      <Sidebar open={sidebarOpen} setOpen={setSidebarOpen} />
 
       <main className="main-content">
         <Header />

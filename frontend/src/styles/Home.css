@@ -36,6 +36,8 @@ body {
   min-height: 100vh;
 
   margin-left: 250px;
+  transition: margin-left 0.3s;
+  padding-top: 70px;
 }
 
 .dashboard {
