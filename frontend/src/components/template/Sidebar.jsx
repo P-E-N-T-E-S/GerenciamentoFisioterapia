@@ -7,19 +7,19 @@ import {
   FaBoxOpen, FaSignOutAlt
 } from 'react-icons/fa';
 
-export const Sidebar = () => {
+export const Sidebar = ({ open, setOpen }) => {
   return (
-      <div className="sidebar">
+      <div className={`sidebar${open ? ' open' : ''}`}>
           <Link to="/" className="logo" style={{ textDecoration: 'none', color: 'inherit' }}>
               
               <span>Clínica+ Saúde</span>
           </Link>
           <ul className="nav-list">
-              <li><NavLink to="/home"><FaHome className="icon" /> Homepage</NavLink></li>
-              <li><NavLink to="/pacientes"><FaUserInjured className="icon" /> Pacientes</NavLink></li>
-              <li><NavLink to="/consultas"><FaClipboardList className="icon" /> Consultas</NavLink></li>
-              <li><NavLink to="/calendario"><FaCalendarAlt className="icon" /> Calendário</NavLink></li>
-              <li><NavLink to="/material"><FaBoxOpen className="icon" /> Material</NavLink></li>
+              <li><NavLink to="/home"><FaHome className="icon" /> <span>Homepage</span></NavLink></li>
+              <li><NavLink to="/pacientes"><FaUserInjured className="icon" /> <span>Pacientes</span></NavLink></li>
+              <li><NavLink to="/consultas"><FaClipboardList className="icon" /> <span>Consultas</span></NavLink></li>
+              <li><NavLink to="/calendario"><FaCalendarAlt className="icon" /> <span>Calendário</span></NavLink></li>
+              <li><NavLink to="/material"><FaBoxOpen className="icon" /> <span>Material</span></NavLink></li>
           </ul>
           <div
             className="logout"

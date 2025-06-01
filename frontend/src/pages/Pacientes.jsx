@@ -88,6 +88,8 @@ const Pacientes = () => {
   const [openDetailsModal, setOpenDetailsModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
   // Ficha médica
   const [openFichaModal, setOpenFichaModal] = useState(false);
   const [openAddFichaMedicaModal, setOpenAddFichaMedicaModal] = useState(false);
@@ -96,7 +98,16 @@ const Pacientes = () => {
 
   return (
     <div className="app-container">
-      <Sidebar />
+
+      {/* Botão para abrir/fechar o sidebar */}
+      <button
+        className="menu-toggle"
+        onClick={() => setSidebarOpen(!sidebarOpen)}
+        aria-label="Abrir menu"
+      >
+        &#9776;
+      </button>
+      <Sidebar open={sidebarOpen} setOpen={setSidebarOpen} />
 
       <main className="main-content">
         <Header />
