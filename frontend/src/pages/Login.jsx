@@ -5,14 +5,14 @@ import axios from 'axios';
 
 const Login = () => {
   const [username, setUsername] = useState('');
-  const [senha, setSenha] = useState('');
+  const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
 async function handleLogin() {
     try {
         const response = await axios.post("http://localhost:8080/auth/login", {
             username,
-            password: senha
+            password
         });
 
         console.log(response.data);
@@ -44,7 +44,7 @@ async function handleLogin() {
         <input
           type="password"
           placeholder="Senha"
-          value={senha}
+          value={password}
           onChange={(e) => setSenha(e.target.value)}
         />
         <button className="btn-login" onClick={handleLogin}>Entrar</button>
