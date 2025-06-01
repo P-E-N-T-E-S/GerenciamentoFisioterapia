@@ -11,16 +11,20 @@ import com.implantodontia.dominio.core.gestaoPacientes.paciente.fichamedica.Fich
 import com.implantodontia.dominio.core.material.Material;
 import com.implantodontia.dominio.core.material.MaterialRepository;
 import com.implantodontia.dominio.core.material.MaterialServico;
+import com.implantodontia.dominio.support.notificacoes.Notificacao;
+import com.implantodontia.dominio.support.notificacoes.NotificacaoConsumidor;
 import com.implantodontia.dominio.support.relatorio.procedimento.HistoricoProcedimentosService;
 import io.cucumber.java.it.Ma;
 import org.mockito.internal.matchers.NotNull;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Repositorio implements PacienteRepository, ConsultaRepository, ProcedimentoRepository, FichaMedicaRepositorio, MaterialRepository {
+@Repository
+public class Repositorio implements PacienteRepository, ConsultaRepository, ProcedimentoRepository, FichaMedicaRepositorio, MaterialRepository, NotificacaoConsumidor {
 
     protected Map<PacienteId, Paciente> pacientes = new HashMap<>();
 
@@ -66,37 +70,37 @@ public class Repositorio implements PacienteRepository, ConsultaRepository, Proc
 
     @Override
     public List<Material> buscarTodos() {
-        return List.of();
+        return null;
     }
 
     @Override
     public List<Procedimento> buscarTodosProcedimentos() {
-        return List.of();
+        return null;
     }
 
     @Override
     public List<Procedimento> buscarPorData(LocalDate data) {
-        return List.of();
+        return null;
     }
 
     @Override
     public List<Consulta> buscarConsultaPorData(LocalDate data) {
-        return List.of();
+        return null;
     }
 
     @Override
     public List<Procedimento> buscarPorTipo(TipoProcedimento tipo) {
-        return List.of();
+        return null;
     }
 
     @Override
     public List<Procedimento> buscarPorDataETipo(LocalDate data, TipoProcedimento tipo) {
-        return List.of();
+        return null;
     }
 
     @Override
     public List<Consulta> listarConsultas() {
-        return List.of();
+        return null;
     }
 
     @Override
@@ -126,12 +130,12 @@ public class Repositorio implements PacienteRepository, ConsultaRepository, Proc
 
     @Override
     public List<Paciente> pesquisarPorNome(String nome) {
-        return List.of();
+        return null;
     }
 
     @Override
     public List<Paciente> listarPacientes() {
-        return List.of();
+        return null;
     }
 
     @Override
@@ -151,7 +155,7 @@ public class Repositorio implements PacienteRepository, ConsultaRepository, Proc
 
     @Override
     public List<FichaMedicaImplanta> listarFichaMedica() {
-        return List.of();
+        return null;
     }
 
     @Override
@@ -161,6 +165,11 @@ public class Repositorio implements PacienteRepository, ConsultaRepository, Proc
 
     @Override
     public FichaMedicaImplanta buscarPorPaciente(PacienteId idPaciente) {
+        return null;
+    }
+
+    @Override
+    public List<Notificacao> consumirMensagens() {
         return null;
     }
 }

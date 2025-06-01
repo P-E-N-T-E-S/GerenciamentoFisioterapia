@@ -25,12 +25,12 @@ public class FuncionalidadesSistema {
     public FuncionalidadesSistema() {
         Repositorio repositorio = new Repositorio();
 
-        notificacaoService = new NotificacaoService(null);
+        notificacaoService = new NotificacaoService(repositorio);
         pacienteService = new PacienteService(repositorio, notificacaoService);
         historicoProcedimentosService = new HistoricoProcedimentosService();
         consultaService = new ConsultaService(repositorio);
         fichaMedicaServico = new FichaMedicaServico(repositorio);
-        materialServico = new MaterialServico(repositorio);
+        materialServico = new MaterialServico(repositorio, notificacaoService);
     }
 
 }
