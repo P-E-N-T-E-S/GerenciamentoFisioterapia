@@ -21,7 +21,17 @@ export const Sidebar = () => {
               <li><NavLink to="/calendario"><FaCalendarAlt className="icon" /> Calendário</NavLink></li>
               <li><NavLink to="/material"><FaBoxOpen className="icon" /> Material</NavLink></li>
           </ul>
-          <div className="logout"><FaSignOutAlt className="icon" /> Sair</div>
+          <div
+            className="logout"
+            onClick={() => {
+              localStorage.removeItem("token");
+              window.location.href = "/";
+            }}
+            style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
+          >
+            <FaSignOutAlt className="icon" />
+            <span>Sair</span>
+          </div>
       </div>
   )
 }
