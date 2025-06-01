@@ -18,35 +18,6 @@ const consultasData = pacientes.flatMap(paciente =>
     paciente: paciente.nome
   }))
 );
-// const consultasData = [
-//   {
-//     day: 'Seg',
-//     number: 15,
-//     time: '09:00',
-//     patient: 'Maria da Silva',
-//     type: 'intraoperatório',
-//     payment: 'realizado',
-//     completed: true
-//   },
-//   {
-//     day: 'Ter',
-//     number: 16,
-//     time: '10:30',
-//     patient: 'João Pedro',
-//     type: 'pré-operatório',
-//     payment: 'pendente',
-//     completed: true
-//   },
-//   {
-//     day: 'Qua',
-//     number: 17,
-//     time: '14:00',
-//     patient: 'Ana Souza',
-//     type: 'pós-operatório',
-//     payment: 'pendente',
-//     completed: false
-//   }
-// ];
 
 
 const Consultas = () => {

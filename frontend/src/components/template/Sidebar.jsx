@@ -15,7 +15,7 @@ export const Sidebar = () => {
               <span>Clínica+ Saúde</span>
           </Link>
           <ul className="nav-list">
-              <li><NavLink to="/"><FaHome className="icon" /> Homepage</NavLink></li>
+              <li><NavLink to="/home"><FaHome className="icon" /> Homepage</NavLink></li>
               <li><NavLink to="/pacientes"><FaUserInjured className="icon" /> Pacientes</NavLink></li>
               <li><NavLink to="/consultas"><FaClipboardList className="icon" /> Consultas</NavLink></li>
               <li><NavLink to="/calendario"><FaCalendarAlt className="icon" /> Calendário</NavLink></li>
