@@ -6,7 +6,7 @@ import { Header } from '../components/template/Header';
 import { AddMaterialModal } from '../components/modals/material/AddMaterialModal';
 import { EditMaterialModal } from '../components/modals/material/EditMaterialModal';
 
-import { useMateriais, useCreateMaterial, useUpdateMaterial } from '../hooks/useMateriais';
+import { useMateriais } from '../hooks/useMateriais';
 
 const Material = () => {
   const [openAddModal, setOpenAddModal] = useState(false);
@@ -14,21 +14,6 @@ const Material = () => {
   const [materialSelecionado, setMaterialSelecionado] = useState(null);
 
   const { data: materiais, isLoading, isError } = useMateriais();
-  const createMaterial = useCreateMaterial();
-  const updateMaterial = useUpdateMaterial();
-
-  const handleAddMaterial = async (novoMaterial) => {
-    await createMaterial.mutateAsync(novoMaterial);
-    setOpenAddModal(false);
-  };
-
-  const handleEditMaterial = async (materialEditado) => {
-    await updateMaterial.mutateAsync({
-      id: materialEditado.id,
-      materialData: materialEditado,
-    });
-    setOpenEditModal(false);
-  };
 
   return (
     <div className="app-container">
