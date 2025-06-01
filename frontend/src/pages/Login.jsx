@@ -12,7 +12,7 @@ async function handleLogin() {
     try {
         const response = await axios.post("http://localhost:8080/auth/login", {
             username,
-            senha
+            password: senha
         });
 
         console.log(response.data);
