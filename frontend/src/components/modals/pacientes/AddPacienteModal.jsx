@@ -1,10 +1,9 @@
 // src/components/AddPacienteModal.jsx
 import React, { useState } from 'react';
-
-import { Modal, Box, TextField, Button, IconButton, Grid, Typography } from '@mui/material';
+import {
+  Modal, Box, TextField, Button, IconButton, Grid, Typography
+} from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-
-import { AddFichaMedicaModal } from './AddFichaMedicaModal';
 
 const style = {
   position: 'absolute',
@@ -19,12 +18,12 @@ const style = {
 };
 
 export const AddPacienteModal = ({ open, handleClose }) => {
-  const [openAddFichaMedicaModal, setOpenAddFichaMedicaModal] = useState(false); 
-
   const size = { xs: 2, sm: 4, md: 6 };
 
-  const handleAddFichaMedica = () => {
-    setOpenAddFichaMedicaModal(true);
+  const handleAddPaciente = () => {
+    // Aqui você pode implementar a lógica para adicionar o paciente
+    console.log('Paciente adicionado!');
+    handleClose();
   };
 
   return (
@@ -38,24 +37,21 @@ export const AddPacienteModal = ({ open, handleClose }) => {
         <Grid container spacing={{ xs: 2, md: 3 }} mt={1} columns={{ xs: 4, sm: 8, md: 12 }}>
           <Grid item xs={6} size={size}><TextField fullWidth label="Nome do paciente" /></Grid>
           <Grid item xs={6} size={size}><TextField fullWidth label="CPF" /></Grid>
-          <Grid item xs={6} size={size}><TextField fullWidth label="Logadouro" /></Grid>
+          <Grid item xs={6} size={size}><TextField fullWidth label="Logradouro" /></Grid>
           <Grid item xs={6} size={size}><TextField fullWidth label="Rua" /></Grid>
           <Grid item xs={6} size={size}><TextField fullWidth label="Complemento" /></Grid>
           <Grid item xs={6} size={size}><TextField fullWidth label="Cidade" /></Grid>
           <Grid item xs={6} size={size}><TextField fullWidth label="Cep" /></Grid>
           <Grid item xs={6} size={size}><TextField fullWidth label="Celular" /></Grid>
           <Grid item xs={6} size={size}><TextField fullWidth label="E-mail" /></Grid>
-          <Grid item xs={6} size={size}><TextField fullWidth label="Médico Reponsável" /></Grid>
+          <Grid item xs={6} size={size}><TextField fullWidth label="Médico Responsável" /></Grid>
         </Grid>
 
         <Box mt={4} textAlign="right">
-          <Button variant="contained" color="primary" onClick={handleAddFichaMedica}>Continuar</Button>
+          <Button variant="contained" color="primary" onClick={handleAddPaciente}>
+            Adicionar
+          </Button>
         </Box>
-
-        <AddFichaMedicaModal
-          open={openAddFichaMedicaModal}
-          handleClose={() => setOpenAddFichaMedicaModal(false)}
-        />
       </Box>
     </Modal>
   );
