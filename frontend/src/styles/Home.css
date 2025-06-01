@@ -712,3 +712,20 @@ body {
   background-color: #135ca8;
   transform: scale(1.02);
 }
+
+.btn-cadastro {
+  padding: 12px;
+  font-size: 1rem;
+  background-color: #19d251;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.btn-cadastro:hover {
+  background-color: #0d6efd;
+  color: white;
+}
