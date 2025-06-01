@@ -8,6 +8,7 @@ import Pacientes from './pages/Pacientes';
 import Consultas from './pages/Consultas';
 import Calendario from './pages/Calendario';
 import Login from './pages/Login';
+import Cadastro from './pages/Cadastro';
 
 const queryClient = new QueryClient();
 
@@ -23,6 +24,7 @@ function App() {
           <Route path="/consultas" element={<Consultas />} />
           <Route path="/calendario" element={<Calendario />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/cadastro" element={<Cadastro />} />
         </Routes>
       </Router>
     </QueryClientProvider>

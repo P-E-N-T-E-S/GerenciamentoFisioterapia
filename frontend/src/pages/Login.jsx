@@ -25,6 +25,10 @@ async function handleLogin() {
     }
 }
 
+  const handleCadastro = () => {
+    navigate('/cadastro'); // ajuste para a rota de cadastro
+  };
+
   return (
     <div className="login-page">
       <div className="login-box">
@@ -43,6 +47,7 @@ async function handleLogin() {
           onChange={(e) => setSenha(e.target.value)}
         />
         <button className="btn-login" onClick={handleLogin}>Entrar</button>
+        <button className="btn-cadastro" onClick={handleCadastro}>Cadastrar</button>
       </div>
     </div>
   );
