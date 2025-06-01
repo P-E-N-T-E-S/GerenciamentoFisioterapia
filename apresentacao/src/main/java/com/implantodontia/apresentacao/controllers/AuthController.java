@@ -1,5 +1,6 @@
 package com.implantodontia.apresentacao.controllers;
 
+import com.implantodontia.infraestrutura.security.auth.AcessDTO;
 import com.implantodontia.infraestrutura.security.auth.AuthDTO;
 import com.implantodontia.infraestrutura.security.auth.AuthService;
 import com.implantodontia.infraestrutura.security.auth.RegistroUsuarioDTO;
@@ -9,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("/auth")
@@ -24,18 +27,24 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> autenticar(@RequestBody AuthDTO authDto) {
         try {
-            return ResponseEntity.ok(authService.login(authDto));
-        }catch (BadCredentialsException e) {
+            AcessDTO acessDTO = authService.login(authDto);
+            if (acessDTO == null) {
                 throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Usuário ou senha inválidos");
             }
+            // Retorna um objeto JSON com o campo "token"
+            return ResponseEntity.ok(Map.of("token", acessDTO.token()));
+        } catch (BadCredentialsException e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Usuário ou senha inválidos");
         }
+    }
 
     @PostMapping("/register")
     public ResponseEntity<Object> cadastrar(@RequestBody RegistroUsuarioDTO registroUsuarioDTO) {
         try {
             return ResponseEntity.ok(authService.registrar(registroUsuarioDTO));
-        }catch (UsuarioJaExistente e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuario com login: " + e.getMessage()+ " ja existente");
+        } catch (UsuarioJaExistente e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("Usuario com login: " + e.getMessage() + " ja existente");
         }
     }
 }

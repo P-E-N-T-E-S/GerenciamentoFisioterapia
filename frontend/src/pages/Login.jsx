@@ -15,6 +15,7 @@ async function handleLogin() {
             senha
         });
 
+        console.log(response.data);
         localStorage.setItem("token", response.data.token);
         alert("Login bem-sucedido!");
         navigate("/home"); 
