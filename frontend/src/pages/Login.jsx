@@ -1,19 +1,29 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Home.css';
+import axios from 'axios';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [senha, setSenha] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    if (username && senha) {
-      navigate('/'); // ajuste aqui conforme sua rota
-    } else {
-      alert('Preencha todos os campos');
+async function handleLogin() {
+    try {
+        const response = await axios.post("localhost:8080/auth/login", {
+            username,
+            senha
+        });
+
+        localStorage.setItem("token", response.data.token);
+        alert("Login bem-sucedido!");
+        navigate("/home"); 
+
+    } catch (error) {
+        console.error("Erro ao fazer login:", error);
+        alert("Usuário ou senha incorretos!");
     }
-  };
+}
 
   return (
     <div className="login-page">
