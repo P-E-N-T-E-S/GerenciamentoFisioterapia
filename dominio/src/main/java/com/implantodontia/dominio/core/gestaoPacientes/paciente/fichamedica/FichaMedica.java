@@ -5,21 +5,29 @@ import com.implantodontia.dominio.core.gestaoPacientes.paciente.PacienteId;
 import java.time.LocalDateTime;
 
 public abstract class FichaMedica {
+    private final long id;
     private final PacienteId pacienteId;
     private String historicoMedico;
     private String alergias;
     private String observacoes;
     private LocalDateTime ultimaAtualizacao;
 
-    public FichaMedica(PacienteId pacienteId) {
+    public FichaMedica(PacienteId pacienteId, long id) {
         this.pacienteId = pacienteId;
+        this.id = id;
     }
 
-    public final void preencherDadosClinicos(String historicoMedico, String alergias, LocalDateTime now) {
+    public final void preencherDadosClinicos(String historicoMedico, String alergias) {
         this.historicoMedico = historicoMedico;
         this.alergias = alergias;
         this.ultimaAtualizacao = LocalDateTime.now();
         validarDadosEspecificos();
+    }
+
+    public final void preencherDadosClinicosJPA(String historicoMedico, String alergias, LocalDateTime now) {
+        this.historicoMedico = historicoMedico;
+        this.alergias = alergias;
+        this.ultimaAtualizacao = now;
     }
 
     protected abstract boolean validarDadosEspecificos();
@@ -30,10 +38,9 @@ public abstract class FichaMedica {
                 && validarDadosEspecificos();
     }
 
-    public final void adicionarObservacao(String observacao) {
+    public final void adicionarObservacaoJPA(String observacao, LocalDateTime now) {
         this.observacoes = observacao;
-        this.ultimaAtualizacao = LocalDateTime.now();
-        processarObservacao(observacao);
+        this.ultimaAtualizacao = now;
     }
 
     protected abstract void processarObservacao(String observacao);
@@ -72,5 +79,9 @@ public abstract class FichaMedica {
 
     public void setObservacoes(String observacoes) {
         this.observacoes = observacoes;
+    }
+
+    public long getId() {
+        return id;
     }
 }

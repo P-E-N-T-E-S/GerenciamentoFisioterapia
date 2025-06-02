@@ -18,8 +18,9 @@ public class Consulta {
     private String descricao;
     private List<Material> materiais;
     private Endereco local;
+    private Double valor;
 
-    public Consulta(ConsultaId consultaId, LocalDateTime dataHora, Paciente paciente, LocalDate data_vencimento, boolean clientePagou, String descricao, List<Material> materiais, Endereco local) {
+    public Consulta(ConsultaId consultaId, LocalDateTime dataHora, Paciente paciente, LocalDate data_vencimento, boolean clientePagou, String descricao, List<Material> materiais, Endereco local, Double valor) {
         this.consultaId = consultaId;
         this.dataHora = dataHora;
         this.paciente = paciente;
@@ -28,6 +29,7 @@ public class Consulta {
         this.descricao = descricao;
         this.materiais = materiais;
         this.local = local;
+        this.valor = valor;
     }
 
     public LocalDateTime getDataHora() {
@@ -72,5 +74,13 @@ public class Consulta {
 
     public void setConsultaId(ConsultaId consultaId) {
         this.consultaId = consultaId;
+    }
+
+    public double getValor() {
+        return valor;
+    }
+
+    public void setValor(double valor) {
+        this.valor = valor;
     }
 }

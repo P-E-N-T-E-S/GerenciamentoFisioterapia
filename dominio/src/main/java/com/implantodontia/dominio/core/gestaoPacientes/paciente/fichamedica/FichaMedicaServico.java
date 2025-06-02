@@ -13,11 +13,14 @@ public class FichaMedicaServico {
         this.fichaMedicaRepositorio = fichaMedicaRepositorio;
     }
 
-    public void preencherDadosClinicos(PacienteId pacienteId, String historicoMedico, String alergias, LocalDateTime now) {
+    public void preencherDadosClinicos(PacienteId pacienteId, String historicoMedico, String alergias) {
         FichaMedicaImplanta fichaMedica = fichaMedicaRepositorio.buscarPorPaciente(pacienteId);
-        fichaMedica.setHistoricoMedico(historicoMedico);
-        fichaMedica.setAlergias(alergias);
-        fichaMedica.setUltimaAtualizacao(now);
+        if (fichaMedica == null){
+            criarFichaMedica(pacienteId);
+            fichaMedica = fichaMedicaRepositorio.buscarPorPaciente(pacienteId);
+        }
+        fichaMedica.preencherDadosClinicos(historicoMedico, alergias);
+        fichaMedicaRepositorio.salvar(fichaMedica);
     }
 
     public boolean validarDadosObrigatorios(PacienteId pacienteId){
@@ -30,6 +33,11 @@ public class FichaMedicaServico {
         FichaMedicaImplanta fichaMedica = fichaMedicaRepositorio.buscarPorPaciente(pacienteId);
         fichaMedica.setObservacoes(observacao);
         fichaMedica.setUltimaAtualizacao(LocalDateTime.now());
-        // :) Se esse metodo não funcionar a culpa é de @Pedro
+        fichaMedicaRepositorio.salvar(fichaMedica);
+    }
+
+    public void criarFichaMedica(PacienteId pacienteId) {
+        FichaMedicaImplanta fichaMedica = new FichaMedicaImplanta(pacienteId, 0);
+        fichaMedicaRepositorio.salvar(fichaMedica);
     }
 }

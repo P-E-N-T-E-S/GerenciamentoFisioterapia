@@ -1,10 +1,12 @@
 package com.implantodontia.apresentacao.controllers;
 
 import com.implantodontia.apresentacao.dto.EnderecoDTO;
+import com.implantodontia.apresentacao.dto.FichaMedicaDTO;
 import com.implantodontia.apresentacao.dto.PacienteDTO;
 import com.implantodontia.dominio.core.adm.Usuario;
 import com.implantodontia.dominio.core.adm.enums.Cargo;
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.*;
+import com.implantodontia.dominio.core.gestaoPacientes.paciente.fichamedica.FichaMedicaServico;
 import com.implantodontia.infraestrutura.security.userdetail.UsuarioDetalhes;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,9 +21,11 @@ import java.util.List;
 public class PacienteController {
 
     private PacienteService pacienteService;
+    private FichaMedicaServico fichaMedicaServico;
 
-    public PacienteController(PacienteService pacienteService) {
+    public PacienteController(PacienteService pacienteService, FichaMedicaServico fichaMedicaServico) {
         this.pacienteService = pacienteService;
+        this.fichaMedicaServico = fichaMedicaServico;
     }
 
     @PostMapping()
@@ -66,6 +70,15 @@ public class PacienteController {
     @GetMapping("/nome")
     public ResponseEntity<List<Paciente>> pesquisarPorNome(@RequestParam("nome") String nome) {
         return ResponseEntity.ok(pacienteService.pesquisarPorNome(nome));
+    }
+
+    @PutMapping("/ficha")
+    public ResponseEntity<String> adicionarFichaMedica(@RequestBody FichaMedicaDTO ficha){
+        fichaMedicaServico.preencherDadosClinicos(new PacienteId(ficha.id()), ficha.historicoMedico(), ficha.alergias());
+        if(ficha.observacoes() != null && !ficha.observacoes().isBlank()){
+            fichaMedicaServico.adicionarObservacao(new PacienteId(ficha.id()), ficha.observacoes());
+        }
+        return new ResponseEntity<>("Ficha atualizada com sucesso!", HttpStatus.CREATED);
     }
 
     protected Endereco convertEndereco(EnderecoDTO enderecoDTO) {

@@ -115,6 +115,7 @@ public class JpaMapeador extends ModelMapper {
                 FichaMedica ficha = source.getFichaMedica();
                 if (ficha != null) {
                     FichaMedicaJPA fichaJPA = new FichaMedicaJPA();
+                    fichaJPA.setId(ficha.getId());
                     fichaJPA.setAlergias(ficha.getAlergias());
                     fichaJPA.setHistoricoMedico(ficha.getHistoricoMedico());
                     fichaJPA.setObservacoes(ficha.getObservacoes());
@@ -148,13 +149,13 @@ public class JpaMapeador extends ModelMapper {
                 // Ficha Médica
                 FichaMedicaJPA fichaJPA = source.getFichaMedica();
                 if (fichaJPA != null) {
-                    FichaMedica ficha = new FichaMedicaImplanta(new PacienteId(source.getId()));
-                    ficha.preencherDadosClinicos(
+                    FichaMedica ficha = new FichaMedicaImplanta(new PacienteId(source.getId()), fichaJPA.getId());
+                    ficha.preencherDadosClinicosJPA(
                             fichaJPA.getHistoricoMedico(),
                             fichaJPA.getAlergias(),
                             fichaJPA.getUltimaAtualizacao()
                     );
-                    ficha.adicionarObservacao(fichaJPA.getObservacoes());
+                    ficha.adicionarObservacaoJPA(fichaJPA.getObservacoes(), fichaJPA.getUltimaAtualizacao());
 
                     paciente.setFichaMedica(ficha);
                 }
@@ -171,6 +172,7 @@ public class JpaMapeador extends ModelMapper {
                 if (source == null) return null;
 
                 FichaMedicaJPA fichaMedicaJPA = new FichaMedicaJPA();
+                fichaMedicaJPA.setId(source.getId());
                 fichaMedicaJPA.setAlergias(source.getAlergias());
                 fichaMedicaJPA.setHistoricoMedico(source.getHistoricoMedico());
                 fichaMedicaJPA.setObservacoes(source.getObservacoes());
@@ -194,8 +196,8 @@ public class JpaMapeador extends ModelMapper {
                 Long pacienteId = source.getPaciente() != null ? source.getPaciente().getId() : null;
                 PacienteId pacienteIdObj = pacienteId != null ? new PacienteId(pacienteId) : null;
 
-                FichaMedicaImplanta ficha = new FichaMedicaImplanta(pacienteIdObj);
-                ficha.preencherDadosClinicos(source.getHistoricoMedico(), source.getAlergias(), source.getUltimaAtualizacao());
+                FichaMedicaImplanta ficha = new FichaMedicaImplanta(pacienteIdObj, source.getId());
+                ficha.preencherDadosClinicosJPA(source.getHistoricoMedico(), source.getAlergias(), source.getUltimaAtualizacao());
 
                 return ficha;
             }
@@ -214,6 +216,7 @@ public class JpaMapeador extends ModelMapper {
                 gestaoConsultaJPA.setClientePagou(source.isClientePagou());
                 gestaoConsultaJPA.setDataVencimento(source.getDataVencimento());
                 gestaoConsultaJPA.setEndereco(map(source.getLocal(), EnderecoJPA.class));
+                gestaoConsultaJPA.setValor(source.getValor());
 
                 if (source.getMateriais() != null) {
                     List<MaterialJPA> materialJPA = source.getMateriais().stream().map(m -> map(m, MaterialJPA.class)).toList();
@@ -254,7 +257,8 @@ public class JpaMapeador extends ModelMapper {
                         source.isClientePagou(),
                         source.getDescricao(),
                         material,
-                        map(source.getEndereco(), Endereco.class)
+                        map(source.getEndereco(), Endereco.class),
+                        source.getValor()
                 );
             }
         });

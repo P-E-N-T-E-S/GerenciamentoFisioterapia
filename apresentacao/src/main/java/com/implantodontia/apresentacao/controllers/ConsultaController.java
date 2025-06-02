@@ -37,7 +37,8 @@ public class ConsultaController {
                 false,
                 consulta.descricao(),
                 null,
-                convertEndereco(consulta.endereco())));
+                convertEndereco(consulta.endereco()),
+                null));
 
         return new ResponseEntity<>("Consulta salva com sucesso", HttpStatus.CREATED);
     }

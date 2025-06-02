@@ -38,6 +38,8 @@ public class GestaoConsultaJPA {
     @JoinColumn (name = "endereco_id")
     private EnderecoJPA endereco;
 
+    private double valor;
+
 
     public GestaoConsultaJPA() {}
 
@@ -105,5 +107,13 @@ public class GestaoConsultaJPA {
 
     public void setEndereco(EnderecoJPA endereco) {
         this.endereco = endereco;
+    }
+
+    public double getValor() {
+        return valor;
+    }
+
+    public void setValor(double valor) {
+        this.valor = valor;
     }
 }
