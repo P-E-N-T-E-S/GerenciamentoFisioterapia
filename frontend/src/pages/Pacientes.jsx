@@ -15,6 +15,7 @@ import { AddFichaMedicaModal } from '../components/modals/pacientes/AddFichaMedi
 
 import { usePacientes } from '../hooks/usePacientes';
 
+
 const Pacientes = () => {
   // Modais de pacientes
   const [openAddModal, setOpenAddModal] = useState(false);
@@ -73,36 +74,36 @@ const Pacientes = () => {
                 <div className="paciente-info">
                   <span className="avatar">👤</span>
                   <span className="paciente-name"
-                    onClick={() => {
-                      setPacienteSelecionado(paciente);
-                      setOpenDetailsModal(true);
-                    }}>
-                    {paciente.nome}
+                  onClick={() => {
+                  setPacienteSelecionado(paciente);
+                  setOpenDetailsModal(true);
+                }}>
+                  {paciente.nome}
                   </span>
                 </div>
                 <div className="card-buttons">
 
-                  {paciente.fichaMedica && Object.keys(paciente.fichaMedica).length > 0 ? (
+                  {Object.keys(paciente.fichaMedica).length > 0 ? (
 
-                    <button className="btn-secondary" onClick={(e) => {
-                      e.stopPropagation();
-                      setPacienteSelecionado(paciente);
-                      setOpenFichaModal(true);
-                    }}>
-                      Ficha médica
-                    </button>
-                  )
-                    : (
-                      <IconButton aria-label='Adicionar ficha médica'
-                        sx={{ borderRadius: 50, backgroundColor: '#ddd', color: '#000', mr: 2, '&:hover': { backgroundColor: '#ccc' } }}
-                        onClick={(e) => {
+                      <button className="btn-secondary" onClick={(e) => {
                           e.stopPropagation();
                           setPacienteSelecionado(paciente);
-                          setOpenAddFichaMedicaModal(true);
+                          setOpenFichaModal(true);
                         }}>
-                        <AddIcon />
+                        Ficha médica
+                      </button>
+                  )
+                  : (
+                      <IconButton aria-label='Adicionar ficha médica'
+                          sx={{ borderRadius: 50, backgroundColor: '#ddd', color: '#000', mr: 2, '&:hover': { backgroundColor: '#ccc' } }}
+                          onClick={(e) => {
+                              e.stopPropagation();
+                              setPacienteSelecionado(paciente);
+                              setOpenAddFichaMedicaModal(true);
+                          }}>
+                          <AddIcon />
                       </IconButton>
-                    )}
+                  )}
                 </div>
               </div>
             ))}
