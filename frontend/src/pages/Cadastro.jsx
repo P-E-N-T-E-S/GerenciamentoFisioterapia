@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../styles/Home.css'; // Use o mesmo CSS da tela de login, se quiser o mesmo estilo
+import '../styles/Home.css';
+import axios from 'axios';
 
 const Cadastro = () => {
   const [formData, setFormData] = useState({
@@ -20,19 +21,26 @@ const Cadastro = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  async function handleSubmit(e) {
     e.preventDefault();
 
-    // Exemplo: validação simples
     if (Object.values(formData).some(field => !field)) {
       alert('Preencha todos os campos');
       return;
     }
 
-    // Aqui você pode enviar os dados para o back-end
-    console.log('Dados enviados:', formData);
-    navigate('/'); // Redireciona para o login ou página inicial
-  };
+    try {
+      const response = await axios.post("http://localhost:8080/auth/cadastro", formData);
+
+      console.log(response.data);
+      alert("Cadastro realizado com sucesso!");
+      navigate('/'); 
+
+    } catch (error) {
+      console.error("Erro ao cadastrar:", error);
+      alert("Erro ao realizar cadastro. Tente novamente.");
+    }
+  }
 
   return (
     <div className="login-page">
