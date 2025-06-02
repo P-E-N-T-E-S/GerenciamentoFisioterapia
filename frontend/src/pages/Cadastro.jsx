@@ -15,9 +15,9 @@ const Cadastro = () => {
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    setFormData({ 
-      ...formData, 
-      [e.target.name]: e.target.value 
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
     });
   };
 
@@ -30,11 +30,15 @@ const Cadastro = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:8080/auth/cadastro", formData);
+      const payload = {
+        ...formData,
+        cargo: Number(formData.cargo) // <-- transforma para número
+      };
+      const response = await axios.post("http://localhost:8080/auth/cadastro", payload);
 
       console.log(response.data);
       alert("Cadastro realizado com sucesso!");
-      navigate('/'); 
+      navigate('/');
 
     } catch (error) {
       console.error("Erro ao cadastrar:", error);
@@ -52,7 +56,7 @@ const Cadastro = () => {
         <input type="text" name="nome" placeholder="Nome" value={formData.nome} onChange={handleChange} />
         <input type="password" name="senha" placeholder="Senha" value={formData.senha} onChange={handleChange} />
         <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} />
-        <input type="text" name="cargo" placeholder="Cargo" value={formData.cargo} onChange={handleChange} />
+        <input type="number" name="cargo" placeholder="Cargo" value={formData.cargo} onChange={handleChange} />
 
         <button className="btn-login" onClick={handleSubmit}>Cadastrar</button>
       </div>
