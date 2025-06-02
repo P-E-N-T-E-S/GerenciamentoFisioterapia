@@ -54,7 +54,7 @@
 // }
 
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import * as pacienteService from '../services/pacienteService';
+import * as pacienteService from '../services/pacientes.service';
 
 // Listar todos os pacientes
 export function usePacientes() {

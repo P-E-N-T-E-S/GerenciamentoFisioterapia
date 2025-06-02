@@ -1,4 +1,4 @@
-import { api } from './api.service';
+import { api } from './api';
 
 // Listar todos os pacientes
 export const getAllPacientes = async () => {

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../styles/Home.css'; // Use o mesmo CSS da tela de login, se quiser o mesmo estilo
+import '../styles/Home.css';
+import axios from 'axios';
 
 const Cadastro = () => {
   const [formData, setFormData] = useState({
@@ -14,25 +15,36 @@ const Cadastro = () => {
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    setFormData({ 
-      ...formData, 
-      [e.target.name]: e.target.value 
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
     });
   };
 
-  const handleSubmit = (e) => {
+  async function handleSubmit(e) {
     e.preventDefault();
 
-    // Exemplo: validação simples
     if (Object.values(formData).some(field => !field)) {
       alert('Preencha todos os campos');
       return;
     }
 
-    // Aqui você pode enviar os dados para o back-end
-    console.log('Dados enviados:', formData);
-    navigate('/'); // Redireciona para o login ou página inicial
-  };
+    try {
+      const payload = {
+        ...formData,
+        cargo: Number(formData.cargo) // <-- transforma para número
+      };
+      const response = await axios.post("http://localhost:8080/auth/register", payload);
+
+      console.log(response.data);
+      alert("Cadastro realizado com sucesso!");
+      navigate('/');
+
+    } catch (error) {
+      console.error("Erro ao cadastrar:", error);
+      alert("Erro ao realizar cadastro. Tente novamente.");
+    }
+  }
 
   return (
     <div className="login-page">
@@ -44,7 +56,7 @@ const Cadastro = () => {
         <input type="text" name="nome" placeholder="Nome" value={formData.nome} onChange={handleChange} />
         <input type="password" name="senha" placeholder="Senha" value={formData.senha} onChange={handleChange} />
         <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} />
-        <input type="text" name="cargo" placeholder="Cargo" value={formData.cargo} onChange={handleChange} />
+        <input type="number" name="cargo" placeholder="Cargo" value={formData.cargo} onChange={handleChange} />
 
         <button className="btn-login" onClick={handleSubmit}>Cadastrar</button>
       </div>

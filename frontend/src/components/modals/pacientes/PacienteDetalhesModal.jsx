@@ -23,6 +23,9 @@ const style = {
 export const PacienteDetalhesModal = ({ open, handleClose, paciente }) => {
   const size = { xs: 2, sm: 4, md: 6 };
 
+  // Garante que consultas é sempre um array
+  const consultas = (paciente && Array.isArray(paciente.consultas)) ? paciente.consultas : [];
+
   return (
     <Modal open={open} onClose={handleClose}>
       <Box sx={style}>
@@ -39,9 +42,11 @@ export const PacienteDetalhesModal = ({ open, handleClose, paciente }) => {
           <Grid item xs={6} size={size}><Typography><strong>Celular</strong><br />{paciente.celular}</Typography></Grid>
         </Grid>
 
-        <Typography variant="h6" mt={4} fontWeight="bold"> {paciente.consultas.length > 0 ? 'Consultas' : '-- Não há consultas --'}</Typography>
+        <Typography variant="h6" mt={4} fontWeight="bold">
+          {consultas.length > 0 ? 'Consultas' : '-- Não há consultas --'}
+        </Typography>
 
-        {paciente.consultas.map((consulta, idx) => (
+        {consultas.map((consulta, idx) => (
           <Box key={idx} mt={1} p={2} border="1px solid #ccc" borderRadius={2}>
             <Grid container spacing={2}>
               <Grid item>
