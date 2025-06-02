@@ -37,3 +37,9 @@ export const deletePaciente = async (id) => {
     const response = await api.delete(`/pacientes/${id}`);
     return response.data;
 }
+
+// Adicionar Ficha Médica
+export const addFichaMedica = async (fichaData) => {
+    const response = await api.put('/pacientes/ficha', fichaData);
+    return response.data;
+}

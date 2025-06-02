@@ -1,8 +1,10 @@
 import { Button, Modal } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 
 import { Box, Grid, IconButton, TextField, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+
+import { useAddFichaMedica } from "../../../hooks/usePacientes";
 
 const style = {
     position: 'absolute',
@@ -18,7 +20,44 @@ const style = {
 
 
 export const AddFichaMedicaModal = ({ open, handleClose, paciente }) => {
+    console.log(paciente);
     const size = { xs: 2, sm: 4, md: 6 };
+
+    // Atributos de ficha médica
+    const [historicoMedico, setHistoricoMedico] = useState('');
+    const [alergias, setAlergias] = useState('');
+    const [observacoes, setObservacoes] = useState('');
+
+    // Hook de adicionar ficha médica
+    const addFichaMedica = useAddFichaMedica();
+    const handleAddFicha = async () => {
+        if (!historicoMedico || !alergias) {
+            alert("Por favor, preencha todos os campos obrigatórios.");
+            return;
+        }
+
+        try {
+            await addFichaMedica.mutateAsync(
+                {
+                    id: paciente.pacienteId?.id,
+                    historicoMedico,
+                    alergias,
+                    observacoes
+                },
+                {
+                    onSuccess: () => {
+                        setHistoricoMedico('');
+                        setAlergias('');
+                        setObservacoes('');
+                        handleClose();
+                    }
+                }
+            );
+        } catch (error) {
+            console.error("Erro ao adicionar ficha médica:", error);
+            alert("Erro ao adicionar ficha médica. Por favor, tente novamente.");
+        }
+    }
 
     const modalHeader = () => {
         return (
@@ -33,7 +72,9 @@ export const AddFichaMedicaModal = ({ open, handleClose, paciente }) => {
     const modalFooter = () => {
         return (
             <Box mt={4} textAlign="right">
-                <Button variant="contained" color="primary">Adicionar</Button>
+                <Button variant="contained" color="primary" onClick={handleAddFicha} disabled={addFichaMedica.isLoading}>
+                    Adicionar
+                </Button>
             </Box>
         )
 
@@ -45,14 +86,35 @@ export const AddFichaMedicaModal = ({ open, handleClose, paciente }) => {
 
                 {modalHeader()}
 
-                <Grid container spacing={{ xs: 2, md: 3 }} mt={1} columns={{ xs: 4, sm: 8, md: 12 }}>
-                    <Grid item xs={6} size={size}><TextField fullWidth label="Cirurgião" /></Grid>
-                    <Grid item xs={6} size={size}><TextField fullWidth label="Cirurgia" /></Grid>
-                    <Grid item xs={6} size={size}><TextField fullWidth label="Hospital" /></Grid>
-                    <Grid item xs={6} size={size}><TextField fullWidth label="Data da Cirurgia" /></Grid>
-                    <Grid item xs={6} size={size}><TextField fullWidth label="Alergias" /></Grid>
-                    <Grid item xs={6} size={size}><TextField fullWidth label="Cirurgias anteriores" /></Grid>
-                    <Grid item xs={6} size={size}><TextField fullWidth label="Anotações" /></Grid>
+                <Grid container spacing={{ xs: 2, md: 3 }} mt={1} columns={{ xs: 2, sm: 4, md: 6 }}>
+                    <Grid item xs={6} size={size}>
+                        <TextField 
+                            fullWidth 
+                            label="Histórico Médico" 
+                            value={historicoMedico} 
+                            onChange={(e) => setHistoricoMedico(e.target.value)}
+                            multiline
+                        />
+
+                    </Grid>
+                    <Grid item xs={6} size={size}>
+                        <TextField 
+                            fullWidth 
+                            label="Alergias" 
+                            value={alergias} 
+                            onChange={(e) => setAlergias(e.target.value)} 
+                            multiline
+                        />
+                    </Grid>
+                    <Grid item xs={6} size={size}> 
+                        <TextField 
+                            fullWidth 
+                            label="Observações" 
+                            value={observacoes} 
+                            onChange={(e) => setObservacoes(e.target.value)} 
+                            multiline
+                        />
+                    </Grid>
                 </Grid>
 
                 {modalFooter()}
