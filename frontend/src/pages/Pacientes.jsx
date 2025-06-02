@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import '../styles/Home.css';
 
-import { Button, IconButton } from '@mui/material';
+import { IconButton } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 
 import { Sidebar } from '../components/template/Sidebar';
@@ -13,38 +13,33 @@ import { DeletePacienteModal } from '../components/modals/pacientes/DeletePacien
 import { FichaMedicaModal } from '../components/modals/pacientes/FichaMedicaModal';
 import { AddFichaMedicaModal } from '../components/modals/pacientes/AddFichaMedicaModal';
 
-import { usePacientes } from '../hooks/usePacientes';
-
+import { usePacientes, usePacienteByName } from '../hooks/usePacientes';
 
 const Pacientes = () => {
-  // Modais de pacientes
   const [openAddModal, setOpenAddModal] = useState(false);
   const [openDetailsModal, setOpenDetailsModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
-
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
-  // Ficha médica
   const [openFichaModal, setOpenFichaModal] = useState(false);
   const [openAddFichaMedicaModal, setOpenAddFichaMedicaModal] = useState(false);
-
   const [pacienteSelecionado, setPacienteSelecionado] = useState(null);
 
-  // Hook de listar pacientes
-  const { data: pacientes, isLoading, isError } = usePacientes();
+  const [busca, setBusca] = useState('');
+
+  const { data: pacientesAll, isLoading, isError } = usePacientes();
+  const { data: pacientesFiltrados } = usePacienteByName(busca);
+
+  const pacientes = busca.length > 0 ? pacientesFiltrados : pacientesAll;
 
   return (
     <div className="app-container">
-
-      {/* Botão para abrir/fechar o sidebar */}
       <button
         className="menu-toggle"
-        onClick={() => setSidebarOpen(!sidebarOpen)}
+        onClick={() => setOpenDeleteModal(true)}
         aria-label="Abrir menu"
       >
         &#9776;
       </button>
-      <Sidebar open={sidebarOpen} setOpen={setSidebarOpen} />
+      <Sidebar open={false} setOpen={() => {}} />
 
       <main className="main-content">
         <Header />
@@ -54,7 +49,12 @@ const Pacientes = () => {
 
           <div className="paciente-actions">
             <div className="search-bar">
-              <input type="text" placeholder="Buscar por nome" />
+              <input
+                type="text"
+                placeholder="Buscar por nome"
+                value={busca}
+                onChange={(e) => setBusca(e.target.value)}
+              />
               <FaSearch className="search-icon" />
             </div>
             <div className="btn-group">
@@ -67,24 +67,21 @@ const Pacientes = () => {
             {isLoading && <p>Carregando pacientes...</p>}
             {isError && <p>Erro ao carregar pacientes.</p>}
             {pacientes && pacientes.map((paciente, idx) => (
-              <div
-                key={idx}
-                className="paciente-card"
-              >
+              <div key={idx} className="paciente-card">
                 <div className="paciente-info">
                   <span className="avatar">👤</span>
-                  <span className="paciente-name"
+                  <span
+                    className="paciente-name"
                     onClick={() => {
                       setPacienteSelecionado(paciente);
                       setOpenDetailsModal(true);
-                    }}>
+                    }}
+                  >
                     {paciente.nome}
                   </span>
                 </div>
                 <div className="card-buttons">
-
                   {paciente.fichaMedica && Object.keys(paciente.fichaMedica).length > 0 ? (
-
                     <button className="btn-secondary" onClick={(e) => {
                       e.stopPropagation();
                       setPacienteSelecionado(paciente);
@@ -92,18 +89,19 @@ const Pacientes = () => {
                     }}>
                       Ficha médica
                     </button>
-                  )
-                    : (
-                      <IconButton aria-label='Adicionar ficha médica'
-                        sx={{ borderRadius: 50, backgroundColor: '#ddd', color: '#000', mr: 2, '&:hover': { backgroundColor: '#ccc' } }}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setPacienteSelecionado(paciente);
-                          setOpenAddFichaMedicaModal(true);
-                        }}>
-                        <AddIcon />
-                      </IconButton>
-                    )}
+                  ) : (
+                    <IconButton
+                      aria-label='Adicionar ficha médica'
+                      sx={{ borderRadius: 50, backgroundColor: '#ddd', color: '#000', mr: 2, '&:hover': { backgroundColor: '#ccc' } }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setPacienteSelecionado(paciente);
+                        setOpenAddFichaMedicaModal(true);
+                      }}
+                    >
+                      <AddIcon />
+                    </IconButton>
+                  )}
                 </div>
               </div>
             ))}
@@ -112,37 +110,16 @@ const Pacientes = () => {
       </main>
 
       <AddPacienteModal open={openAddModal} handleClose={() => setOpenAddModal(false)} />
-
       {pacienteSelecionado && (
-        <PacienteDetalhesModal
-          open={openDetailsModal}
-          handleClose={() => setOpenDetailsModal(false)}
-          paciente={pacienteSelecionado}
-        />
+        <PacienteDetalhesModal open={openDetailsModal} handleClose={() => setOpenDetailsModal(false)} paciente={pacienteSelecionado} />
       )}
-
       {pacienteSelecionado && (
-        <FichaMedicaModal
-          open={openFichaModal}
-          handleClose={() => setOpenFichaModal(false)}
-          paciente={pacienteSelecionado}
-        />
+        <FichaMedicaModal open={openFichaModal} handleClose={() => setOpenFichaModal(false)} paciente={pacienteSelecionado} />
       )}
-
-      <DeletePacienteModal
-        open={openDeleteModal}
-        handleClose={() => setOpenDeleteModal(false)}
-        pacientes={pacientes || []}
-      />
-
+      <DeletePacienteModal open={openDeleteModal} handleClose={() => setOpenDeleteModal(false)} pacientes={pacientesAll || []} />
       {pacienteSelecionado && (
-        <AddFichaMedicaModal
-          open={openAddFichaMedicaModal}
-          handleClose={() => setOpenAddFichaMedicaModal(false)}
-          paciente={pacienteSelecionado}
-        />
+        <AddFichaMedicaModal open={openAddFichaMedicaModal} handleClose={() => setOpenAddFichaMedicaModal(false)} paciente={pacienteSelecionado} />
       )}
-
     </div>
   );
 };
