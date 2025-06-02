@@ -271,6 +271,9 @@ public class JpaMapeador extends ModelMapper {
                 if (source == null) return null;
 
                 MaterialJPA materialJPA = new MaterialJPA();
+                if(source.getId() != null){
+                    materialJPA.setId(source.getId());
+                }
                 materialJPA.setNome(source.getNome());
                 materialJPA.setQuantidade(source.getQuantidade());
 
@@ -284,7 +287,7 @@ public class JpaMapeador extends ModelMapper {
                 if (source == null) return null;
                 var nome = source.getNome();
                 var quantidade = source.getQuantidade();
-                return new Material(quantidade, nome);
+                return new Material(source.getId(), quantidade, nome);
             }
         });
     }

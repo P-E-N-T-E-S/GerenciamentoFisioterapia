@@ -84,4 +84,8 @@ public class Consulta {
     public void setValor(double valor) {
         this.valor = valor;
     }
+
+    public void setMateriais(List<Material> materiais) {
+        this.materiais = materiais;
+    }
 }

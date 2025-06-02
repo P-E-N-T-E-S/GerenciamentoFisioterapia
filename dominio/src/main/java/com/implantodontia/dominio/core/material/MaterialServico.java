@@ -21,7 +21,7 @@ public class MaterialServico {
     }
 
     public void adicionar(String nome, int quantidade) {
-        Material material = materialRepository.buscarPorNome(nome);
+        Material material = buscarPorNome(nome);
         if(material != null) {
             material.adicionarMaterial(quantidade);
             materialRepository.editarPorNome(material, material.getNome());
@@ -59,5 +59,9 @@ public class MaterialServico {
 
     public void deletarPorId(Long id) {
         materialRepository.deletar(id);
+    }
+
+    public Material buscarPorNome(String nome){
+        return materialRepository.buscarPorNome(nome);
     }
 }

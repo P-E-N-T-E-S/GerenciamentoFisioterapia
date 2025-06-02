@@ -43,19 +43,22 @@ public class ConsultaService {
 
     public void editar(Consulta consulta){
         Consulta consultaAntiga = buscarPorId(consulta.getConsultaId().getId());
+        List<Material> materiaisAtualizados = new java.util.ArrayList<>(List.of());
         if (consultaAntiga == null){
             throw new ConsultaNaoEncontradaException("Consulta de id: "+consulta.getConsultaId().getId()+" não encontrada");
         }
         if (consultaAntiga.getMateriais() != null) {
             for(Material material : consulta.getMateriais()) {
                 processarMateriaisNovos(material);
+                materiaisAtualizados.add(materialServico.buscarPorNome(material.getNome()));
             }
         }else {
             for(Material material : consulta.getMateriais()) {
                 processarMateriaisAntigos(material, consultaAntiga.getMateriais().get(consultaAntiga.getMateriais().indexOf(material)));
+                materiaisAtualizados.add(materialServico.buscarPorNome(material.getNome()));
             }
         }
-        consulta.
+        consulta.setMateriais(materiaisAtualizados);
         salvar(consulta);
 
     }
@@ -65,6 +68,8 @@ public class ConsultaService {
             materialServico.remover(novo.getNome(),novo.getQuantidade() - antigo.getQuantidade());
         } else if (antigo.getQuantidade() > novo.getQuantidade()) {
             materialServico.adicionar(novo.getNome(),antigo.getQuantidade() - novo.getQuantidade());
+        }else{
+            return;
         }
     }
 
