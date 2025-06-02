@@ -34,7 +34,7 @@ const Cadastro = () => {
         ...formData,
         cargo: Number(formData.cargo) // <-- transforma para número
       };
-      const response = await axios.post("http://localhost:8080/auth/cadastro", payload);
+      const response = await axios.post("http://localhost:8080/auth/register", payload);
 
       console.log(response.data);
       alert("Cadastro realizado com sucesso!");
