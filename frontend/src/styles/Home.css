@@ -731,3 +731,19 @@ body {
   background-color: #0d6efd;
   color: white;
 }
+.btn-danger {
+  background-color: #e53935;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.btn-danger:hover {
+  background-color: #c62828;
+}
+
+

@@ -17,6 +17,12 @@ const Material = () => {
 
   const { data: materiais, isLoading, isError } = useMateriais();
 
+  // Apenas exibe alerta por enquanto
+  const handleDeleteClick = (nome) => {
+    alert(`Você clicou para excluir o material: ${nome}`);
+    // Aqui você poderá chamar o hook de exclusão depois
+  };
+
   return (
     <div className="app-container">
 
@@ -70,6 +76,13 @@ const Material = () => {
                         >
                           Editar
                         </button>
+                        <button
+                          className="btn-danger"
+                          style={{ marginLeft: '10px' }}
+                          onClick={() => handleDeleteClick(material.nome)}
+                        >
+                          Excluir
+                        </button>
                       </td>
                     </tr>
                   ))}
@@ -80,18 +93,18 @@ const Material = () => {
         </div>
       </main>
 
-    <AddMaterialModal
-      open={openAddModal}
-      handleClose={() => setOpenAddModal(false)}
-    />
-
-    {materialSelecionado && (
-      <EditMaterialModal
-        open={openEditModal}
-        handleClose={() => setOpenEditModal(false)}
-        material={materialSelecionado}
+      <AddMaterialModal
+        open={openAddModal}
+        handleClose={() => setOpenAddModal(false)}
       />
-    )}
+
+      {materialSelecionado && (
+        <EditMaterialModal
+          open={openEditModal}
+          handleClose={() => setOpenEditModal(false)}
+          material={materialSelecionado}
+        />
+      )}
     </div>
   );
 };
