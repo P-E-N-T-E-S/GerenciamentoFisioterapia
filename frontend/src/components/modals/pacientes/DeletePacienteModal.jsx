@@ -1,9 +1,10 @@
-// src/components/DeletePacienteModal.jsx
-import React from 'react';
+// src/components/modals/pacientes/DeletePacienteModal.jsx
+import React, { useState } from 'react';
 import {
-  Modal, Box, Typography, IconButton, List, ListItem, ListItemText, Button
+  Modal, Box, Typography, IconButton, List, ListItem, ListItemText, Button, TextField
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import { usePacientes, usePacienteByName } from '../../../hooks/usePacientes';
 
 const style = {
   position: 'absolute',
@@ -17,7 +18,12 @@ const style = {
   p: 4,
 };
 
-export const DeletePacienteModal = ({ open, handleClose, pacientes }) => {
+export const DeletePacienteModal = ({ open, handleClose }) => {
+  const [busca, setBusca] = useState('');
+  const { data: pacientesAll, isLoading, isError } = usePacientes();
+  const { data: pacientesFiltrados } = usePacienteByName(busca);
+  const pacientes = busca.length > 0 ? pacientesFiltrados : pacientesAll;
+
   return (
     <Modal open={open} onClose={handleClose}>
       <Box sx={style}>
@@ -26,11 +32,27 @@ export const DeletePacienteModal = ({ open, handleClose, pacientes }) => {
           <IconButton onClick={handleClose}><CloseIcon /></IconButton>
         </Box>
 
+        <TextField
+          fullWidth
+          label="Buscar por nome"
+          value={busca}
+          onChange={(e) => setBusca(e.target.value)}
+          sx={{ mb: 2 }}
+        />
+
+        {isLoading && <Typography>Carregando pacientes...</Typography>}
+        {isError && <Typography color="error">Erro ao carregar pacientes.</Typography>}
+
         <List>
-          {pacientes.map((paciente, idx) => (
+          {pacientes?.map((paciente, idx) => (
             <ListItem key={idx} divider>
-              <ListItemText primary={paciente.nome} secondary={paciente.cpf} />
-              <Button variant="outlined" color="error">Deletar</Button>
+              <ListItemText
+                primary={paciente.nome}
+                secondary={typeof paciente.cpf === 'string' ? paciente.cpf : ''}
+              />
+              <Button variant="outlined" color="error">
+                Deletar
+              </Button>
             </ListItem>
           ))}
         </List>
