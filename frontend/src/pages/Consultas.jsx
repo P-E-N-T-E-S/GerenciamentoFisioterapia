@@ -1,37 +1,37 @@
 import React, { useState } from 'react';
-import {
-  FaSearch
-} from 'react-icons/fa';
+import { FaSearch } from 'react-icons/fa';
 import '../styles/Home.css';
 
 import { Sidebar } from '../components/template/Sidebar';
 import { Header } from '../components/template/Header';
 import { AddConsultaModal } from '../components/modals/consultas/AddConsultaModal';
-
-// Importando o array de pacientes
-import { pacientes } from './Pacientes';
 import { DetalhesConsultaModal } from '../components/modals/consultas/DetalhesConsultaModal';
-// dado hardcoded vindo de Pacientes.jsx
-const consultasData = pacientes.flatMap(paciente => 
-  (paciente.consultas || []).map(consulta => ({
-    ...consulta,
-    paciente: paciente.nome
-  }))
-);
 
+import { usePacientes } from '../hooks/usePacientes';
 
+// Agora busca pacientes da API
 const Consultas = () => {
   const [openAddModal, setOpenAddModal] = useState(false);
   const [openDetailsModal, setOpenDetailsModal] = useState(false);
   const [consultaSelecionada, setConsultaSelecionada] = useState(null);
-
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
+  // Hook para buscar pacientes da API
+  const { data: pacientes, isLoading, isError } = usePacientes();
+
+  // Gera as consultas a partir dos pacientes da API
+  const consultasData = pacientes
+    ? pacientes.flatMap(paciente =>
+      (paciente.consultas || []).map(consulta => ({
+        ...consulta,
+        paciente: paciente.nome
+      }))
+    )
+    : [];
 
   return (
     <div className="app-container">
-
-    {/* Botão para abrir/fechar o sidebar */}
+      {/* Botão para abrir/fechar o sidebar */}
       <button
         className="menu-toggle"
         onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -60,21 +60,21 @@ const Consultas = () => {
             <button className="btn-primary" onClick={() => setOpenAddModal(true)}>
               Adicionar
             </button>
-            
           </div>
 
           <div className="consulta-list">
-            {consultasData.map((consulta, i) => (
+            {isLoading && <p>Carregando consultas...</p>}
+            {isError && <p>Erro ao carregar pacientes.</p>}
+            {!isLoading && !isError && consultasData.map((consulta, i) => (
               <div className="consulta-card" key={i}>
                 <div className="consulta-date">
                   <span className="day">seg</span>
-                  {/* <span className="day">{consulta.dia}</span> */}
                   <strong className="number">{consulta.dia}</strong>
                 </div>
                 <div className="consulta-info" onClick={() => {
-                setConsultaSelecionada(consulta);
-                setOpenDetailsModal(true);
-              }}>
+                  setConsultaSelecionada(consulta);
+                  setOpenDetailsModal(true);
+                }}>
                   <p><strong>🕒</strong> {consulta.hora}</p>
                   <p><strong>👤</strong> {consulta.paciente}</p>
                   <p><strong>Tipo:</strong> {consulta.tipo}</p>
@@ -87,17 +87,19 @@ const Consultas = () => {
         </div>
       </main>
 
-      <AddConsultaModal open={openAddModal} handleClose={() => setOpenAddModal(false) } 
-      pacientesExistentes={consultasData.map(consulta => consulta.paciente)}/>
+      <AddConsultaModal
+        open={openAddModal}
+        handleClose={() => setOpenAddModal(false)}
+        pacientesExistentes={pacientes ? pacientes.map(p => p.nome) : []}
+      />
 
       {consultaSelecionada && (
-        <DetalhesConsultaModal 
-          open={openDetailsModal} 
-          handleClose={() => setOpenDetailsModal(false)} 
+        <DetalhesConsultaModal
+          open={openDetailsModal}
+          handleClose={() => setOpenDetailsModal(false)}
           consulta={consultaSelecionada}
         />
       )}
-
     </div>
   );
 };
