@@ -19,6 +19,7 @@ import org.mockito.internal.matchers.NotNull;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +27,8 @@ import java.util.Map;
 @Repository
 public class Repositorio implements PacienteRepository, ConsultaRepository, ProcedimentoRepository, FichaMedicaRepositorio, MaterialRepository, NotificacaoConsumidor {
 
-    protected Map<PacienteId, Paciente> pacientes = new HashMap<>();
+    protected Map<Long, Paciente> pacientes = new HashMap<>();
+    protected List<Notificacao> notificacoes = new ArrayList<>();
 
     @Override
     public void salvar(Consulta consulta) {
@@ -110,12 +112,13 @@ public class Repositorio implements PacienteRepository, ConsultaRepository, Proc
 
     @Override
     public void cadastrar(Paciente paciente) {
-
+        pacientes.put(paciente.getPacienteId().getId(), paciente);
     }
 
     @Override
     public Paciente buscarPorId(PacienteId id) {
-        return null;
+        Paciente paciente = pacientes.get(id.getId());
+        return paciente;
     }
 
     @Override
@@ -135,7 +138,9 @@ public class Repositorio implements PacienteRepository, ConsultaRepository, Proc
 
     @Override
     public List<Paciente> listarPacientes() {
-        return null;
+        List<Paciente> pacientes_lista = new ArrayList<>(pacientes.values());
+
+        return pacientes_lista;
     }
 
     @Override

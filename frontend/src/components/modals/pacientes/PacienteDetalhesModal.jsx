@@ -22,9 +22,11 @@ const style = {
 
 export const PacienteDetalhesModal = ({ open, handleClose, paciente }) => {
   const size = { xs: 2, sm: 4, md: 6 };
-
+  
   // Garante que consultas é sempre um array
   const consultas = (paciente && Array.isArray(paciente.consultas)) ? paciente.consultas : [];
+  const cpf = paciente.cpf || {};
+  const endereco = paciente.endereco || {};
 
   return (
     <Modal open={open} onClose={handleClose}>
@@ -36,17 +38,17 @@ export const PacienteDetalhesModal = ({ open, handleClose, paciente }) => {
 
         <Grid container spacing={2} mt={1} columns={{ xs: 4, sm: 8, md: 12 }}>
           <Grid item xs={6} size={size}><Typography><strong>Nome do paciente</strong><br />{paciente.nome}</Typography></Grid>
-          <Grid item xs={6} size={size}><Typography><strong>CPF</strong><br />{paciente.cpf}</Typography></Grid>
-          <Grid item xs={6} size={size}><Typography><strong>Endereço</strong><br />{paciente.endereco}</Typography></Grid>
-          <Grid item xs={6} size={size}><Typography><strong>Profissão</strong><br />{paciente.profissao}</Typography></Grid>
-          <Grid item xs={6} size={size}><Typography><strong>Celular</strong><br />{paciente.celular}</Typography></Grid>
+          <Grid item xs={6} size={size}><Typography><strong>CPF</strong><br />{cpf.codigo}</Typography></Grid>
+          {/* <Grid item xs={6} size={size}><Typography><strong>Endereço</strong><br />{endereco}</Typography></Grid> */}
+          {/* <Grid item xs={6} size={size}><Typography><strong>Profissão</strong><br />{paciente.profissao}</Typography></Grid> */}
+          <Grid item xs={6} size={size}><Typography><strong>Celular</strong><br />{paciente.contato}</Typography></Grid>
         </Grid>
 
         <Typography variant="h6" mt={4} fontWeight="bold">
-          {consultas.length > 0 ? 'Consultas' : '-- Não há consultas --'}
+          {consultas && consultas.length > 0 ? 'Consultas' : '-- Não há consultas --'}
         </Typography>
 
-        {consultas.map((consulta, idx) => (
+        {consultas && consultas.map((consulta, idx) => (
           <Box key={idx} mt={1} p={2} border="1px solid #ccc" borderRadius={2}>
             <Grid container spacing={2}>
               <Grid item>

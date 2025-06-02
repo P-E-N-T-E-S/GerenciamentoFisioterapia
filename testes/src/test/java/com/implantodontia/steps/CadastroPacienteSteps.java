@@ -6,10 +6,12 @@ import io.cucumber.java.en.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.List;
+import java.util.Map;
 
 public class CadastroPacienteSteps extends FuncionalidadesSistema {
 
     Paciente paciente;
+    private String erro;
 
     // ==================================================================
     // Cenário 1: Cadastro válido
@@ -48,11 +50,12 @@ public class CadastroPacienteSteps extends FuncionalidadesSistema {
             Paciente paciente = new Paciente(new PacienteId(0), new Cpf("684.976.720-89"), new Endereco("Rua dos bobos", "Arruda", "0", "Casa", "Recife", "52071321"), nome, contato, medico);
             pacienteService.cadastrarPaciente(paciente, false);
         } catch (IllegalArgumentException e) {
+            erro = e.getMessage();
         }
     }
 
     @Then("o sistema exibe o erro {string}")
     public void verificarMensagemErro(String mensagemErro) {
-        //assertEquals(mensagemErro, this.erro);
+        assertEquals(mensagemErro, this.erro);
     }
 }

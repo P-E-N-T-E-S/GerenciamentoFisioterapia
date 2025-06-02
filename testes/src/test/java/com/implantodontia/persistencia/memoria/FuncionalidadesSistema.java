@@ -28,9 +28,9 @@ public class FuncionalidadesSistema {
         notificacaoService = new NotificacaoService(repositorio);
         pacienteService = new PacienteService(repositorio, notificacaoService);
         historicoProcedimentosService = new HistoricoProcedimentosService();
-        consultaService = new ConsultaService(repositorio);
         fichaMedicaServico = new FichaMedicaServico(repositorio);
         materialServico = new MaterialServico(repositorio, notificacaoService);
+        consultaService = new ConsultaService(repositorio, materialServico);
     }
 
 }

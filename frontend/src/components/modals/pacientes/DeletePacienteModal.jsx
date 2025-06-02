@@ -1,10 +1,9 @@
-// src/components/modals/pacientes/DeletePacienteModal.jsx
 import React, { useState } from 'react';
 import {
   Modal, Box, Typography, IconButton, List, ListItem, ListItemText, Button, TextField
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import { usePacientes, usePacienteByName } from '../../../hooks/usePacientes';
+import { usePacientes, usePacienteByName, useDeletePaciente } from '../../../hooks/usePacientes';
 
 const style = {
   position: 'absolute',
@@ -23,6 +22,20 @@ export const DeletePacienteModal = ({ open, handleClose }) => {
   const { data: pacientesAll, isLoading, isError } = usePacientes();
   const { data: pacientesFiltrados } = usePacienteByName(busca);
   const pacientes = busca.length > 0 ? pacientesFiltrados : pacientesAll;
+
+  // Hook delete de Pacientes
+  const deletePaciente = useDeletePaciente();
+  const handleDelete = async (pacienteId) => {
+    deletePaciente.mutate(pacienteId, {
+      onSuccess: () => {
+        alert('Paciente deletado com sucesso!');
+        // handleClose();
+      },
+      onError: (error) => {
+        alert(`Erro ao deletar paciente: ${error.message}`);
+      }
+    });
+  }
 
   return (
     <Modal open={open} onClose={handleClose}>
@@ -50,7 +63,10 @@ export const DeletePacienteModal = ({ open, handleClose }) => {
                 primary={paciente.nome}
                 secondary={typeof paciente.cpf === 'string' ? paciente.cpf : ''}
               />
-              <Button variant="outlined" color="error">
+              <Button variant="outlined" color="error" 
+                onClick={() => handleDelete(paciente.pacienteId?.id)}
+                disabled={deletePaciente.isLoading}
+              >
                 Deletar
               </Button>
             </ListItem>
