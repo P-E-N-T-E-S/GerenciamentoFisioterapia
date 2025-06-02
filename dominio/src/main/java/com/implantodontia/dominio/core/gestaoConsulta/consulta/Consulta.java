@@ -29,7 +29,8 @@ public class Consulta {
         this.descricao = descricao;
         this.materiais = materiais;
         this.local = local;
-        this.valor = valor;
+        this.valor = valor != null ? valor : 0.0;
+        ;
     }
 
     public LocalDateTime getDataHora() {

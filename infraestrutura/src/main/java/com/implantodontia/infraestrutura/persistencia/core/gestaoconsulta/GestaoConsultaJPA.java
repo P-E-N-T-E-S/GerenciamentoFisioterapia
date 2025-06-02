@@ -26,7 +26,7 @@ public class GestaoConsultaJPA {
     @JoinTable(
             name = "material_consulta",
             joinColumns = @JoinColumn(name = "id_consulta"),
-            inverseJoinColumns = @JoinColumn(name = "nome_material")
+            inverseJoinColumns = @JoinColumn(name = "id_material")
     )
     private List<MaterialJPA> materiais;
 

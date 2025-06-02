@@ -6,6 +6,7 @@ import com.implantodontia.dominio.core.gestaoPacientes.paciente.PacienteReposito
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.PacienteService;
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.fichamedica.FichaMedicaRepositorio;
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.fichamedica.FichaMedicaServico;
+import com.implantodontia.dominio.core.material.MaterialServico;
 import com.implantodontia.dominio.support.notificacoes.ConsoleNotificacaoObserver;
 import com.implantodontia.dominio.support.notificacoes.NotificacaoConsumidor;
 import com.implantodontia.dominio.support.notificacoes.NotificacaoProdutor;
@@ -24,8 +25,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class ApresentacaoApplication {
 
     @Bean
-    public ConsultaService consultaService(ConsultaRepository repository) {
-        return new ConsultaService(repository);
+    public ConsultaService consultaService(ConsultaRepository repository, MaterialServico materialServico) {
+        return new ConsultaService(repository,  materialServico);
     }
 
     @Bean

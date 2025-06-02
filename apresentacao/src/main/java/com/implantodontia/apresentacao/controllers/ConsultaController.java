@@ -1,6 +1,7 @@
 package com.implantodontia.apresentacao.controllers;
 
 import com.implantodontia.apresentacao.dto.ConsultaDTO;
+import com.implantodontia.apresentacao.dto.ConsultaEditaDTO;
 import com.implantodontia.apresentacao.dto.EnderecoDTO;
 import com.implantodontia.dominio.core.gestaoConsulta.consulta.Consulta;
 import com.implantodontia.dominio.core.gestaoConsulta.consulta.ConsultaId;
@@ -8,6 +9,7 @@ import com.implantodontia.dominio.core.gestaoConsulta.consulta.ConsultaService;
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.Endereco;
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.PacienteId;
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.PacienteService;
+import com.implantodontia.dominio.core.material.Material;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,6 +41,23 @@ public class ConsultaController {
                 null,
                 convertEndereco(consulta.endereco()),
                 null));
+
+        return new ResponseEntity<>("Consulta salva com sucesso", HttpStatus.CREATED);
+    }
+
+    @PutMapping
+    public ResponseEntity<String> editarConsulta(@RequestBody ConsultaEditaDTO consulta){
+        if (consulta.materiaisUsados() != null){
+            List<Material> materiais = consulta.materiaisUsados().stream().map(material -> new Material(material.quantidade(), material.nome())).toList();
+            consultaService.editar(new Consulta(new ConsultaId(consulta.id()), consulta.dataHora(),
+                    pacienteService.buscarPacientePorId(new PacienteId(consulta.pacienteId())),
+                    consulta.dataVencimento(),
+                    consulta.clientePagou(),
+                    consulta.descricao(),
+                    materiais,
+                    convertEndereco(consulta.endereco()),
+                    consulta.valor()));
+        }
 
         return new ResponseEntity<>("Consulta salva com sucesso", HttpStatus.CREATED);
     }
