@@ -28,11 +28,12 @@ import java.util.Map;
 public class Repositorio implements PacienteRepository, ConsultaRepository, ProcedimentoRepository, FichaMedicaRepositorio, MaterialRepository, NotificacaoConsumidor {
 
     protected Map<Long, Paciente> pacientes = new HashMap<>();
+    protected Map<Long, Consulta> consultas = new HashMap<>();
     protected List<Notificacao> notificacoes = new ArrayList<>();
 
     @Override
     public void salvar(Consulta consulta) {
-
+        consultas.put(consulta.getConsultaId().getId() ,consulta);
     }
 
     @Override
@@ -102,7 +103,8 @@ public class Repositorio implements PacienteRepository, ConsultaRepository, Proc
 
     @Override
     public List<Consulta> listarConsultas() {
-        return null;
+        List<Consulta> busca_consultas = new ArrayList<>(consultas.values());
+        return busca_consultas;
     }
 
     @Override
