@@ -76,4 +76,8 @@ public class ConsultaService {
     private void processarMateriaisNovos(Material novo){
         materialServico.remover(novo.getNome(),novo.getQuantidade());
         }
+
+    public List<Consulta> buscarPorDataVencimento(LocalDate data){
+        return repository.buscarConsultaPorDataVencimento(data);
     }
+}

@@ -60,5 +60,13 @@ public class GestaoConsultaImpl implements ConsultaRepository {
         return gestaoConsultaRepositorio.findById(id).map(c->mapeador.map(c, Consulta.class)).orElse(null);
     }
 
+    @Override
+    public List<Consulta> buscarConsultaPorDataVencimento(LocalDate data) {
+
+        List<GestaoConsultaJPA> consultas = gestaoConsultaRepositorio.findByDataVencimentoBeforeAndClientePagouFalse(data);
+
+        return consultas.stream().map(consulta -> mapeador.map(consulta, Consulta.class)).collect(Collectors.toList());
+    }
+
 
 }

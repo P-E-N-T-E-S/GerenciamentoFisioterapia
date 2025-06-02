@@ -7,15 +7,13 @@ import com.implantodontia.dominio.core.gestaoPacientes.paciente.PacienteService;
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.fichamedica.FichaMedicaRepositorio;
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.fichamedica.FichaMedicaServico;
 import com.implantodontia.dominio.core.material.MaterialServico;
-import com.implantodontia.dominio.support.notificacoes.ConsoleNotificacaoObserver;
-import com.implantodontia.dominio.support.notificacoes.NotificacaoConsumidor;
-import com.implantodontia.dominio.support.notificacoes.NotificacaoProdutor;
-import com.implantodontia.dominio.support.notificacoes.NotificacaoService;
+import com.implantodontia.dominio.support.notificacoes.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 
 @SpringBootApplication(scanBasePackages = {"com.implantodontia.apresentacao",
         "com.implantodontia.dominio",
@@ -51,6 +49,11 @@ public class ApresentacaoApplication {
         // TODO: notificacaoService.registrarObserver(smsObserver);
 
         return notificacaoService;
+    }
+
+    @Bean
+    public AgendamentoService agendamentoService(ConsultaService consultaService, NotificacaoService notificacaoService) {
+        return new AgendamentoService(consultaService, notificacaoService);
     }
 
     public static void main(String[] args) {
