@@ -74,36 +74,36 @@ const Pacientes = () => {
                 <div className="paciente-info">
                   <span className="avatar">👤</span>
                   <span className="paciente-name"
-                  onClick={() => {
-                  setPacienteSelecionado(paciente);
-                  setOpenDetailsModal(true);
-                }}>
-                  {paciente.nome}
+                    onClick={() => {
+                      setPacienteSelecionado(paciente);
+                      setOpenDetailsModal(true);
+                    }}>
+                    {paciente.nome}
                   </span>
                 </div>
                 <div className="card-buttons">
 
-                  {Object.keys(paciente.fichaMedica).length > 0 ? (
+                  {paciente.fichaMedica && Object.keys(paciente.fichaMedica).length > 0 ? (
 
-                      <button className="btn-secondary" onClick={(e) => {
+                    <button className="btn-secondary" onClick={(e) => {
+                      e.stopPropagation();
+                      setPacienteSelecionado(paciente);
+                      setOpenFichaModal(true);
+                    }}>
+                      Ficha médica
+                    </button>
+                  )
+                    : (
+                      <IconButton aria-label='Adicionar ficha médica'
+                        sx={{ borderRadius: 50, backgroundColor: '#ddd', color: '#000', mr: 2, '&:hover': { backgroundColor: '#ccc' } }}
+                        onClick={(e) => {
                           e.stopPropagation();
                           setPacienteSelecionado(paciente);
-                          setOpenFichaModal(true);
+                          setOpenAddFichaMedicaModal(true);
                         }}>
-                        Ficha médica
-                      </button>
-                  )
-                  : (
-                      <IconButton aria-label='Adicionar ficha médica'
-                          sx={{ borderRadius: 50, backgroundColor: '#ddd', color: '#000', mr: 2, '&:hover': { backgroundColor: '#ccc' } }}
-                          onClick={(e) => {
-                              e.stopPropagation();
-                              setPacienteSelecionado(paciente);
-                              setOpenAddFichaMedicaModal(true);
-                          }}>
-                          <AddIcon />
+                        <AddIcon />
                       </IconButton>
-                  )}
+                    )}
                 </div>
               </div>
             ))}
