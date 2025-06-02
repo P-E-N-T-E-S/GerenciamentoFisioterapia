@@ -23,6 +23,9 @@ const Pacientes = () => {
   const [openAddFichaMedicaModal, setOpenAddFichaMedicaModal] = useState(false);
   const [pacienteSelecionado, setPacienteSelecionado] = useState(null);
 
+  // Estado para controlar a abertura do sidebar (responsividade)
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
   const [busca, setBusca] = useState('');
 
   const { data: pacientesAll, isLoading, isError } = usePacientes();
@@ -34,12 +37,12 @@ const Pacientes = () => {
     <div className="app-container">
       <button
         className="menu-toggle"
-        onClick={() => setOpenDeleteModal(true)}
+        onClick={() => setSidebarOpen(!sidebarOpen)}
         aria-label="Abrir menu"
       >
         &#9776;
       </button>
-      <Sidebar open={false} setOpen={() => {}} />
+      <Sidebar open={sidebarOpen} setOpen={setSidebarOpen} />
 
       <main className="main-content">
         <Header />

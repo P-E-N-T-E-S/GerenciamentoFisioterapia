@@ -55,8 +55,8 @@ public class ConsultaService {
                 processarMateriaisAntigos(material, consultaAntiga.getMateriais().get(consultaAntiga.getMateriais().indexOf(material)));
             }
         }
-        consulta.
-        salvar(consulta);
+        //consulta.
+        //salvar(consulta);
 
     }
 
