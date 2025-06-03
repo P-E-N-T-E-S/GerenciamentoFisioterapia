@@ -35,7 +35,7 @@ public class ConsultaSteps extends FuncionalidadesSistema {
         Consulta consultaBase = new Consulta(
                 new ConsultaId(0L),
                 LocalDateTime.of(2025, 4, 17, 0, 0),
-                new Paciente(new PacienteId(0), new Cpf("684.976.720-89"), new Endereco("Rua dos bobos", "Arruda", "0", "Casa", "Recife", "52071321"), "José Valder", "081 99999-99999", "Dra Katia"),
+                new Paciente(new PacienteId(0), new Cpf("684.976.720-89"), new Endereco("Rua dos bobos", "Arruda", "0", "Casa", "Recife", "52071321"), "José Valder", "081 99999-99999", "Dra Katia", "Teste@gmail.com"),
                 LocalDate.of(2025, 4, 21),
                 false,
                 "Consulta B",

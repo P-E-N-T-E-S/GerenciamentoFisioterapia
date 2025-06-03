@@ -9,11 +9,14 @@ import com.implantodontia.dominio.core.gestaoPacientes.paciente.*;
 
 import java.time.LocalDateTime;
 
+import static org.apache.logging.log4j.ThreadContext.isEmpty;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class FichaMedicaSteps extends FuncionalidadesSistema {
 
     String pdfSimulado;
+    boolean fichaPreenchida;
+    Paciente paciente;
 
     //==============================================================
     // Cenário 1: Gerar arquivo da ficha médica
@@ -21,7 +24,7 @@ public class FichaMedicaSteps extends FuncionalidadesSistema {
     @Given("que existe um paciente com ficha médica no sistema")
     public void criarPacienteComFicha() {
         FichaMedicaImplanta fichaMedica = new FichaMedicaImplanta(new PacienteId(0), 0L);
-        Paciente paciente = new Paciente(new PacienteId(0), new Cpf("684.976.720-89"), new Endereco("Rua dos bobos", "Arruda", "0", "Casa", "Recife", "52071321"), "José Valder", "81 997510500", "Dra Katia");
+        Paciente paciente = new Paciente(new PacienteId(0), new Cpf("684.976.720-89"), new Endereco("Rua dos bobos", "Arruda", "0", "Casa", "Recife", "52071321"), "José Valder", "81 997510500", "Dra Katia", "Teste@gmail.com");
         pacienteService.cadastrarPaciente(paciente, true);
         fichaMedica.preencherDadosClinicos("Treze fraturas cranianas", "Alergia a Dopamina");
         paciente.vincularFichaMedica(fichaMedica);
@@ -42,8 +45,7 @@ public class FichaMedicaSteps extends FuncionalidadesSistema {
 
     @Then("o arquivo deve conter todos os dados clínicos do paciente")
     public void verificarDadosClinicos() {
-        assertTrue(fichaMedicaServico.validarDadosObrigatorios(new PacienteId(0)),
-                "Ficha deve ter dados obrigatórios preenchidos");
+        assertTrue(fichaMedicaServico.validarDadosObrigatorios(new PacienteId(0)),"Ficha deve ter dados obrigatórios preenchidos");
     }
 
     //==============================================================
@@ -52,24 +54,28 @@ public class FichaMedicaSteps extends FuncionalidadesSistema {
 
     @Given("que haja um paciente no sistema, com ficha")
     public void criarPacienteComFichaExistente() {
-        //criarPacienteComFicha(); // Reusa o setup do primeiro cenário
+        FichaMedicaImplanta fichaMedica = new FichaMedicaImplanta(new PacienteId(0), 0L);
+        this.paciente = new Paciente(new PacienteId(0), new Cpf("684.976.720-89"), new Endereco("Rua dos bobos", "Arruda", "0", "Casa", "Recife", "52071321"), "José Valder", "81 997510500", "Dra Katia", "Teste@gmail.com");
+        pacienteService.cadastrarPaciente(paciente, true);
+        paciente.vincularFichaMedica(fichaMedica);
     }
 
     @When("eu registrar uma consulta realizada com esse paciente")
     public void registrarConsulta() {
-        //this.alertaAtivado = servico.deveSolicitarObservacoes(pacienteId);
+        this.fichaPreenchida = fichaMedicaServico.validarDadosObrigatorios(new PacienteId(0));
     }
 
     @Then("eu devo ser alertado para fazer anotações na ficha médica dele")
     public void verificarAlertaObservacoes() {
-        //assertTrue(alertaAtivado, "Sistema deveria solicitar atualização das observações");
+        assertFalse(fichaPreenchida, "Sistema deveria solicitar atualização das observações");
     }
 
     @Then("devo poder adicionar observações na ficha")
     public void adicionarObservacoes() {
-        //fichaMedicas.adicionarObservacao(fichaMedica, "Nova observação de teste - " + System.currentTimeMillis());
-        //assertFalse(fichaMedica.getObservacoes().isEmpty(),
-                //"Observações deveriam estar preenchidas após atualização");
+        FichaMedicaImplanta fichaMedica = new FichaMedicaImplanta(new PacienteId(0), 0L);
+        fichaMedica.preencherDadosClinicos("Treze fraturas cranianas", "Alergia a Dopamina");
+        paciente.vincularFichaMedica(fichaMedica);
+        assertFalse(paciente.getFichaMedica().getHistoricoMedico().isEmpty());
     }
 
     //==============================================================
@@ -77,7 +83,7 @@ public class FichaMedicaSteps extends FuncionalidadesSistema {
     //==============================================================
 
     private Paciente criarPacienteExemplo() {
-        Paciente paciente = new Paciente(new PacienteId(0), new Cpf("684.976.720-89"), new Endereco("Rua dos bobos", "Arruda", "0", "Casa", "Recife", "52071321"), "José Valder", "081 99999-99999", "Dra Katia");
+        Paciente paciente = new Paciente(new PacienteId(0), new Cpf("684.976.720-89"), new Endereco("Rua dos bobos", "Arruda", "0", "Casa", "Recife", "52071321"), "José Valder", "081 99999-99999", "Dra Katia", "Teste@gmail.com");
         return paciente;
     }
 

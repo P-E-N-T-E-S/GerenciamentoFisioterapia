@@ -89,7 +89,8 @@ public class LembreteConsultaSteps {
                 new Endereco("Endereço Teste", "Rua Teste", "123", "Apto 1", "TesteCidade", "00000-000"),
                 "Paciente de Teste " + pacienteId.getId(),
                 "99999-9999",
-                "Dr. Testador"
+                "Dr. Testador",
+                "Teste@gmail.com"
         );
         return paciente;
     }

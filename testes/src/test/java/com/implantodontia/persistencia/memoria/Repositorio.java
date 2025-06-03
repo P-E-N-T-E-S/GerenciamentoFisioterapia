@@ -4,21 +4,14 @@ import com.implantodontia.dominio.core.gestaoConsulta.consulta.*;
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.Paciente;
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.PacienteId;
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.PacienteRepository;
-import com.implantodontia.dominio.core.gestaoPacientes.paciente.PacienteService;
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.fichamedica.FichaMedicaImplanta;
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.fichamedica.FichaMedicaRepositorio;
-import com.implantodontia.dominio.core.gestaoPacientes.paciente.fichamedica.FichaMedicaServico;
 import com.implantodontia.dominio.core.material.Material;
 import com.implantodontia.dominio.core.material.MaterialRepository;
-import com.implantodontia.dominio.core.material.MaterialServico;
 import com.implantodontia.dominio.support.notificacoes.Notificacao;
 import com.implantodontia.dominio.support.notificacoes.NotificacaoConsumidor;
 import com.implantodontia.dominio.support.notificacoes.NotificacaoObserver;
-import com.implantodontia.dominio.support.notificacoes.NotificacaoSubject;
 import com.implantodontia.dominio.support.notificacoes.enums.TipoNotificacao;
-import com.implantodontia.dominio.support.relatorio.procedimento.HistoricoProcedimentosService;
-import io.cucumber.java.it.Ma;
-import org.mockito.internal.matchers.NotNull;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -196,7 +189,9 @@ public class Repositorio implements PacienteRepository, ConsultaRepository, Proc
 
     @Override
     public FichaMedicaImplanta buscarPorPaciente(PacienteId idPaciente) {
-        return null;
+        FichaMedicaImplanta paciente_busca = (FichaMedicaImplanta) pacientes.get(idPaciente.getId()).getFichaMedica();
+
+        return paciente_busca;
     }
 
     @Override
