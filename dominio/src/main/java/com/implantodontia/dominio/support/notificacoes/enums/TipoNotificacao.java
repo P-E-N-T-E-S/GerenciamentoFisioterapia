@@ -4,6 +4,7 @@ public enum TipoNotificacao {
     CLIENTE_NOVO("cliente novo"),
     AGENDAMENTO("agendamento"),
     PAGAMENTO("pagamento"),
+    PAGAMENTO_CLIENTE("pagamento cliente"),
     MATERIAIS("materiais"),
     TODAS("todas");
 

@@ -33,7 +33,7 @@ public class PacienteController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null && auth.getPrincipal() instanceof UsuarioDetalhes usuarioDetalhes) {
             Usuario usuario =  usuarioDetalhes.getUsuario();
-            pacienteService.cadastrarPaciente(new Paciente(new PacienteId(0), new Cpf(pacienteDto.cpf()), convertEndereco(pacienteDto.endereco()), pacienteDto.nome(), pacienteDto.contato(), pacienteDto.medicoResponsavel()), usuario.getCargo() == Cargo.ASSISTENTE);
+            pacienteService.cadastrarPaciente(new Paciente(new PacienteId(0), new Cpf(pacienteDto.cpf()), convertEndereco(pacienteDto.endereco()), pacienteDto.nome(), pacienteDto.contato(), pacienteDto.medicoResponsavel(), pacienteDto.email()), usuario.getCargo() == Cargo.ASSISTENTE);
             return new ResponseEntity<>("Paciente Cadastrado", HttpStatus.CREATED);
         }else {
             return new ResponseEntity<>("Usuário não autenticado", HttpStatus.UNAUTHORIZED);
@@ -57,7 +57,8 @@ public class PacienteController {
                         convertEndereco(pacienteDto.endereco()),
                         pacienteDto.nome(),
                         pacienteDto.contato(),
-                        pacienteDto.medicoResponsavel()));
+                        pacienteDto.medicoResponsavel(),
+                        pacienteDto.email()));
         return new ResponseEntity<>("Paciente Atualizado", HttpStatus.OK);
     }
 

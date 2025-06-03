@@ -105,6 +105,7 @@ public class JpaMapeador extends ModelMapper {
                 pacienteJPA.setNome(source.getNome());
                 pacienteJPA.setContato(source.getContato());
                 pacienteJPA.setMedicoResponsavel(source.getMedicoResponsavel());
+                pacienteJPA.setEmail(source.getEmail());
 
                 // Endereço
                 Endereco endereco = source.getEndereco();
@@ -143,7 +144,8 @@ public class JpaMapeador extends ModelMapper {
                         endereco,
                         source.getNome(),
                         source.getContato(),
-                        source.getMedicoResponsavel()
+                        source.getMedicoResponsavel(),
+                        source.getEmail()
                 );
 
                 // Ficha Médica

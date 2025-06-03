@@ -13,6 +13,7 @@ public class PacienteJPA {
     private Long id;
 
     private String cpf;
+    private String email;
     private String nome;
     private String contato;
     private String medicoResponsavel;
@@ -78,5 +79,13 @@ public class PacienteJPA {
 
     public void setEndereco(EnderecoJPA endereco) {
         this.endereco = endereco;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

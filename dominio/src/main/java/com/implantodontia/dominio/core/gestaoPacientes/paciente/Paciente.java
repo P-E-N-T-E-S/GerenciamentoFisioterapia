@@ -6,6 +6,7 @@ import static org.apache.commons.lang3.Validate.notNull;
 
 public class Paciente {
     private PacienteId pacienteId;
+    private String email;
     private Cpf cpf;
     private Endereco endereco;
     private String nome;
@@ -14,7 +15,7 @@ public class Paciente {
     private FichaMedica fichaMedica;
 
 
-    public Paciente(PacienteId pacienteId, Cpf cpf, Endereco endereco, String nome, String contato, String medicoResponsavel) {
+    public Paciente(PacienteId pacienteId, Cpf cpf, Endereco endereco, String nome, String contato, String medicoResponsavel, String email) {
         notNull(cpf, "O CPF do paciente nao pode ser nulo");
         notNull(endereco, "O endereco do paciente nao pode ser nulo");
         notNull(nome, "O nome do paciente nao pode ser nulo");
@@ -27,6 +28,7 @@ public class Paciente {
         this.nome = nome;
         this.contato = contato;
         this.medicoResponsavel = medicoResponsavel;
+        this.email = email;
     }
 
     public PacienteId getPacienteId() {
@@ -82,5 +84,9 @@ public class Paciente {
 
     public void setFichaMedica(FichaMedica fichaMedica) {
         this.fichaMedica = fichaMedica;
+    }
+
+    public String getEmail() {
+        return email;
     }
 }

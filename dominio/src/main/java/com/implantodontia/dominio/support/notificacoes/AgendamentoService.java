@@ -28,6 +28,7 @@ public class AgendamentoService {
         List<Consulta> consultaList = consultaService.buscarPorDataVencimento(LocalDate.now());
         consultaList.forEach(consulta -> {
             notificacaoService.notificarUsuario("fisioterapeuta@gmail.com", "O cliente: "+consulta.getPaciente().getNome()+" tem o vencimento do pagamento no dia: "+consulta.getDataVencimento()+" e ainda não foi registrado o pagamento", TipoNotificacao.PAGAMENTO);
+            notificacaoService.notificarUsuario(consulta.getPaciente().getEmail(), "Bom dia, o pagamento para a consulta do dia: "+consulta.getDataHora()+" venceu no dia: "+consulta.getDataVencimento()+" e ainda não recebi seu pagamento", TipoNotificacao.PAGAMENTO_CLIENTE);
         });
     }
 }
