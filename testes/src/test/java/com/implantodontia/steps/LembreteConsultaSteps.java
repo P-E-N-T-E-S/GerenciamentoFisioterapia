@@ -94,6 +94,7 @@ public class LembreteConsultaSteps {
         );
         return paciente;
     }
+
     private List<Material> criarListaDeMateriaisParaTeste() {
         List<Material> materiais = new ArrayList<>();
         materiais.add(new Material(1, "Gaze"));

@@ -7,8 +7,9 @@ import { Header } from '../components/template/Header';
 import { AddConsultaModal } from '../components/modals/consultas/AddConsultaModal';
 import { DetalhesConsultaModal } from '../components/modals/consultas/DetalhesConsultaModal';
 
-import { useConsultas } from '../hooks/useConsultas'; // Hook correto
+import { usePacientes } from '../hooks/usePacientes';
 
+// Agora busca pacientes da API
 const Consultas = () => {
   const [openAddModal, setOpenAddModal] = useState(false);
   const [openDetailsModal, setOpenDetailsModal] = useState(false);
@@ -44,6 +45,7 @@ const Consultas = () => {
 
   return (
     <div className="app-container">
+      {/* Botão para abrir/fechar o sidebar */}
       <button
         className="menu-toggle"
         onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -82,15 +84,15 @@ const Consultas = () => {
               <div className="consulta-card" key={i}>
                 <div className="consulta-date">
                   <span className="day">seg</span>
-                  <strong className="number">{new Date(consulta.dataHora).getDate()}</strong>
+                  <strong className="number">{consulta.dia}</strong>
                 </div>
                 <div className="consulta-info" onClick={() => {
                   setConsultaSelecionada(consulta);
                   setOpenDetailsModal(true);
                 }}>
-                  <p><strong>🕒</strong> {new Date(consulta.dataHora).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
-                  <p><strong>👤</strong> {consulta.paciente?.nome || 'Paciente não informado'}</p>
-                  <p><strong>Descrição:</strong> {consulta.descricao}</p>
+                  <p><strong>🕒</strong> {consulta.hora}</p>
+                  <p><strong>👤</strong> {consulta.paciente}</p>
+                  <p><strong>Tipo:</strong> {consulta.tipo}</p>
                   <p><strong>Pagamento:</strong> {consulta.pagamentoRealizado ? 'realizado' : 'pendente'}</p>
                 </div>
                 <input type="checkbox" defaultChecked={consulta.consultaRealizada} />
@@ -106,6 +108,7 @@ const Consultas = () => {
       <AddConsultaModal
         open={openAddModal}
         handleClose={() => setOpenAddModal(false)}
+        pacientesExistentes={pacientes ? pacientes.map(p => p.nome) : []}
       />
 
       {consultaSelecionada && (
