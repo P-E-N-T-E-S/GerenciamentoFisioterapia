@@ -26,14 +26,11 @@ public class AuthService {
 
     private PasswordEncoder passwordEncoder;
 
-    private NotificacaoService notificacaoService;
-
-    public AuthService(AuthenticationManager authenticationManager, JwtUtils jwtUtils, UsuarioRepositorio usuarioRepository, PasswordEncoder passwordEncoder, NotificacaoService notificacaoService) {
+    public AuthService(AuthenticationManager authenticationManager, JwtUtils jwtUtils, UsuarioRepositorio usuarioRepository, PasswordEncoder passwordEncoder) {
         this.authenticationManager = authenticationManager;
         this.jwtUtils = jwtUtils;
         this.usuarioRepository = usuarioRepository;
         this.passwordEncoder = passwordEncoder;
-        this.notificacaoService = notificacaoService;
     }
 
     public AcessDTO login(AuthDTO authDTO){
@@ -47,7 +44,9 @@ public class AuthService {
 
             String token = jwtUtils.generateTokenFromUserDetails(userDetails);
 
-            AcessDTO acessDTO = new AcessDTO(token);
+            String cargo = userDetails.getAuthorities().iterator().next().getAuthority();
+
+            AcessDTO acessDTO = new AcessDTO(token, cargo);
 
             return acessDTO;
         }catch (BadCredentialsException e){

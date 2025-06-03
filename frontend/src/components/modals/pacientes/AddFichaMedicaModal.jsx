@@ -94,6 +94,7 @@ export const AddFichaMedicaModal = ({ open, handleClose, paciente }) => {
                             value={historicoMedico} 
                             onChange={(e) => setHistoricoMedico(e.target.value)}
                             multiline
+                            required
                         />
 
                     </Grid>
@@ -104,6 +105,7 @@ export const AddFichaMedicaModal = ({ open, handleClose, paciente }) => {
                             value={alergias} 
                             onChange={(e) => setAlergias(e.target.value)} 
                             multiline
+                            required
                         />
                     </Grid>
                     <Grid item xs={6} size={size}> 

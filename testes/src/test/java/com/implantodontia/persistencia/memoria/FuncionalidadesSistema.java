@@ -6,6 +6,7 @@ import com.implantodontia.dominio.core.gestaoPacientes.paciente.PacienteId;
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.PacienteService;
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.fichamedica.FichaMedicaServico;
 import com.implantodontia.dominio.core.material.MaterialServico;
+import com.implantodontia.dominio.support.notificacoes.AgendamentoService;
 import com.implantodontia.dominio.support.notificacoes.NotificacaoConsumidor;
 import com.implantodontia.dominio.support.notificacoes.NotificacaoService;
 import com.implantodontia.dominio.support.relatorio.procedimento.HistoricoProcedimentosService;
@@ -21,6 +22,7 @@ public class FuncionalidadesSistema {
     protected ConsultaService consultaService;
     protected FichaMedicaServico fichaMedicaServico;
     protected MaterialServico materialServico;
+    protected NotifiacaoMock notifiacaoMock;
 
     public FuncionalidadesSistema() {
         Repositorio repositorio = new Repositorio();
@@ -31,6 +33,7 @@ public class FuncionalidadesSistema {
         fichaMedicaServico = new FichaMedicaServico(repositorio);
         materialServico = new MaterialServico(repositorio, notificacaoService);
         consultaService = new ConsultaService(repositorio, materialServico);
+        notifiacaoMock = new NotifiacaoMock(repositorio);
     }
 
 }

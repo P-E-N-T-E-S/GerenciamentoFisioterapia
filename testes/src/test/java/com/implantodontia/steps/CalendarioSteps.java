@@ -30,10 +30,13 @@ public class CalendarioSteps extends FuncionalidadesSistema {
 
     @Given("que eu tenha 3 consultas agendadas nos dias 10, 17 e 28 de Abril de 2025")
     public void mapearConsultasSistema(){
+        materialServico.adicionar("Gaze", 2);
+        materialServico.adicionar("Tape", 2);
+        materialServico.adicionar("Fita", 2);
 
-        materiais.add(new Material(2, "Gaze"));
-        materiais.add(new Material(2, "Tape"));
-        materiais.add(new Material(2, "Fita"));
+        materiais.add(new Material(1, "Gaze"));
+        materiais.add(new Material(1, "Tape"));
+        materiais.add(new Material(1, "Fita"));
 
         Consulta consultaBase = new Consulta(
                 new ConsultaId(0L),

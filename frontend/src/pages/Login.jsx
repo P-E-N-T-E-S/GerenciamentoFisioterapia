@@ -2,23 +2,34 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Home.css';
 import axios from 'axios';
+import { useAuth } from '../services/AuthContext';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const { login } = useAuth();
 
-async function handleLogin() {
+async function handleLogin(e) {
+    e.preventDefault();
     try {
         const response = await axios.post("http://localhost:8080/auth/login", {
             username,
             password
         });
 
-        console.log(response.data);
-        localStorage.setItem("token", response.data.token);
+        const { token, cargo } = response.data;
+        login(token, cargo); 
+
         alert("Login bem-sucedido!");
-        navigate("/home"); 
+
+        if (cargo === "ROLE_ADMINISTRADOR") {
+            navigate("/home");
+        } else if (cargo === "ROLE_ASSISTENTE") {
+            navigate("/pacientes");
+        } else {
+            navigate("/"); // rota padrão para outros cargos
+        }
 
     } catch (error) {
         console.error("Erro ao fazer login:", error);

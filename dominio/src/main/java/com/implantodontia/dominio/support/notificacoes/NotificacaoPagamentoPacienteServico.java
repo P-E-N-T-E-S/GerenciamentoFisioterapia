@@ -26,10 +26,11 @@ public class NotificacaoPagamentoPacienteServico {
 
     public String verificarPagamentoPendenteSemana(Paciente paciente, Map<String, Consulta> agenda, LocalDate datafiltro){
         for (Map.Entry<String, Consulta> entry : agenda.entrySet()) {
+            Consulta consulta = entry.getValue();
             String nome = entry.getValue().getPaciente().getNome();
-            if (nome.equals(paciente.getNome())) {
+            if (nome.equals(paciente.getNome()) && !consulta.getClientePagou()) {
                 LocalDate dataVencimento = entry.getValue().getDataVencimento();
-                if (dataVencimento.isBefore(datafiltro.plusDays(7)) && dataVencimento.isAfter(datafiltro.minusDays(2))){
+                if (dataVencimento.isEqual(datafiltro.plusDays(7)) && dataVencimento.isAfter(datafiltro.minusDays(2))){
                     return ("Pagamento pendente do paciente: " + entry.getValue().getPaciente().getNome() + " - para o dia " + entry.getValue().getDataVencimento());
                 }
             }

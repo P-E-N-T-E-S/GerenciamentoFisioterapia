@@ -745,5 +745,67 @@ body {
 .btn-danger:hover {
   background-color: #c62828;
 }
+/* === CONSULTAS HOJE === */
+
+.consultas-hoje-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.consulta-hoje-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f7f7fa;
+  border-radius: 8px;
+  padding: 16px 20px;
+  font-size: 1.18rem;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.06);
+  transition: background 0.2s;
+}
+
+.consulta-hoje-item:hover {
+  background: #e3eafc;
+}
+
+.consulta-hoje-nome {
+  color: #222;
+  font-size: 1.18rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.consulta-hoje-hora {
+  color: #1976d2;
+  font-size: 1.15rem;
+  font-weight: 500;
+  background: #e3eafc;
+  border-radius: 6px;
+  padding: 6px 16px;
+  margin-left: 18px;
+}
+
+@media (max-width: 600px) {
+  .consulta-hoje-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    padding: 12px 10px;
+    font-size: 1rem;
+  }
+  .consulta-hoje-hora {
+    margin-left: 0;
+    padding: 5px 10px;
+    font-size: 1rem;
+  }
+  .consulta-hoje-nome {
+    font-size: 1rem;
+  }
+}
 
 

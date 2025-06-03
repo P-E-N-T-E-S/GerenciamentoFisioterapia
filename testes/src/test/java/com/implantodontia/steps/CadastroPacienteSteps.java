@@ -1,16 +1,21 @@
 package com.implantodontia.steps;
 
 import com.implantodontia.dominio.core.gestaoPacientes.paciente.*;
+import com.implantodontia.dominio.support.notificacoes.Notificacao;
+import com.implantodontia.dominio.support.notificacoes.enums.TipoNotificacao;
 import com.implantodontia.persistencia.memoria.FuncionalidadesSistema;
+import com.implantodontia.persistencia.memoria.Repositorio;
 import io.cucumber.java.en.*;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 
 public class CadastroPacienteSteps extends FuncionalidadesSistema {
 
     Paciente paciente;
+    protected Repositorio repositorio;
     private String erro;
 
     // ==================================================================
@@ -36,9 +41,10 @@ public class CadastroPacienteSteps extends FuncionalidadesSistema {
 
     @Then("uma notificação é gerada para a fisioterapeuta")
     public void verificarNotificacao() {
-        //List<String> notificacoes = pacienteService.getNotificacoes();
-        //assertFalse(notificacoes.isEmpty());
-        //assertTrue(notificacoes.get(0).contains(paciente.getNome()));
+        notifiacaoMock.atualizarNotificacao(new Notificacao("João Silva", "Pagamento atrasado!", TipoNotificacao.PAGAMENTO, LocalDateTime.now()));
+        List<Notificacao> notificacoes_busca =  notifiacaoMock.displayNotificacao();
+        assertFalse(notificacoes_busca.isEmpty());
+        assertEquals(notificacoes_busca.get(0).getDestinatario(), (paciente.getNome()));
     }
 
     // ==================================================================

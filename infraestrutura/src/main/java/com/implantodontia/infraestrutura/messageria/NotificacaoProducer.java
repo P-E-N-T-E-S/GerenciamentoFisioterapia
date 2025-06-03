@@ -17,7 +17,7 @@ public class NotificacaoProducer implements NotificacaoProdutor {
         this.rabbitTemplate = rabbitTemplate;
     }
 
-    public void atualizar(Notificacao notificacao) {
+    public void atualizarNotificacao(Notificacao notificacao) {
         NotificacaoDTO dto = NotificacaoMapper.toDTO(notificacao);
         String routingKey = RabbitMQConfig.TODAS_NOTIFICACOES_ROUTING_KEY;
         rabbitTemplate.convertAndSend(

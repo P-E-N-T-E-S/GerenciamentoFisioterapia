@@ -4,6 +4,9 @@ import '../styles/Home.css';
 import axios from 'axios';
 
 const Cadastro = () => {
+
+  const cargoMap = { Admin: 1, User: 0 };
+
   const [formData, setFormData] = useState({
     login: '',
     nome: '',
@@ -22,7 +25,7 @@ const Cadastro = () => {
   };
 
   async function handleSubmit(e) {
-    e.preventDefault();
+  e.preventDefault();
 
     if (Object.values(formData).some(field => !field)) {
       alert('Preencha todos os campos');
@@ -32,7 +35,7 @@ const Cadastro = () => {
     try {
       const payload = {
         ...formData,
-        cargo: Number(formData.cargo) // <-- transforma para número
+        cargo: cargoMap[formData.cargo] ?? formData.cargo
       };
       const response = await axios.post("http://localhost:8080/auth/register", payload);
 
@@ -56,7 +59,20 @@ const Cadastro = () => {
         <input type="text" name="nome" placeholder="Nome" value={formData.nome} onChange={handleChange} />
         <input type="password" name="senha" placeholder="Senha" value={formData.senha} onChange={handleChange} />
         <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} />
-        <input type="number" name="cargo" placeholder="Cargo" value={formData.cargo} onChange={handleChange} />
+        <input
+          type="text"
+          name="cargo"
+          list="cargos"
+          placeholder="Cargo (Admin/User)"
+          value={formData.cargo}
+          onChange={handleChange}
+          className="block w-full my-[10px] px-[8px] py-[8px] border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+        />
+
+        <datalist id="cargos">
+          <option value="Admin" />
+          <option value="User" />
+        </datalist>
 
         <button className="btn-login" onClick={handleSubmit}>Cadastrar</button>
       </div>

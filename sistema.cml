@@ -21,35 +21,38 @@ BoundedContext GestaoPacientes implements GestaoPacientes {
     Aggregate Paciente {
         Entity Paciente {
             aggregateRoot
-            - PacienteId id
+            - PacienteId pacienteId
             String nome
             - Cpf cpf
             - Endereco endereco
-            - Contato contato
-            boolean foiAtendido
+            String contato
             String medicoResponsavel
+            -FichaMedica fichaMedica
 
             def void vincularFichaMedica(@FichaMedica ficha);
 
             Repository PacienteRepository{
-                void adicionar(@Paciente paciente);
-                void remover(@Paciente paciente);
+                void cadastrar(@Paciente paciente);
+                void deletar(@PacienteId id);
+                void atualizar(@Paciente paciente);
                 @Paciente buscarPorId(@PacienteId id);
                 List<@Paciente> listarPacientes();
-                @FichaMedica buscarFicha();
+                List<@Paciente> pesquisarPorNome(String nome);
             }
         }
 
         Service ServicoPacientes {
 
-            void cadastrarPaciente(@Paciente paciente);
-            String verificarPagamentoPendenteDia(@Paciente paciente, Map<String, @Consulta> agenda, LocalDate datafiltro);
-            String verificarPagamentoPendenteSemana(@Paciente paciente, Map<String, @Consulta> agenda, LocalDate datafiltro);
-            List<@Procedimento> filtrarPorTipo(Procedimento.TipoProcedimento tipo);
+            void cadastrarPaciente(@Paciente paciente, boolean notificarUsuario);
+            @Paciente buscarPacientePorId(@PacienteId id);
+            List<@Paciente> listarPacientes();
+            boolean gerarPdfFichaMedica(@FichaMedica ficha);
+            boolean simularGeracaoPdf(@PacienteId pacienteId);
             @FichaMedica obterFichaMedica(@PacienteId pacienteId);
             boolean deveSolicitarObservacoes(@PacienteId pacienteId);
-            List<String> getNotificacoes();
-            void limparNotificacoes();
+            void editarPaciente(@Paciente paciente);
+            List<@Paciente> pesquisarPorNome(String nome);
+            void excluirPaciente(@PacienteId pacienteId);
         }
 
         ValueObject Cpf {
@@ -60,29 +63,27 @@ BoundedContext GestaoPacientes implements GestaoPacientes {
             String logradouro
             String numero
             String complemento nullable
-            String cep
+            String cep 
             String cidade
         }
 
-        ValueObject Contato {
-            String telefone
-            String Email
-        }
 
         ValueObject PacienteId{
             long id
         }
 
         Entity FichaMedica {
+            long id
             - PacienteId pacienteId
             String historicoMedico
             String alergias
             String observacoes
             LocalDateTime ultimaAtualizacao
 
-            def void preencherDadosClinicos(String historicoMedico, String alergias, LocalDateTime dataAtualizacao);
+            def void preencherDadosClinicos(String historicoMedico, String alergias);
+            def void preencherDadosClinicosJPA(String historicoMedico, String alergias, LocalDateTime now);
             def boolean validarDadosObrigatorios();
-            def void adicionarObservacao(String observacao);
+            def void adicionarObservacaoJPA(String observacao, LocalDateTime now);
         }
     }
 }
@@ -91,24 +92,24 @@ BoundedContext GestaoConsultas implements GestaoConsultas {
     Aggregate Consulta {
         Entity Consulta {
             aggregateRoot
+            - ConsutaId consultaId
             LocalDateTime dataHora
             - Paciente paciente
-            LocalDate dataVencimento
+            LocalDate data_vencimento
             boolean clientePagou
             String descricao
             - Material materiais
-            String local
+            -Endereco local
+            Double valor
 
-            def Map<String, String> gerarLembretesConsultas(Map<String, @Consulta> agenda, LocalDate hoje);
-            def Map<String, String> gerarNotificacoesPendencias(Map<String, @Consulta> agenda, LocalDate hoje);
-            def Map<String, @Consulta> filtrarPorData(Map<String, @Consulta> agenda, LocalDate datafiltro);
 
             Repository ConsultaRepository{
-                void adicionar(@Consulta consulta);
-                void remover(@Consulta consulta);
-                void alterar(@Consulta consulta);
-                List<@Consulta> buscarConsultasPorDia(Date dia);
-                List<@Consulta> buscarConsultasPorPaciente(@Paciente paciente);
+                void salvar(@Consulta consulta);
+                void deletar(@Consulta consulta);
+                List<@Consulta> buscarConsultaPorData(LocalDate data);
+                List<@Consulta> listarConsultas();
+                Consulta buscarPorId(Long id);
+                List<@Consulta> buscarConsultaPorDataVencimento(LocalDate data);
             }
         }
 
@@ -125,9 +126,13 @@ BoundedContext GestaoConsultas implements GestaoConsultas {
         }
 
         Service ConsultaService {
-            Map<String, String> gerarLembretesConsultas(Map<String, @Consulta> agenda, LocalDate hoje);
-            Map<String, String> gerarNotificacoesPendencias(Map<String, @Consulta> agenda, LocalDate hoje);
-            Map<String, @Consulta> filtrarPorData(Map<String, @Consulta> agenda, LocalDate datafiltro);
+            void salvar(@Consulta consulta);
+            List<@Consulta> buscarPorData(LocalDate data);
+            List<@Consulta> listarConsultas();
+            @Consulta buscarPorId(Long id);
+            void deletarPorId(Long id);
+            void editar(@Consulta consulta);
+            List<@Consulta> buscarPorDataVencimento(LocalDate data);
         }
 
         Service NotificacaoPagamentoPacienteServico {
@@ -143,19 +148,24 @@ BoundedContext GestaoMateriais implements GestaoMateriais {
         Entity Material {
             aggregateRoot
             String nome
-            String descricao
             int quantidade
-            BigDecimal valor
+            Long id
 
             Repository MaterialRepository{
-                void adicionar(@Material material);
-                void remover(String nome);
+                void salvar(@Material material);
+                void deletar(Long id);
+                void editar(@Material material, Long id);
+                void editarPorNome(@Material material, String nome);
             }
         }
 
         Service MaterialServico {
-            void adicionar(Map<String, Integer> inventario, String item, int quantidade);
-            String remover(Map<String, Integer> inventario, String item, int quantidade);
+            void adicionar(String nome, int quantidade);
+            void remover(String nome, int quantidade);
+            List<@Material> listarMateriais();
+            void editar(String nome, int quantidade, Long id);
+            void deletarPorId(Long id);
+            @Material buscarPorNome(String nome);
         }
     }
 }
@@ -171,7 +181,10 @@ BoundedContext Relatorios {
             void adicionarProcedimento(@Procedimento procedimento);
             List<@Procedimento> filtrarPorDataExata(LocalDate data);
             List<@Procedimento> filtrarPorMesAno(int mes, int ano);
-            List<@Procedimento> filtrarPorTipo(Procedimento.TipoProcedimento tipo);
+            List<@Procedimento> filtrarPorTipo(@TipoProcedimento tipo);
+            List<@Procedimento> listarProcedimentosPorData(LocalDate data);
+            List<@Procedimento> listarProcedimentosPorTipo(@TipoProcedimento tipo);
+            void limparProcedimentos();
         }
     }
 }
