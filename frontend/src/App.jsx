@@ -19,9 +19,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <Router>
         <AuthProvider>
-          <Routes>
-            <AppRoutes />
-          </Routes>
+          <AppRoutes />
         </AuthProvider>
       </Router>
     </QueryClientProvider>
