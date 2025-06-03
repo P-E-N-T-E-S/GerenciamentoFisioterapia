@@ -35,11 +35,6 @@ public class Repositorio implements PacienteRepository, ConsultaRepository, Proc
     protected Map<Long, Consulta> consultas = new HashMap<>();
     protected List<Notificacao> notificacoes = new ArrayList<>();
     protected Map<String, Material> materiais  = new HashMap<>();
-
-    // TODO Matar esses dois materiais extras!
-
-    protected Map<Long, Material> materiaisById = new HashMap<>();
-    protected Map<String, Material> materiaisByName = new HashMap<>();
     private static final AtomicLong proximoMaterialIdGenerator = new AtomicLong(1);
 
     @Override
@@ -77,7 +72,9 @@ public class Repositorio implements PacienteRepository, ConsultaRepository, Proc
 
     @Override
     public void editarPorNome(Material material, String nome) {
-
+        if (material != null && nome != null && this.materiais.containsKey(nome)) {
+            this.materiais.put(nome, material);
+        }
     }
 
     @Override
@@ -207,18 +204,6 @@ public class Repositorio implements PacienteRepository, ConsultaRepository, Proc
         return null;
     }
 
-
-    public void limparDadosDeTeste() {
-        if (consultas != null) consultas.clear();
-        if (pacientes != null) pacientes.clear();
-        if (materiaisById != null) materiaisById.clear();
-        if (materiaisByName != null) materiaisByName.clear();
-        if (notificacoes != null) notificacoes.clear();
-        proximoMaterialIdGenerator.set(1L); // Resetar contador de ID de material
-        // Resetar outros contadores de ID se houver (ex: para PacienteId, ConsultaId se gerados aqui)
-    }
-
-
     @Override
     public void atualizarNotificacao(Notificacao notificacao) {
         notificacoes.add(notificacao);
@@ -226,7 +211,7 @@ public class Repositorio implements PacienteRepository, ConsultaRepository, Proc
 
     @Override
     public TipoNotificacao getTipoNotificacao() {
-        return null;
+        return TipoNotificacao.TODAS;
     }
 
     public void limparNotificacao(){

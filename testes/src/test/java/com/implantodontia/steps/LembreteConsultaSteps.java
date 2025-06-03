@@ -55,7 +55,6 @@ public class LembreteConsultaSteps {
 
     @Before
     public void setUp() {
-        this.repositorio.limparDadosDeTeste();
         this.lembretes.clear();
         this.dataDeHoje = null;
         proximoConsultaIdGenerator.set(1L);

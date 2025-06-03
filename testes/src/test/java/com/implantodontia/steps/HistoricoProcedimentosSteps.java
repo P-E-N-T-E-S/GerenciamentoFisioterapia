@@ -24,7 +24,6 @@ public class HistoricoProcedimentosSteps {
 
     @Given("existem procedimentos cadastrados")
     public void existem_procedimentos_cadastrados() {
-        // Criar procedimento 1: tipo INTRA_OPERATORIO em 29/08/2020
         Procedimento procedimento1 = new Procedimento(
                 LocalDate.of(2020, 8, 29),
                 TipoProcedimento.INTRA_OPERATORIO,
@@ -32,7 +31,6 @@ public class HistoricoProcedimentosSteps {
                 "Hospital Geral"
         );
 
-        // Criar procedimento 2: tipo CONSULTA_PADRAO em 15/03/2024
         Procedimento procedimento2 = new Procedimento(
                 LocalDate.of(2024, 3, 15),
                 TipoProcedimento.CONSULTA_PADRAO,
