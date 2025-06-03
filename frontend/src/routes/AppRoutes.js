@@ -7,12 +7,15 @@ import Consultas from '../pages/Consultas';
 import Calendario from '../pages/Calendario';
 import Cadastro from '../pages/Cadastro';
 import PrivateRoute from '../services/PrivateRoute';
+import NaoAutorizado from '../pages/NaoAutorizado';
 
 
 const AppRoutes = () => (
     <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/cadastro" element={<Cadastro />} />
+        <Route path="/unauthorized" element={<NaoAutorizado />} />
+
 
         <Route element={<PrivateRoute allowedCargos={["ROLE_ADMINISTRADOR"]} />}>
             <Route path="/home" element={<Home />} />
@@ -21,6 +24,7 @@ const AppRoutes = () => (
             <Route path="/consultas" element={<Consultas />} />
             <Route path="/calendario" element={<Calendario />} />
         </Route>
+
 
         <Route element={<PrivateRoute allowedCargos={["ROLE_ASSISTENTE"]} />}>
             <Route path="/pacientes" element={<Pacientes />} />

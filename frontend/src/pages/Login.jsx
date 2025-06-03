@@ -8,17 +8,27 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-async function handleLogin() {
+async function handleLogin(e) {
+    e.preventDefault();
     try {
         const response = await axios.post("http://localhost:8080/auth/login", {
             username,
             password
         });
 
-        console.log(response.data);
-        localStorage.setItem("token", response.data.token);
+        const { token, cargo } = response.data;
+        localStorage.setItem("token", token);
+        localStorage.setItem("cargo", cargo);
+
         alert("Login bem-sucedido!");
-        navigate("/home"); 
+
+        if (cargo === "ROLE_ADMINISTRADOR") {
+            navigate("/home");
+        } else if (cargo === "ROLE_ASSISTENTE") {
+            navigate("/pacientes");
+        } else {
+            navigate("/"); // rota padrão para outros cargos
+        }
 
     } catch (error) {
         console.error("Erro ao fazer login:", error);
