@@ -15,19 +15,21 @@ const AppRoutes = () => (
         <Route path="/" element={<Login />} />
         <Route path="/cadastro" element={<Cadastro />} />
         <Route path="/unauthorized" element={<NaoAutorizado />} />
-
+        
+        <Route element={<PrivateRoute allowedCargos={["ROLE_ADMINISTRADOR", "ROLE_ASSISTENTE"]} />}>
+            <Route path="/pacientes" element={<Pacientes />} />
+        </Route>
 
         <Route element={<PrivateRoute allowedCargos={["ROLE_ADMINISTRADOR"]} />}>
             <Route path="/home" element={<Home />} />
             <Route path="/material" element={<Material />} />
-            <Route path="/pacientes" element={<Pacientes />} />
             <Route path="/consultas" element={<Consultas />} />
             <Route path="/calendario" element={<Calendario />} />
         </Route>
 
 
         <Route element={<PrivateRoute allowedCargos={["ROLE_ASSISTENTE"]} />}>
-            <Route path="/pacientes" element={<Pacientes />} />
+
         </Route>
     </Routes>
 );
