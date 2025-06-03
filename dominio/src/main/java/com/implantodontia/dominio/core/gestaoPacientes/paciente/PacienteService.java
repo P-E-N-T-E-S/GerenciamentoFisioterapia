@@ -93,9 +93,12 @@ public class PacienteService {
     }
 
     public void editarPaciente(Paciente paciente) {
-        if(pacienteRepository.buscarPorId(paciente.getPacienteId()) == null){
+        Paciente pacienteAtual = pacienteRepository.buscarPorId(paciente.getPacienteId());
+        if(pacienteAtual == null){
             return;
         }
+
+        paciente.setFichaMedica(pacienteAtual.getFichaMedica());
         pacienteRepository.atualizar(paciente);
     }
 
