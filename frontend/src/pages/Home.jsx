@@ -3,6 +3,7 @@ import '../styles/Home.css';
 import { Sidebar } from '../components/template/Sidebar';
 import { Header } from '../components/template/Header';
 import { useMateriais } from '../hooks/useMateriais';
+import { useConsultaByDate } from '../hooks/useConsultas';
 
 // Importações do Chart.js
 import { Bar } from 'react-chartjs-2';
@@ -22,6 +23,14 @@ const Home = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const { data: materiais, isLoading, isError } = useMateriais();
+
+  // Consultas de hoje
+  const today = new Date();
+  const dd = String(today.getDate()).padStart(2, '0');
+  const mm = String(today.getMonth() + 1).padStart(2, '0');
+  const yyyy = today.getFullYear();
+  const dataHoje = `${dd}/${mm}/${yyyy}`;
+  const { data: consultasHoje, isLoading: isLoadingConsultasHoje } = useConsultaByDate(dataHoje);
 
   // Dados para o gráfico
   const chartData = {
@@ -68,7 +77,22 @@ const Home = () => {
           <div className="cards-row">
             <div className="card">
               <h3>Consultas de Hoje</h3>
-              <div className="placeholder">[Tabela de Consultas]</div>
+              <div style={{ minHeight: 80 }}>
+                {isLoadingConsultasHoje ? (
+                  <p style={{ fontSize: '1.1rem', color: '#888', textAlign: 'center' }}>Carregando...</p>
+                ) : consultasHoje && consultasHoje.length > 0 ? (
+                  <ul className="consultas-hoje-list">
+                    {consultasHoje.map((consulta) => (
+                      <li key={consulta.id} className="consulta-hoje-item">
+                        <span className="consulta-hoje-nome">{consulta.paciente?.nome || '-'}</span>
+                        <span className="consulta-hoje-hora">{consulta.dataHora ? new Date(consulta.dataHora).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }) : '-'}</span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p style={{ fontSize: '1.1rem', color: '#888', textAlign: 'center' }}>Sem consultas para hoje.</p>
+                )}
+              </div>
             </div>
             <div className="card">
               <h3>Materiais Restantes</h3>
