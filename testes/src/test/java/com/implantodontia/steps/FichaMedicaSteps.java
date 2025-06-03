@@ -11,22 +11,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class FichaMedicaSteps {
 
-    private PacienteId pacienteId;
-    private FichaMedica fichaMedica;
-    private FichaMedicaServico fichaMedicas;
-    private PacienteService servico = new PacienteService();
-    private boolean pdfSimulado;
-    private boolean alertaAtivado;
-
     //==============================================================
     // Cenário 1: Gerar arquivo da ficha médica
     //==============================================================
-
     @Given("que existe um paciente com ficha médica no sistema")
     public void criarPacienteComFicha() {
-        Paciente paciente = criarPacienteExemplo();
-        this.pacienteId = paciente.getPacienteId();
-        // this.fichaMedica = new FichaMedica(pacienteId);
+
+        Paciente paciente = new Paciente(new PacienteId(0), new Cpf("684.976.720-89"), new Endereco("Rua dos bobos", "Arruda", "0", "Casa", "Recife", "52071321"), "José Valder", "81 997510500", "Dra Katia");
+
         preencherDadosFicha();
 
         paciente.vincularFichaMedica(fichaMedica);
@@ -88,10 +80,6 @@ public class FichaMedicaSteps {
     }
 
     private void preencherDadosFicha() {
-        fichaMedicas.preencherDadosClinicos(fichaMedica,
-                "Histórico médico de exemplo",
-                "Nenhuma alergia conhecida",
-                LocalDateTime.now()
-        );
+
     }
 }

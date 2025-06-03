@@ -24,9 +24,13 @@ public class ConsultaSteps extends FuncionalidadesSistema {
 
     @Given("que eu tenha uma consulta realizada, mas não paga na data atual")
     public void criandoConsultaNaoPaga() {
-        materiais.add(new Material(2, "Gaze"));
-        materiais.add(new Material(2, "Tape"));
-        materiais.add(new Material(2, "Fita"));
+        materialServico.adicionar("Gaze", 2);
+        materialServico.adicionar("Tape", 2);
+        materialServico.adicionar("Fita", 2);
+
+        materiais.add(new Material(1, "Gaze"));
+        materiais.add(new Material(1, "Tape"));
+        materiais.add(new Material(1, "Fita"));
 
         Consulta consultaBase = new Consulta(
                 new ConsultaId(0L),
