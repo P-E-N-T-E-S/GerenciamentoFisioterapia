@@ -53,7 +53,8 @@ public class NotificacaoPagamentoPendenteSteps {
                 enderecoPaciente,
                 "Roger Steps Pagamento",
                 "(81) 98888-7777",
-                "Dra. Esperança"
+                "Dra. Esperança",
+                "Roger@Gmail.com"
         );
     }
 

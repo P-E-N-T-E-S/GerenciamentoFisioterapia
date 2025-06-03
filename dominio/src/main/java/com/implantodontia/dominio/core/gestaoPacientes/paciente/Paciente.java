@@ -40,7 +40,7 @@ public class Paciente {
     }
 
     public void vincularFichaMedica(FichaMedica ficha) {
-        if (!ficha.getPacienteId().equals(this.pacienteId)) {
+        if (!(ficha.getPacienteId().getId() == (this.pacienteId.getId()))) {
             throw new IllegalArgumentException("ID da ficha não corresponde ao paciente!");
         }
         this.fichaMedica = ficha;

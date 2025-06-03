@@ -29,7 +29,7 @@ public class CadastroPacienteSteps extends FuncionalidadesSistema {
 
     @When("cadastro um novo paciente válido com nome {string}, contato {string} e médico {string}")
     public void cadastrarPacienteValido(String nome, String contato, String medico) {
-        this.paciente = new Paciente(new PacienteId(0), new Cpf("684.976.720-89"), new Endereco("Rua dos bobos", "Arruda", "0", "Casa", "Recife", "52071321"), nome, contato, medico);
+        this.paciente = new Paciente(new PacienteId(0), new Cpf("684.976.720-89"), new Endereco("Rua dos bobos", "Arruda", "0", "Casa", "Recife", "52071321"), nome, contato, medico, "Teste@gmail.com");
         pacienteService.cadastrarPaciente(paciente, true);
     }
 
@@ -53,7 +53,7 @@ public class CadastroPacienteSteps extends FuncionalidadesSistema {
     @When("tento cadastrar um paciente inválido com nome {string}, contato {string} e médico {string}")
     public void cadastrarPacienteInvalido(String nome, String contato, String medico) {
         try {
-            Paciente paciente = new Paciente(new PacienteId(0), new Cpf("684.976.720-89"), new Endereco("Rua dos bobos", "Arruda", "0", "Casa", "Recife", "52071321"), nome, contato, medico);
+            Paciente paciente = new Paciente(new PacienteId(0), new Cpf("684.976.720-89"), new Endereco("Rua dos bobos", "Arruda", "0", "Casa", "Recife", "52071321"), nome, contato, medico, "Teste@gmail.com");
             pacienteService.cadastrarPaciente(paciente, false);
         } catch (IllegalArgumentException e) {
             erro = e.getMessage();
