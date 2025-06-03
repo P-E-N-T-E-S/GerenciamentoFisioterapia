@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Home.css';
 import axios from 'axios';
+import { useAuth } from '../services/AuthContext';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const { login } = useAuth();
 
 async function handleLogin(e) {
     e.preventDefault();
@@ -17,8 +19,7 @@ async function handleLogin(e) {
         });
 
         const { token, cargo } = response.data;
-        localStorage.setItem("token", token);
-        localStorage.setItem("cargo", cargo);
+        login(token, cargo); 
 
         alert("Login bem-sucedido!");
 
