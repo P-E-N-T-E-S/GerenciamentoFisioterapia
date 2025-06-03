@@ -1,13 +1,16 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import {
-  Modal, Box, Typography, Grid, IconButton, Button
+  Modal, Box, Typography, Grid, IconButton, Button, TextField,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import DeleteIcon from '@mui/icons-material/Delete';
+import SaveIcon from '@mui/icons-material/Save';
 import EditIcon from '@mui/icons-material/Edit';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+
+import { useAddFichaMedica, usePacienteById } from '../../../hooks/usePacientes';
 
 const style = {
   position: 'absolute',
@@ -24,6 +27,8 @@ const style = {
 };
 
 export const FichaMedicaModal = ({ open, handleClose, paciente }) => {
+  const size = { xs: 4, sm: 8, md: 12 };
+
   const ficha = paciente?.fichaMedica || {};
   const printRef = useRef();
 
@@ -41,55 +46,117 @@ export const FichaMedicaModal = ({ open, handleClose, paciente }) => {
     pdf.save(`ficha_medica_${paciente?.nome || 'paciente'}.pdf`);
   };
 
+
+  // Hook para editar ficha médica
+  const addFichaMedica = useAddFichaMedica();
+  const [editMode, setEditMode] = useState(false);
+  const { refetch } = usePacienteById(paciente.pacienteId?.id);
+
+  const [historicoMedico, setHistoricoMedico] = useState(ficha.historicoMedico || '');
+  const [alergias, setAlergias] = useState(ficha.alergias || '');
+  const [observacoes, setObservacoes] = useState(ficha.observacoes || '');
+
+  const handleEdit = () => setEditMode(true);
+  const handleSave = async () => {
+      if (!historicoMedico || !alergias) {
+          alert("Campos obrigatórios vazios!");
+          return;
+      }
+
+      try {
+          await addFichaMedica.mutateAsync(
+              {
+                  id: paciente.pacienteId?.id,
+                  historicoMedico,
+                  alergias,
+                  observacoes
+              },
+              {
+                  onSuccess: async () => {
+                      await refetch();
+                      handleClose();
+                  }
+              }
+          );
+      } catch (error) {
+          console.error("Erro ao editar ficha médica:", error);
+          alert("Erro ao editar ficha médica. Por favor, tente novamente.");
+      }
+      setEditMode(false);
+  }
+
+
+  // Limpando os estados
+  useEffect(() => {
+    setHistoricoMedico(paciente?.fichaMedica?.historicoMedico || '');
+    setAlergias(paciente?.fichaMedica?.alergias || '');
+    setObservacoes(paciente?.fichaMedica?.observacoes || '');
+    setEditMode(false);
+  }, [paciente, open]);
+
+  useEffect(() => {
+    if (!open) {
+      setEditMode(false);
+    }
+  }, [open]);
+
+
   return (
     <Modal open={open} onClose={handleClose}>
       <Box sx={style}>
         <div ref={printRef}>
-          <Grid container justifyContent="space-between" alignItems="center" mb={4}>
+          <Grid container justifyContent="space-between" alignItems="center" mb={4} >
             <Typography variant="h6" fontWeight="bold">Ficha Médica</Typography>
             <IconButton onClick={handleClose}><CloseIcon /></IconButton>
           </Grid>
 
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <Typography><strong>Nome:</strong> {paciente?.nome || '-'}</Typography>
+          <Grid container spacing={3} columns={{ xs: 4, sm: 8, md: 12 }}>
+            <Grid item size={size}>
+              <TextField disabled={!editMode} value={historicoMedico} label="Histórico Médico" fullWidth
+                        multiline
+                        onChange={(e) => setHistoricoMedico(e.target.value)}
+              />
             </Grid>
-            <Grid item xs={12} sm={6}>
-              <Typography><strong>Cirurgião:</strong> {ficha.cirurgiao || '-'}</Typography>
+            <Grid item size={size}>
+              <TextField disabled={!editMode} value={alergias} label="Alergias" fullWidth
+                        multiline
+                        onChange={(e) => setAlergias(e.target.value)}
+              />
             </Grid>
-            <Grid item xs={12} sm={6}>
-              <Typography><strong>Cirurgias anteriores:</strong> {ficha.cirurgiasAnteriores || '-'}</Typography>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <Typography><strong>Alergias:</strong> {ficha.alergias || '-'}</Typography>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <Typography><strong>Data da cirurgia:</strong> {ficha.dataCirurgia || '-'}</Typography>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <Typography><strong>Tipo de cirurgia:</strong> {ficha.cirurgia || '-'}</Typography>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <Typography><strong>Hospital:</strong> {ficha.hospital || '-'}</Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <Typography><strong>Anotações:</strong> {ficha.anotacoes || '-'}</Typography>
+            <Grid item size={size}>
+              <TextField disabled={!editMode} value={observacoes || '-'} label="Observações" fullWidth
+                        multiline
+                        onChange={(e) => setObservacoes(e.target.value)}
+              />
             </Grid>
           </Grid>
         </div>
 
-        <Grid container spacing={2} justifyContent="space-between" mt={4}>
-          <Grid item>
-            <Button variant="contained" color='warning' startIcon={<PictureAsPdfIcon />} onClick={handleDownloadPDF}>
-              PDF
-            </Button>
-          </Grid>
+          {!editMode ? (
+            <Grid container spacing={2} justifyContent="space-between" mt={4}>
+                <Grid item>
+                  <Button variant="contained" color='warning' startIcon={<PictureAsPdfIcon />} onClick={handleDownloadPDF}>
+                    PDF
+                  </Button>
+                </Grid>
 
-          <Grid item spacing={2} display="flex" justifyContent="flex-end">
-            <Button variant='contained' startIcon={<EditIcon />} sx={{ mr: 1 }}>Editar</Button>
-            <Button variant='contained' startIcon={<DeleteIcon />} color="error">Deletar</Button>
-          </Grid>
-        </Grid>
+                <Grid item spacing={2} display="flex" justifyContent="flex-end">
+                  <Button variant='contained' startIcon={<EditIcon />} onClick={handleEdit} >Editar</Button>
+                </Grid>
+            </Grid>
+
+          ) : (
+            <Grid container justifyContent="flex-end" mt={4}>      
+                <Button variant='contained'
+                        color='success'
+                        startIcon={<SaveIcon />}
+                        onClick={handleSave}
+                        disabled={addFichaMedica.isLoading}
+                        >
+                  Salvar
+                </Button>
+            </Grid> 
+          )}
       </Box>
     </Modal>
   );

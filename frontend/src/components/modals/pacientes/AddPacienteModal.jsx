@@ -92,11 +92,11 @@ export const AddPacienteModal = ({ open, handleClose }) => {
         </Grid>
 
         <Grid container spacing={{ xs: 2, md: 3 }} mt={1} columns={{ xs: 4, sm: 8, md: 12 }}>
-          <Grid item xs={6} size={size}><TextField fullWidth label="Nome do paciente" value={nome} onChange={(e) => setNome(e.target.value)} /></Grid>
-          <Grid item xs={6} size={size}><TextField fullWidth label="CPF" value={cpf} onChange={(e) => setCpf(e.target.value)} /></Grid>
+          <Grid item xs={6} size={size}><TextField required fullWidth label="Nome do paciente" value={nome} onChange={(e) => setNome(e.target.value)} /></Grid>
+          <Grid item xs={6} size={size}><TextField required fullWidth label="CPF" value={cpf} onChange={(e) => setCpf(e.target.value)} /></Grid>
           <Grid item xs={6} size={size}><TextField fullWidth label="Email" value={email} onChange={(e) => setEmail(e.target.value)} /></Grid>
-          <Grid item xs={6} size={size}><TextField fullWidth label="Celular" value={contato} onChange={(e) => setContato(e.target.value)} /></Grid>
-          <Grid item xs={6} size={size}><TextField fullWidth label="Médico Responsável" value={medicoResponsavel} onChange={(e) => setMedicoResponsavel(e.target.value)} /></Grid>
+          <Grid item xs={6} size={size}><TextField required fullWidth label="Celular" value={contato} onChange={(e) => setContato(e.target.value)} /></Grid>
+          <Grid item xs={6} size={size}><TextField required fullWidth label="Médico Responsável" value={medicoResponsavel} onChange={(e) => setMedicoResponsavel(e.target.value)} /></Grid>
           
           <Grid item xs={6} size={size}><TextField fullWidth label="Apelido do Endereço" value={nomeEndereco} onChange={(e) => setNomeEndereco(e.target.value)} /></Grid>
           <Grid item xs={6} size={size}><TextField fullWidth label="Logradouro" value={logradouro} onChange={(e) => setLogradouro(e.target.value)} /></Grid>

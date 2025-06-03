@@ -8,7 +8,7 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Save';
 
-import { useUpdatePaciente } from '../../../hooks/usePacientes';
+import { useUpdatePaciente, usePacienteById } from '../../../hooks/usePacientes';
 
 const style = {
   position: 'absolute',
@@ -38,10 +38,10 @@ export const PacienteDetalhesModal = ({ open, handleClose, paciente }) => {
   const [nome, setNome] = useState(paciente.nome || '');
   const [contato, setContato] = useState(paciente.contato || '');
   const [medicoResponsavel, setMedicoResponsavel] = useState(paciente.medicoResponsavel || '');
-  const [cpfEdit, setCpfEdit] = useState(cpf);
-  console.log(paciente);
+  const [cpfEdit, setCpfEdit] = useState(cpf);  
 
   const updatePaciente = useUpdatePaciente();
+  const { refetch } = usePacienteById(paciente.pacienteId?.id);
 
   const handleEdit = () => setEditMode(true);
   const handleSave = async () => {
@@ -53,12 +53,13 @@ export const PacienteDetalhesModal = ({ open, handleClose, paciente }) => {
         medicoResponsavel,
         cpf: cpfEdit,
         endereco,
-        fichaMedica,
+        // fichaMedica
       }
     },
     {
-      onSuccess: () => {
+      onSuccess: async () => {
         alert('Paciente atualizado com sucesso!');
+        await refetch();
         handleClose();
       }
     }
