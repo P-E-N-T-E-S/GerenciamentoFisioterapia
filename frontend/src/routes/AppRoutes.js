@@ -5,6 +5,8 @@ import Login from '../pages/Login';
 import Material from '../pages/Material';
 import Consultas from '../pages/Consultas';
 import Calendario from '../pages/Calendario';
+import Cadastro from '../pages/Cadastro';
+import PrivateRoute from '../services/PrivateRoute';
 
 
 const AppRoutes = () => (
