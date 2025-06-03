@@ -31,8 +31,11 @@ public class AuthController {
             if (acessDTO == null) {
                 throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Usuário ou senha inválidos");
             }
-            // Retorna um objeto JSON com o campo "token"
-            return ResponseEntity.ok(Map.of("token", acessDTO.token()));
+            // Retorna token e cargo
+            return ResponseEntity.ok(Map.of(
+                "token", acessDTO.token(),
+                "cargo", acessDTO.cargo()
+            ));
         } catch (BadCredentialsException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Usuário ou senha inválidos");
         }
