@@ -4,6 +4,7 @@ import { Sidebar } from '../components/template/Sidebar';
 import { Header } from '../components/template/Header';
 import { useMateriais } from '../hooks/useMateriais';
 import { useConsultaByDate } from '../hooks/useConsultas';
+import { useConsultas } from '../hooks/useConsultas';
 
 // Importações do Chart.js
 import { Bar } from 'react-chartjs-2';
@@ -31,6 +32,15 @@ const Home = () => {
   const yyyy = today.getFullYear();
   const dataHoje = `${dd}/${mm}/${yyyy}`;
   const { data: consultasHoje, isLoading: isLoadingConsultasHoje } = useConsultaByDate(dataHoje);
+
+  // Consultas para cálculo de arrecadação
+  const { data: consultas, isLoading: isLoadingConsultas } = useConsultas();
+
+  // Cálculo do total arrecadado
+  const totalArrecadado =
+    consultas && Array.isArray(consultas)
+      ? consultas.reduce((acc, c) => acc + (typeof c.valor === 'number' ? c.valor : 0), 0)
+      : 0;
 
   // Dados para o gráfico
   const chartData = {
@@ -75,6 +85,13 @@ const Home = () => {
 
         <div className="dashboard">
           <div className="cards-row">
+            {/* Card de arrecadação total */}
+            <div className="card" style={{ background: '#eafaf1', border: '2px solid #4caf50', minWidth: 260 }}>
+              <h3 style={{ color: '#388e3c' }}>Arrecadação Total</h3>
+              <div style={{ fontSize: 32, fontWeight: 700, color: '#388e3c', margin: '16px 0' }}>
+                {isLoadingConsultas ? 'Carregando...' : `R$ ${totalArrecadado.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`}
+              </div>
+            </div>
             <div className="card">
               <h3>Consultas de Hoje</h3>
               <div style={{ minHeight: 80 }}>
