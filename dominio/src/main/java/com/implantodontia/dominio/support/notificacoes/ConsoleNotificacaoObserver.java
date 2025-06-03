@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 public class ConsoleNotificacaoObserver implements NotificacaoObserver {
     
     @Override
-    public void atualizar(Notificacao notificacao) {
+    public void atualizarNotificacao(Notificacao notificacao) {
         System.out.println("=== Nova Notificação ===");
         System.out.println("Destinatário: " + notificacao.getDestinatario());
         System.out.println("Mensagem: " + notificacao.getMensagem());

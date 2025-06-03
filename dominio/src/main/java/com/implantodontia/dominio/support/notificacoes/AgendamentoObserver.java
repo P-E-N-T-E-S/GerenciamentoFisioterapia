@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 public class AgendamentoObserver implements NotificacaoObserver {
     
     @Override
-    public void atualizar(Notificacao notificacao) {
+    public void atualizarNotificacao(Notificacao notificacao) {
         // Aqui você pode implementar a lógica específica para lidar com notificações de agendamento
         // Por exemplo, enviar um lembrete por email ou SMS
         System.out.println("Notificação de agendamento recebida: " + notificacao.getMensagem());

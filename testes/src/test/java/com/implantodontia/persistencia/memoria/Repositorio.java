@@ -13,6 +13,9 @@ import com.implantodontia.dominio.core.material.MaterialRepository;
 import com.implantodontia.dominio.core.material.MaterialServico;
 import com.implantodontia.dominio.support.notificacoes.Notificacao;
 import com.implantodontia.dominio.support.notificacoes.NotificacaoConsumidor;
+import com.implantodontia.dominio.support.notificacoes.NotificacaoObserver;
+import com.implantodontia.dominio.support.notificacoes.NotificacaoSubject;
+import com.implantodontia.dominio.support.notificacoes.enums.TipoNotificacao;
 import com.implantodontia.dominio.support.relatorio.procedimento.HistoricoProcedimentosService;
 import io.cucumber.java.it.Ma;
 import org.mockito.internal.matchers.NotNull;
@@ -26,11 +29,15 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Repository
-public class Repositorio implements PacienteRepository, ConsultaRepository, ProcedimentoRepository, FichaMedicaRepositorio, MaterialRepository, NotificacaoConsumidor {
+public class Repositorio implements PacienteRepository, ConsultaRepository, ProcedimentoRepository, FichaMedicaRepositorio, MaterialRepository, NotificacaoConsumidor, NotificacaoObserver {
 
     protected Map<Long, Paciente> pacientes = new HashMap<>();
     protected Map<Long, Consulta> consultas = new HashMap<>();
     protected List<Notificacao> notificacoes = new ArrayList<>();
+    protected Map<String, Material> materiais  = new HashMap<>();
+
+    // TODO Matar esses dois materiais extras!
+
     protected Map<Long, Material> materiaisById = new HashMap<>();
     protected Map<String, Material> materiaisByName = new HashMap<>();
     private static final AtomicLong proximoMaterialIdGenerator = new AtomicLong(1);
@@ -55,7 +62,7 @@ public class Repositorio implements PacienteRepository, ConsultaRepository, Proc
 
     @Override
     public void salvar(Material material) {
-
+        materiais.put(material.getNome(), material);
     }
 
     @Override
@@ -75,12 +82,13 @@ public class Repositorio implements PacienteRepository, ConsultaRepository, Proc
 
     @Override
     public Material buscarPorNome(String nome) {
-        return null;
+        materiais.get(nome);
+        return materiais.get(nome);
     }
 
     @Override
     public List<Material> buscarTodos() {
-        return null;
+        return new ArrayList<>(materiais.values());
     }
 
     @Override
@@ -208,5 +216,24 @@ public class Repositorio implements PacienteRepository, ConsultaRepository, Proc
         if (notificacoes != null) notificacoes.clear();
         proximoMaterialIdGenerator.set(1L); // Resetar contador de ID de material
         // Resetar outros contadores de ID se houver (ex: para PacienteId, ConsultaId se gerados aqui)
+    }
+
+
+    @Override
+    public void atualizarNotificacao(Notificacao notificacao) {
+        notificacoes.add(notificacao);
+    }
+
+    @Override
+    public TipoNotificacao getTipoNotificacao() {
+        return null;
+    }
+
+    public void limparNotificacao(){
+        notificacoes.clear();
+    }
+
+    public List<Notificacao> displayNotificacao(){
+        return notificacoes;
     }
 }

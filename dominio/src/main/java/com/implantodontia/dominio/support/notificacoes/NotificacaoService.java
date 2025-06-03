@@ -1,7 +1,6 @@
 package com.implantodontia.dominio.support.notificacoes;
 
 import com.implantodontia.dominio.support.notificacoes.enums.TipoNotificacao;
-import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -36,7 +35,7 @@ public class NotificacaoService implements NotificacaoSubject {
             for (NotificacaoObserver observer : observers) {
                 if (observer.getTipoNotificacao() == ultimaNotificacao.getTipo() || 
                     observer.getTipoNotificacao() == TipoNotificacao.TODAS) {
-                    observer.atualizar(ultimaNotificacao);
+                    observer.atualizarNotificacao(ultimaNotificacao);
                 }
             }
         }
