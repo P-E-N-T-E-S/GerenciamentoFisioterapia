@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import '../styles/Home.css';
 
-import { IconButton } from '@mui/material';
+import { IconButton, Box, CircularProgress } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 
 import { Sidebar } from '../components/template/Sidebar';
@@ -67,7 +67,11 @@ const Pacientes = () => {
           </div>
 
           <div className="paciente-list">
-            {isLoading && <p>Carregando pacientes...</p>}
+            {isLoading && 
+              <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+                <CircularProgress />
+              </Box>
+            }
             {isError && <p>Erro ao carregar pacientes.</p>}
             {pacientes && pacientes.map((paciente, idx) => (
               <div key={idx} className="paciente-card">

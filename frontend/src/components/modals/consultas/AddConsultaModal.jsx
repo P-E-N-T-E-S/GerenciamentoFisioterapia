@@ -123,7 +123,7 @@ export const AddConsultaModal = ({ open, handleClose }) => {
         </Grid> 
 
         <Box mt={4} textAlign="right">
-          <Button variant="contained" color="primary" onClick={handleSubmit}>
+          <Button variant="contained" color="primary" onClick={handleSubmit} disabled={createConsulta.isLoading}>
             Confirmar
           </Button>
         </Box>

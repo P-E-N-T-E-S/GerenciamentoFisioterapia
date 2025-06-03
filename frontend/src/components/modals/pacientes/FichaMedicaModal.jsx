@@ -86,8 +86,8 @@ export const FichaMedicaModal = ({ open, handleClose, paciente }) => {
           </Grid>
 
           <Grid item spacing={2} display="flex" justifyContent="flex-end">
-            <Button variant='contained' startIcon={<EditIcon />}>Editar</Button>
-            <Button variant='outlined' startIcon={<DeleteIcon />} color="error">Deletar</Button>
+            <Button variant='contained' startIcon={<EditIcon />} sx={{ mr: 1 }}>Editar</Button>
+            <Button variant='contained' startIcon={<DeleteIcon />} color="error">Deletar</Button>
           </Grid>
         </Grid>
       </Box>

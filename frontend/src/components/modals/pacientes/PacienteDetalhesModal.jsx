@@ -1,10 +1,14 @@
 // src/components/PacienteDetalhesModal.jsx
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
-  Modal, Box, Typography, Grid, IconButton, Stack
+  Modal, Box, Typography, Grid, IconButton, Stack, TextField, Button
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import EditIcon from '@mui/icons-material/Edit';
+import SaveIcon from '@mui/icons-material/Save';
+
+import { useUpdatePaciente } from '../../../hooks/usePacientes';
 
 const style = {
   position: 'absolute',
@@ -25,8 +29,57 @@ export const PacienteDetalhesModal = ({ open, handleClose, paciente }) => {
   
   // Garante que consultas é sempre um array
   const consultas = (paciente && Array.isArray(paciente.consultas)) ? paciente.consultas : [];
-  const cpf = paciente.cpf || {};
+  const cpf = paciente.cpf?.codigo || '';
   const endereco = paciente.endereco || {};
+  const fichaMedica = paciente.fichaMedica || {};
+
+  // Estados para edição
+  const [editMode, setEditMode] = useState(false);
+  const [nome, setNome] = useState(paciente.nome || '');
+  const [contato, setContato] = useState(paciente.contato || '');
+  const [medicoResponsavel, setMedicoResponsavel] = useState(paciente.medicoResponsavel || '');
+  const [cpfEdit, setCpfEdit] = useState(cpf);
+  console.log(paciente);
+
+  const updatePaciente = useUpdatePaciente();
+
+  const handleEdit = () => setEditMode(true);
+  const handleSave = async () => {
+    await updatePaciente.mutateAsync({
+      id: paciente.pacienteId?.id,
+      pacienteData: {
+        nome,
+        contato,
+        medicoResponsavel,
+        cpf: cpfEdit,
+        endereco,
+        fichaMedica,
+      }
+    },
+    {
+      onSuccess: () => {
+        alert('Paciente atualizado com sucesso!');
+        handleClose();
+      }
+    }
+  );
+    setEditMode(false);
+  }
+
+
+  // Limpando estados
+  useEffect(() => {
+    setNome(paciente.nome || '');
+    setContato(paciente.contato || '');
+    setMedicoResponsavel(paciente.medicoResponsavel || '');
+    setCpfEdit(paciente.cpf?.codigo || '');
+  }, [paciente]);
+
+  useEffect(() => {
+    if (!open) {
+      setEditMode(false);
+    }
+  }, [open]);
 
   return (
     <Modal open={open} onClose={handleClose}>
@@ -36,15 +89,27 @@ export const PacienteDetalhesModal = ({ open, handleClose, paciente }) => {
           <IconButton onClick={handleClose}><CloseIcon /></IconButton>
         </Grid>
 
-        <Grid container spacing={2} mt={1} columns={{ xs: 4, sm: 8, md: 12 }}>
-          <Grid item xs={6} size={size}><Typography><strong>Nome do paciente</strong><br />{paciente.nome}</Typography></Grid>
-          <Grid item xs={6} size={size}><Typography><strong>CPF</strong><br />{cpf.codigo}</Typography></Grid>
-          {/* <Grid item xs={6} size={size}><Typography><strong>Endereço</strong><br />{endereco}</Typography></Grid> */}
-          {/* <Grid item xs={6} size={size}><Typography><strong>Profissão</strong><br />{paciente.profissao}</Typography></Grid> */}
-          <Grid item xs={6} size={size}><Typography><strong>Celular</strong><br />{paciente.contato}</Typography></Grid>
+        <Grid container spacing={3} mt={1} columns={{ xs: 4, sm: 8, md: 12 }}>
+          <Grid item xs={6} size={size}>
+            <TextField  disabled={!editMode} value={nome} label="Nome do paciente" fullWidth 
+            onChange={e => setNome(e.target.value)}/>
+          </Grid>
+          <Grid item xs={6} size={size}>
+            <TextField disabled={!editMode} value={cpfEdit} label="CPF" fullWidth
+            onChange={e => setCpfEdit(e.target.value)}/>
+          </Grid>
+
+          <Grid item xs={6} size={size}>
+            <TextField disabled={!editMode} value={contato} label="Telefone" fullWidth
+            onChange={e => setContato(e.target.value)}/>
+          </Grid>
+          <Grid item xs={6} size={size}>
+            <TextField disabled={!editMode} value={medicoResponsavel} label="Médico Responsável" fullWidth
+            onChange={e => setMedicoResponsavel(e.target.value)}/>
+          </Grid>
         </Grid>
 
-        <Typography variant="h6" mt={4} fontWeight="bold">
+        {/* <Typography variant="h6" mt={4} fontWeight="bold">
           {consultas && consultas.length > 0 ? 'Consultas' : '-- Não há consultas --'}
         </Typography>
 
@@ -67,7 +132,24 @@ export const PacienteDetalhesModal = ({ open, handleClose, paciente }) => {
               </Grid>
             </Grid>
           </Box>
-        ))}
+        ))} */}
+
+        {/* Footer */}
+        <Grid item spacing={2} display="flex" justifyContent="flex-end" sx={{ mt: 4 }}>
+          {!editMode ? (
+            <Button variant='contained' startIcon={<EditIcon />} onClick={handleEdit}>Editar</Button>
+          ) :
+          (
+            <Button variant='contained'
+                    color='success'
+                    startIcon={<SaveIcon />}
+                    onClick={handleSave}
+                    disabled={updatePaciente.isLoading}
+                    >
+              Salvar
+            </Button>
+          )}
+        </Grid>
       </Box>
     </Modal>
   );

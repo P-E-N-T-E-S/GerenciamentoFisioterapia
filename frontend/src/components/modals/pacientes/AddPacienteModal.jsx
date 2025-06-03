@@ -38,7 +38,7 @@ export const AddPacienteModal = ({ open, handleClose }) => {
   const createPaciente = useCreatePaciente();
 
   const handleAddPaciente = async () => {
-    if(!nome || !cpf || !contato) {
+    if(!nome || !cpf || !contato || !medicoResponsavel) {
       alert('Por favor, preencha todos os campos obrigatórios.');
       return;
     }
