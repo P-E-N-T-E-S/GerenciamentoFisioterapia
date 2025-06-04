@@ -1,25 +1,25 @@
 import React from "react";
 
-import { Modal, Box, Grid, Typography, IconButton, Button } from "@mui/material";
+import { Modal, Box, Grid, Typography, IconButton, TextField, Button, Checkbox, FormControlLabel } from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
-import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import SaveIcon from '@mui/icons-material/Save';
 import { useUpdateConsulta } from '../../../hooks/useConsultas';
-import { TextField, Checkbox, FormControlLabel } from "@mui/material";
 
 const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    bgcolor: 'background.paper',
-    borderRadius: 3,
-    boxShadow: 24,
-    p: 4,
-    width: 650,
-    maxHeight: '90vh',
-    overflowY: 'auto',
-  };
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  bgcolor: 'background.paper',
+  borderRadius: 3,
+  boxShadow: 24,
+  p: 4,
+  width: 600,
+  maxWidth: '95vw',
+  maxHeight: '90vh',
+  overflowY: 'auto',
+};
 
 
 export const DetalhesConsultaModal = ({ open, handleClose, consulta }) => {
@@ -138,209 +138,148 @@ export const DetalhesConsultaModal = ({ open, handleClose, consulta }) => {
     );
 
     return (
-        <Modal open={open} onClose={handleClose}>
-            <Box sx={style}>
-                {modalHeader()}
-                <Grid container spacing={{ xs: 2, md: 3 }} mt={1} columns={{ xs: 4, sm: 8, md: 12 }}>
-                    <Grid item size={size}>
-                        <TextField
-                            label="Paciente"
-                            value={form.paciente?.nome || form.pacienteId || '-'}
-                            disabled
-                            fullWidth
-                            size="small"
-                        />
-                    </Grid>
-                    <Grid item size={size}>
-                        {editMode ? (
-                            <TextField
-                                label="Tipo de consulta"
-                                value={form.tipo || ''}
-                                onChange={e => handleChange('tipo', e.target.value)}
-                                fullWidth
-                                size="small"
-                            />
-                        ) : (
-                            <Typography noWrap variant='inherit'> <strong>Tipo de consulta:</strong><br />&nbsp;{form.tipo || '-'}</Typography>
-                        )}
-                    </Grid>
-                    <Grid item size={size}>
-                        {editMode ? (
-                            <TextField
-                                label="Data"
-                                type="date"
-                                value={form.dataHora ? String(form.dataHora).slice(0,10) : ''}
-                                onChange={e => handleChange('dataHora', e.target.value + (form.dataHora ? form.dataHora.slice(10) : 'T00:00:00'))}
-                                fullWidth
-                                size="small"
-                                InputLabelProps={{ shrink: true }}
-                            />
-                        ) : (
-                            <Typography noWrap variant='inherit'> <strong>Data:</strong><br />&nbsp;{form.dataHora ? String(form.dataHora).slice(0,10) : '-'}</Typography>
-                        )}
-                    </Grid>
-                    <Grid item size={size}>
-                        {editMode ? (
-                            <TextField
-                                label="Horário"
-                                type="time"
-                                value={form.dataHora ? String(form.dataHora).slice(11,16) : ''}
-                                onChange={e => handleChange('dataHora', (form.dataHora ? form.dataHora.slice(0,10) : '') + 'T' + e.target.value + ':00')}
-                                fullWidth
-                                size="small"
-                                InputLabelProps={{ shrink: true }}
-                            />
-                        ) : (
-                            <Typography noWrap variant='inherit'> <strong>Horário:</strong> <br />&nbsp;{form.dataHora ? String(form.dataHora).slice(11,16) : '-'}</Typography>
-                        )}
-                    </Grid>
-                    <Grid item size={size}>
-                        {editMode ? (
-                            <TextField
-                                label="Método de pagamento"
-                                value={form.metodoPagamento || ''}
-                                onChange={e => handleChange('metodoPagamento', e.target.value)}
-                                fullWidth
-                                size="small"
-                            />
-                        ) : (
-                            <Typography noWrap variant='inherit'> <strong>Método de pagamento:</strong> <br />&nbsp;{form.metodoPagamento || '-'}</Typography>
-                        )}
-                    </Grid>
-                    <Grid item size={size}>
-                        {editMode ? (
-                            <TextField
-                                label="Valor"
-                                type="number"
-                                value={form.valor || ''}
-                                onChange={e => handleChange('valor', e.target.value)}
-                                fullWidth
-                                size="small"
-                            />
-                        ) : (
-                            <Typography noWrap variant='inherit'> <strong>Valor:</strong><br />&nbsp;{form.valor || '-'}</Typography>
-                        )}
-                    </Grid>
-                    {/* Endereço */}
-                    <Grid item size={size}>
-                        {editMode ? (
-                            <TextField
-                                label="Apelido do Endereço"
-                                value={form.endereco?.nome || ''}
-                                onChange={e => handleEnderecoChange('nome', e.target.value)}
-                                fullWidth
-                                size="small"
-                            />
-                        ) : (
-                            <Typography noWrap variant='inherit'> <strong>Apelido do Endereço:</strong><br />&nbsp;{form.endereco?.nome || '-'}</Typography>
-                        )}
-                    </Grid>
-                    <Grid item size={size}>
-                        {editMode ? (
-                            <TextField
-                                label="Logradouro"
-                                value={form.endereco?.logradouro || ''}
-                                onChange={e => handleEnderecoChange('logradouro', e.target.value)}
-                                fullWidth
-                                size="small"
-                            />
-                        ) : (
-                            <Typography noWrap variant='inherit'> <strong>Logradouro:</strong><br />&nbsp;{form.endereco?.logradouro || '-'}</Typography>
-                        )}
-                    </Grid>
-                    <Grid item size={size}>
-                        {editMode ? (
-                            <TextField
-                                label="Número"
-                                value={form.endereco?.numero || ''}
-                                onChange={e => handleEnderecoChange('numero', e.target.value)}
-                                fullWidth
-                                size="small"
-                            />
-                        ) : (
-                            <Typography noWrap variant='inherit'> <strong>Número:</strong><br />&nbsp;{form.endereco?.numero || '-'}</Typography>
-                        )}
-                    </Grid>
-                    <Grid item size={size}>
-                        {editMode ? (
-                            <TextField
-                                label="Complemento"
-                                value={form.endereco?.complemento || ''}
-                                onChange={e => handleEnderecoChange('complemento', e.target.value)}
-                                fullWidth
-                                size="small"
-                            />
-                        ) : (
-                            <Typography noWrap variant='inherit'> <strong>Complemento:</strong><br />&nbsp;{form.endereco?.complemento || '-'}</Typography>
-                        )}
-                    </Grid>
-                    <Grid item size={size}>
-                        {editMode ? (
-                            <TextField
-                                label="Cidade"
-                                value={form.endereco?.cidade || ''}
-                                onChange={e => handleEnderecoChange('cidade', e.target.value)}
-                                fullWidth
-                                size="small"
-                            />
-                        ) : (
-                            <Typography noWrap variant='inherit'> <strong>Cidade:</strong><br />&nbsp;{form.endereco?.cidade || '-'}</Typography>
-                        )}
-                    </Grid>
-                    <Grid item size={size}>
-                        {editMode ? (
-                            <TextField
-                                label="CEP"
-                                value={form.endereco?.cep || ''}
-                                onChange={e => handleEnderecoChange('cep', e.target.value)}
-                                fullWidth
-                                size="small"
-                            />
-                        ) : (
-                            <Typography noWrap variant='inherit'> <strong>CEP:</strong><br />&nbsp;{form.endereco?.cep || '-'}</Typography>
-                        )}
-                    </Grid>
-                    {/* Pagamento e status */}
-                    <Grid item size={size}>
-                        <FormControlLabel
-                            control={
-                                <Checkbox
-                                    checked={!!form.clientePagou}
-                                    disabled={!editMode}
-                                    onChange={e => handleChange('clientePagou', e.target.checked)}
-                                />
-                            }
-                            label={<strong>Pagamento realizado</strong>}
-                        />
-                        <FormControlLabel
-                            control={
-                                <Checkbox
-                                    checked={!!form.consultaRealizada}
-                                    disabled={!editMode}
-                                    onChange={e => handleChange('consultaRealizada', e.target.checked)}
-                                />
-                            }
-                            label={<strong>Consulta realizada</strong>}
-                        />
-                    </Grid>
-                    <Grid item size={size}>
-                        {editMode ? (
-                            <TextField
-                                label="Observações"
-                                value={form.observacoes || ''}
-                                onChange={e => handleChange('observacoes', e.target.value)}
-                                fullWidth
-                                size="small"
-                                multiline
-                                minRows={2}
-                            />
-                        ) : (
-                            <Typography noWrap variant='inherit'> <strong>Observações:</strong> <br />&nbsp;{form.observacoes || '-'}</Typography>
-                        )}
-                    </Grid>
-                </Grid>
-                {modalFooter()}
-            </Box>
-        </Modal>
-    )
+      <Modal open={open} onClose={handleClose}>
+        <Box sx={style}>
+          <Grid container justifyContent="space-between" alignItems="center" mb={4}>
+            <Typography variant="h6" fontWeight="bold">Detalhes da Consulta</Typography>
+            <IconButton onClick={handleClose}><CloseIcon /></IconButton>
+          </Grid>
+
+          <Grid container spacing={3} mt={1} columns={{ xs: 4, sm: 8, md: 12 }}>
+            <Grid item size={size}>
+              <TextField
+                disabled={!editMode}
+                label="Data"
+                type="date"
+                value={form.dataHora ? String(form.dataHora).slice(0, 10) : ''}
+                onChange={e => handleChange('dataHora', e.target.value + (form.dataHora ? form.dataHora.slice(10) : 'T00:00:00'))}
+                fullWidth
+                InputLabelProps={{ shrink: true }}
+              />
+            </Grid>
+            <Grid item size={size}>
+              <TextField
+                disabled={!editMode}
+                label="Horário"
+                type="time"
+                value={form.dataHora ? String(form.dataHora).slice(11, 16) : ''}
+                onChange={e => handleChange('dataHora', (form.dataHora ? form.dataHora.slice(0, 10) : '') + 'T' + e.target.value + ':00')}
+                fullWidth
+                InputLabelProps={{ shrink: true }}
+              />
+            </Grid>
+            <Grid item size={size}>
+              <TextField
+                disabled={!editMode}
+                label="Descrição"
+                value={form.descricao || ''}
+                onChange={e => handleChange('descricao', e.target.value)}
+                fullWidth
+                multiline
+                minRows={2}
+              />
+            </Grid>
+            <Grid item size={size}>
+              <TextField
+                disabled={!editMode}
+                label="Valor"
+                type="number"
+                value={form.valor || ''}
+                onChange={e => handleChange('valor', e.target.value)}
+                fullWidth
+              />
+            </Grid>
+            <Grid item size={size}>
+              <TextField
+                disabled={!editMode}
+                label="Data de Vencimento"
+                type="date"
+                value={form.dataVencimento ? String(form.dataVencimento).slice(0, 10) : ''}
+                onChange={e => handleChange('dataVencimento', e.target.value)}
+                fullWidth
+                InputLabelProps={{ shrink: true }}
+              />
+            </Grid>
+            {/* Local */}
+            <Grid item size={size}>
+              <TextField
+                disabled={!editMode}
+                label="Nome do Local"
+                value={form.endereco?.nome || ''}
+                onChange={e => handleEnderecoChange('nome', e.target.value)}
+                fullWidth
+              />
+            </Grid>
+            <Grid item size={size}>
+              <TextField
+                disabled={!editMode}
+                label="Logradouro"
+                value={form.endereco?.logradouro || ''}
+                onChange={e => handleEnderecoChange('logradouro', e.target.value)}
+                fullWidth
+              />
+            </Grid>
+            <Grid item size={size}>
+              <TextField
+                disabled={!editMode}
+                label="Número"
+                value={form.endereco?.numero || ''}
+                onChange={e => handleEnderecoChange('numero', e.target.value)}
+                fullWidth
+              />
+            </Grid>
+            <Grid item size={size}>
+              <TextField
+                disabled={!editMode}
+                label="Complemento"
+                value={form.endereco?.complemento || ''}
+                onChange={e => handleEnderecoChange('complemento', e.target.value)}
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={6} size={size}>
+              <TextField
+                disabled={!editMode}
+                label="Cidade"
+                value={form.endereco?.cidade || ''}
+                onChange={e => handleEnderecoChange('cidade', e.target.value)}
+                fullWidth
+              />
+            </Grid>
+            <Grid item size={size}>
+              <TextField
+                disabled={!editMode}
+                label="CEP"
+                value={form.endereco?.cep || ''}
+                onChange={e => handleEnderecoChange('cep', e.target.value)}
+                fullWidth
+              />
+            </Grid>
+            <Grid item size={size}>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={!!form.clientePagou}
+                    disabled={!editMode}
+                    onChange={e => handleChange('clientePagou', e.target.checked)}
+                  />
+                }
+                label={<strong>Pagamento realizado</strong>}
+              />
+            </Grid>
+          </Grid>
+
+          {/* Footer */}
+          <Grid item xs={12} display="flex" justifyContent="flex-end" sx={{ mt: 4 }}>
+            {!editMode ? (
+              <Button variant='contained' startIcon={<EditIcon />} onClick={() => setEditMode(true)}>Editar</Button>
+            ) : (
+              <Button variant='contained' color='success' startIcon={<SaveIcon />} onClick={handleSave}>
+                Salvar
+              </Button>
+            )}
+          </Grid>
+        </Box>
+      </Modal>
+    );
 }
