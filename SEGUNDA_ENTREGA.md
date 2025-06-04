@@ -94,7 +94,7 @@ mvn spring-boot:run -pl dominio
 ### 5. Acessar a API
 - Endereço: [http://localhost:8080](http://localhost:8080)
 
-### Executar Frontend
+## Executar Frontend
 
 ### 7. Acesse pasta /frontend
 
