@@ -34,7 +34,11 @@
 - Gráfico de barras exibindo quantidade de materiais armazenados.
 
 ### H9 - Busca e Filtro de Pacientes
-- Bbuscar pacientes por nome e filtrar por status ou outros critérios na página de Pacientes.
+- Buscar pacientes por nome e filtrar por status ou outros critérios na página de Pacientes.
+
+### H10 - Lembrete Consultas do Dia
+- Card que exibe consultas agendadas para o dia atual, com nome do paciente e horário.
+
 
 
 ---
