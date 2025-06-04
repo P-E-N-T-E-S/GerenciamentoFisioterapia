@@ -72,6 +72,7 @@
 - Java 21
 - Maven
 - Docker e Docker Compose
+- NodeJs
 
 ### 2. Subir as Dependências
 ```bash
@@ -90,8 +91,25 @@ mvn clean install
 mvn spring-boot:run -pl dominio
 ```
 
-### 5. Acessar a Aplicação
+### 5. Acessar a API
 - Endereço: [http://localhost:8080](http://localhost:8080)
+
+### Executar Frontend
+
+### 7. Acesse pasta /frontend
+
+### 8. Instale as dependências
+```bash
+npm install
+```
+
+### 9. Inicie a Aplicação React
+```bash
+npm run start
+```
+
+### 10. Acessar o Frontend
+- Endereço: [http://localhost:3000](http://localhost:3000)
 
 ---
 
