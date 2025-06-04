@@ -38,7 +38,8 @@ export const PacienteDetalhesModal = ({ open, handleClose, paciente }) => {
   const [nome, setNome] = useState(paciente.nome || '');
   const [contato, setContato] = useState(paciente.contato || '');
   const [medicoResponsavel, setMedicoResponsavel] = useState(paciente.medicoResponsavel || '');
-  const [cpfEdit, setCpfEdit] = useState(cpf);  
+  const [cpfEdit, setCpfEdit] = useState(cpf);
+  const [email, setEmail] = useState(paciente.email || '');
 
   const updatePaciente = useUpdatePaciente();
   const { refetch } = usePacienteById(paciente.pacienteId?.id);
@@ -52,6 +53,7 @@ export const PacienteDetalhesModal = ({ open, handleClose, paciente }) => {
         contato,
         medicoResponsavel,
         cpf: cpfEdit,
+        email,
         endereco,
         // fichaMedica
       }
@@ -74,6 +76,7 @@ export const PacienteDetalhesModal = ({ open, handleClose, paciente }) => {
     setContato(paciente.contato || '');
     setMedicoResponsavel(paciente.medicoResponsavel || '');
     setCpfEdit(paciente.cpf?.codigo || '');
+    setEmail(paciente.email || '');
   }, [paciente]);
 
   useEffect(() => {
@@ -99,7 +102,10 @@ export const PacienteDetalhesModal = ({ open, handleClose, paciente }) => {
             <TextField disabled={!editMode} value={cpfEdit} label="CPF" fullWidth
             onChange={e => setCpfEdit(e.target.value)}/>
           </Grid>
-
+          <Grid item xs={6} size={size}>
+            <TextField disabled={!editMode} value={email} label="Email" fullWidth
+            onChange={e => setEmail(e.target.value)}/>
+          </Grid>
           <Grid item xs={6} size={size}>
             <TextField disabled={!editMode} value={contato} label="Telefone" fullWidth
             onChange={e => setContato(e.target.value)}/>
