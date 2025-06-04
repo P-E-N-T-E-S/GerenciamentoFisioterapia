@@ -5,7 +5,7 @@ import axios from 'axios';
 
 const Cadastro = () => {
 
-  const cargoMap = { Admin: 1, User: 0 };
+  const cargoMap = { Fisioterapeuta: 1, Medico: 0 };
 
   const [formData, setFormData] = useState({
     login: '',
@@ -63,15 +63,15 @@ const Cadastro = () => {
           type="text"
           name="cargo"
           list="cargos"
-          placeholder="Cargo (Admin/User)"
+          placeholder="Cargo (Fisio/Medico)"
           value={formData.cargo}
           onChange={handleChange}
           className="block w-full my-[10px] px-[8px] py-[8px] border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
 
         <datalist id="cargos">
-          <option value="Admin" />
-          <option value="User" />
+          <option value="Fisioterapeuta" />
+          <option value="Medico" />
         </datalist>
 
         <button className="btn-login" onClick={handleSubmit}>Cadastrar</button>
