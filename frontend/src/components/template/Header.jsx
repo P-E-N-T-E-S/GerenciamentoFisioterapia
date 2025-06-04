@@ -17,7 +17,7 @@ export const Header = () => {
 
     return (
         <header className="header">
-            <span>Seja bem-vinda, <strong>Thaysa</strong>!</span>
+            <span>Seja bem-vindo!</span>
             <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                 <IconButton color="inherit" onClick={handleOpen} aria-label="notificações">
                     <Badge badgeContent={badgeCount} color="error" invisible={badgeCount === 0}>
