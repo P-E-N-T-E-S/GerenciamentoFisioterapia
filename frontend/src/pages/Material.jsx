@@ -46,9 +46,6 @@ const Material = () => {
 
           <div className="material-actions">
             <button className="btn-primary" onClick={() => setOpenAddModal(true)}>Adicionar material</button>
-            <select className="dropdown">
-              <option value="">Filtro</option>
-            </select>
           </div>
 
           <div className="table-wrapper">
@@ -82,13 +79,7 @@ const Material = () => {
                         >
                           Editar
                         </button>
-                        <button
-                          className="btn-danger"
-                          style={{ marginLeft: '10px' }}
-                          onClick={() => handleDeleteClick(material.nome)}
-                        >
-                          Excluir
-                        </button>
+                        
                       </td>
                     </tr>
                   ))}

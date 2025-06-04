@@ -67,6 +67,11 @@ const Home = () => {
     },
   };
 
+  // Filtra pagamentos pendentes
+  const pagamentosPendentes = consultas && Array.isArray(consultas)
+    ? consultas.filter(c => c.pagamentoRealizado === false || c.pagamentoRealizado === undefined)
+    : [];
+
   return (
     <div className="app-container">
 
@@ -138,6 +143,41 @@ const Home = () => {
                 )}
               </div>
             </div>
+          </div>
+
+          {/* Tabela de pagamentos pendentes */}
+          <div style={{ marginTop: 40 }}>
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 12 }}>
+              <h3 style={{ color: '#b85c00', margin: 0, fontWeight: 700, fontSize: 22 }}>Pagamentos por consulta</h3>
+            </div>
+            {isLoadingConsultas ? (
+              <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 80 }}>
+                <CircularProgress />
+              </Box>
+            ) : pagamentosPendentes.length === 0 ? (
+              <p style={{ color: '#888', fontStyle: 'italic' }}>Nenhum pagamento pendente.</p>
+            ) : (
+              <div style={{ overflowX: 'auto', borderRadius: 14, boxShadow: '0 4px 24px 0 rgba(60,60,100,0.08)', background: 'rgba(255,255,255,0.95)', margin: '0 auto', maxWidth: 800 }}>
+                <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: 0, minWidth: 400 }}>
+                  <thead>
+                    <tr style={{ background: 'linear-gradient(90deg, #e0eafc 0%, #f7f7f7 100%)' }}>
+                      <th style={{ padding: '16px 12px', textAlign: 'left', fontWeight: 700, color: '#3a5ca8', fontSize: 17, borderTopLeftRadius: 14 }}>Paciente</th>
+                      <th style={{ padding: '16px 12px', textAlign: 'left', fontWeight: 700, color: '#3a5ca8', fontSize: 17 }}>Valor</th>
+                      <th style={{ padding: '16px 12px', textAlign: 'left', fontWeight: 700, color: '#3a5ca8', fontSize: 17, borderTopRightRadius: 14 }}>Data</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {pagamentosPendentes.map((c, idx) => (
+                      <tr key={c.id} style={{ background: idx % 2 === 0 ? '#f9fafd' : '#f4f7fb', transition: 'background 0.2s' }}>
+                        <td style={{ padding: '14px 12px', fontWeight: 500, color: '#222', borderBottom: '1px solid #e0eafc' }}>{c.paciente?.nome || '-'}</td>
+                        <td style={{ padding: '14px 12px', color: '#b85c00', fontWeight: 600, borderBottom: '1px solid #e0eafc' }}>{c.valor ? `R$ ${c.valor.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}` : '-'}</td>
+                        <td style={{ padding: '14px 12px', color: '#3a5ca8', fontWeight: 500, borderBottom: '1px solid #e0eafc' }}>{c.dataHora ? new Date(c.dataHora).toLocaleDateString('pt-BR') : '-'}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </div>
         </div>
       </main>

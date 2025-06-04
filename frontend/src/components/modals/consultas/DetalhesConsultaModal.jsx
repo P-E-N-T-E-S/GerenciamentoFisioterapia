@@ -133,9 +133,7 @@ export const DetalhesConsultaModal = ({ open, handleClose, consulta }) => {
                     <Button variant='contained' startIcon={<EditIcon />} onClick={() => setEditMode(true)}>Editar</Button>
                 </Grid>
             )}
-            <Grid item>
-                <Button variant='outlined' startIcon={<DeleteIcon />} color="error">Deletar</Button>
-            </Grid>
+            
         </Grid>
     );
 
