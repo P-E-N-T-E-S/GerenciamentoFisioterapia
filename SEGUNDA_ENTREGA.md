@@ -4,46 +4,34 @@
 
 ### H1 - Controle de Materiais
 - Cadastro e atualização da quantidade de materiais utilizados em consultas.
-- Aviso quando o estoque está baixo.
+- Sinalização da quantidade de materiais armazenados.
 
-### H2 - Histórico de Procedimentos
-- Armazenamento de dados detalhados de procedimentos.
-- Filtros por tipo e período.
+### H2 - Histórico de Consultas
+- Armazenamento de dados detalhados de consultas.
+- Filtros para listagem de consultas (Hoje, Futuras, Histórico Geral).
 
 ### H3 - Ficha Médica
-- Ficha clínica com dados detalhados dos pacientes.
+- Ficha médica com dados detalhados dos pacientes.
 - Exportação da ficha em PDF.
 - Campo de observações para fisioterapeuta.
 
 ### H4 - Cadastro de Pacientes por Médicos Parceiros
 - Médicos parceiros podem cadastrar pacientes.
-- Notificação para a fisioterapeuta.
 
-### H5 - Alertas de Pagamento Pendente
-- Notificações periódicas (6h, 12h e 18h) de pendências de pagamento.
-- Visualização do tempo de atraso e justificativas.
+### H5 - Controle Financeiro
+- Exibição de Faturamento Total.
+- Sinalização de pagamento pendente de consulta.
 
-### H6 - Lembrete de Agendamento
-- Notificações com 1 dia e 1 semana de antecedência sobre consultas agendadas.
+### H6 - Lembrete de Pagamento (EmailService.java)
+- Notificações via e-mail para pacientes sobre vencimento de pagamentos.
 
-### H7 - Lembrete de Pagamento
-- Notificações para pacientes sobre vencimento de pagamentos.
+### H7 - Calendário Dinâmico
+- Visualização mensal de agendamentos.
+- Sinalização de dias do mês que possuem consultas.
 
-### H8 - Calendário Dinâmico
-- Visualização mensal e bimestral de agendamentos.
-- Reagendamento com justificativa.
-- Cancelamento de consultas.
-- Classificação por tipo de consulta com cores.
-
-### Extra - Dashboard Financeiro e de Procedimentos
-- Visualização de lucros mensais e anuais.
-- Procedimentos mais realizados.
-- Orçamentos realizados.
-- Médicos e clínicas que mais indicam pacientes.
-
-### Em Limbo
-#### H4 (Paciente) - Agendamento de Orçamento
-- Agendamento e reagendamento de orçamento pelo paciente.
+### H8 - Dashboard Financeiro e de Materiais
+- Orçamentos por consulta.
+- Gráfico de barras exibindo quantidade de materiais armazenados.
 
 ---
 
