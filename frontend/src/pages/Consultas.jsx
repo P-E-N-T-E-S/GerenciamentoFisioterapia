@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import '../styles/Home.css';
 
-import { Button } from '@mui/material';
+import { Button, Box, CircularProgress, Card, CardContent, Typography, Avatar, IconButton as MuiIconButton, Tooltip, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@mui/material';
 
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
-
+import CancelIcon from '@mui/icons-material/Cancel';
 
 import { Sidebar } from '../components/template/Sidebar';
 import { Header } from '../components/template/Header';
@@ -22,6 +22,9 @@ const Consultas = () => {
   const [consultaSelecionada, setConsultaSelecionada] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [tab, setTab] = useState('hoje');
+  // Para confirmação de exclusão
+  const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
+  const [consultaIdToDelete, setConsultaIdToDelete] = useState(null);
 
   const { data: consultas, isLoading, isError } = useConsultas();
 
@@ -29,7 +32,9 @@ const Consultas = () => {
   const deleteConsultas = useDeleteConsulta();
   const handleDeleteConsulta = (consultaId) => {
     deleteConsultas.mutate(consultaId);
-  }
+    setOpenConfirmDialog(false);
+    setConsultaIdToDelete(null);
+  };
 
   // Funções de filtro
   const today = new Date();
@@ -89,32 +94,83 @@ const Consultas = () => {
           </div>
 
           <div className="consulta-list">
-            {isLoading && <p>Carregando consultas...</p>}
+            {isLoading && 
+              <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+                <CircularProgress />
+              </Box>
+            }
             {isError && <p>Erro ao carregar consultas.</p>}
             {!isLoading && !isError && consultasFiltradas?.map((consulta, i) => {
               const diasSemana = ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb'];
               const data = new Date(consulta.dataHora);
               const diaSemana = diasSemana[data.getDay()];
+              // Avatar: para historico/futuras mostra dia/mes (sem zero à esquerda), para hoje só o dia
+              let avatarText = data.getDate().toString();
+              if (tab === 'historico' || tab === 'futuras') {
+                avatarText += '/' + (data.getMonth() + 1).toString();
+              }
               return (
-                <div className="consulta-card" key={i}>
-                  <div className="consulta-date">
-                    <span className="day">{diaSemana}</span>
-                    <strong className="number">{data.getDate()}</strong>
-                  </div>
-                  <div className="consulta-info" onClick={() => {
+                <Card key={i} sx={{ display: 'flex', alignItems: 'center', mb: 2, boxShadow: 2, borderRadius: 2, background: '#f9f9f9', transition: 'box-shadow 0.2s', '&:hover': { boxShadow: 6, background: '#f1f8e9' } }}>
+                  <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', px: 2, py: 1, minWidth: 64 }}>
+                    <Avatar sx={{ bgcolor: '#1976d2', width: 48, height: 48, fontSize: 18, mb: 0.5 }}>
+                      {avatarText}
+                    </Avatar>
+                    <Typography variant="caption" color="text.secondary" sx={{ textTransform: 'uppercase', fontWeight: 500 }}>
+                      {diaSemana}
+                    </Typography>
+                  </Box>
+                  <CardContent sx={{ flex: 1, cursor: 'pointer', py: 2 }} onClick={() => {
                     setConsultaSelecionada(consulta);
                     setOpenDetailsModal(true);
                   }}>
-                    <p><strong>🕒</strong> {data.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
-                    <p><strong>👤</strong> {consulta.paciente?.nome || 'Paciente não informado'}</p>
-                    <p><strong>Descrição:</strong> {consulta.descricao}</p>
-                    <p><strong>Pagamento:</strong> {consulta.clientePagou ? 'realizado' : 'pendente'}</p>
-                  </div>
-                  {/* <input type="checkbox" defaultChecked={consulta.consultaRealizada} /> */}
-                  <IconButton aria-label="delete" size="large" onClick={() => handleDeleteConsulta(consulta.consultaId?.id)}>
-                    <DeleteIcon color='error' />
-                  </IconButton>
-                </div>
+                    <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 0.5 }}>
+                      {consulta.paciente?.nome || 'Paciente não informado'}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" sx={{ mb: 0.5 }}>
+                      <strong>🕒</strong> {data.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                    </Typography>
+                    {/* <Typography variant="body2" color="text.secondary" sx={{ mb: 0.5 }}>
+                      <strong>Descrição:</strong> {consulta.descricao}
+                    </Typography> */}
+                    <Typography variant="body2" color={consulta.clientePagou ? 'success.main' : 'warning.main'} sx={{ fontWeight: 500 }}>
+                      <strong>Pagamento:</strong> {consulta.clientePagou ? 'Realizado' : 'Pendente'}
+                    </Typography>
+                  </CardContent>
+                  <Box sx={{ pr: 2 }}>
+                    <Tooltip title="Cancelar consulta">
+                      <MuiIconButton
+                        aria-label="delete"
+                        size="large"
+                        onClick={() => {
+                          setConsultaIdToDelete(consulta.consultaId?.id);
+                          setOpenConfirmDialog(true);
+                        }}
+                      >
+                        <CancelIcon color='error' />
+                      </MuiIconButton>
+                    </Tooltip>
+                  </Box>
+      {/* Dialog de confirmação de cancelamento */}
+      <Dialog
+        open={openConfirmDialog}
+        onClose={() => { setOpenConfirmDialog(false); setConsultaIdToDelete(null); }}
+      >
+        <DialogTitle>Cancelar consulta</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Tem certeza que deseja cancelar esta consulta? Esta ação não poderá ser desfeita.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => { setOpenConfirmDialog(false); setConsultaIdToDelete(null); }} color="inherit">
+            Não
+          </Button>
+          <Button onClick={() => handleDeleteConsulta(consultaIdToDelete)} color="error" variant="contained">
+            Sim, cancelar
+          </Button>
+        </DialogActions>
+      </Dialog>
+                </Card>
               );
             })}
             {!isLoading && !isError && consultasFiltradas.length === 0 && (

@@ -8,6 +8,8 @@ import { EditMaterialModal } from '../components/modals/material/EditMaterialMod
 
 import { useMateriais } from '../hooks/useMateriais';
 
+import { Box, CircularProgress } from '@mui/material';
+
 const Material = () => {
   const [openAddModal, setOpenAddModal] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
@@ -50,7 +52,11 @@ const Material = () => {
           </div>
 
           <div className="table-wrapper">
-            {isLoading && <p>Carregando materiais...</p>}
+            {isLoading && 
+              <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+                <CircularProgress />
+              </Box>
+            }
             {isError && <p>Erro ao carregar materiais.</p>}
             {!isLoading && !isError && (
               <table className="table">

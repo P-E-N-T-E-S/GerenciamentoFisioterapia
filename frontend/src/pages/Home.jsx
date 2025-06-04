@@ -6,6 +6,8 @@ import { useMateriais } from '../hooks/useMateriais';
 import { useConsultaByDate } from '../hooks/useConsultas';
 import { useConsultas } from '../hooks/useConsultas';
 
+import { Box, CircularProgress } from '@mui/material';
+
 // Importações do Chart.js
 import { Bar } from 'react-chartjs-2';
 import {
@@ -89,14 +91,20 @@ const Home = () => {
             <div className="card" style={{ background: '#eafaf1', border: '2px solid #4caf50', minWidth: 260 }}>
               <h3 style={{ color: '#388e3c' }}>Arrecadação Total</h3>
               <div style={{ fontSize: 32, fontWeight: 700, color: '#388e3c', margin: '16px 0' }}>
-                {isLoadingConsultas ? 'Carregando...' : `R$ ${totalArrecadado.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`}
+                {isLoadingConsultas ? (
+                  <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+                    <CircularProgress />
+                  </Box>
+                ) : `R$ ${totalArrecadado.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`}
               </div>
             </div>
             <div className="card">
               <h3>Consultas de Hoje</h3>
               <div style={{ minHeight: 80 }}>
                 {isLoadingConsultasHoje ? (
-                  <p style={{ fontSize: '1.1rem', color: '#888', textAlign: 'center' }}>Carregando...</p>
+                  <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+                    <CircularProgress />
+                  </Box>
                 ) : consultasHoje && consultasHoje.length > 0 ? (
                   <ul className="consultas-hoje-list">
                     {consultasHoje.map((consulta) => (
@@ -106,6 +114,8 @@ const Home = () => {
                       </li>
                     ))}
                   </ul>
+                ) : isError ? (
+                  <p style={{ fontSize: '1.1rem', color: '#888', textAlign: 'center' }}>Erro ao carregar consultas.</p>
                 ) : (
                   <p style={{ fontSize: '1.1rem', color: '#888', textAlign: 'center' }}>Sem consultas para hoje.</p>
                 )}
@@ -114,7 +124,11 @@ const Home = () => {
             <div className="card">
               <h3>Materiais Restantes</h3>
               <div style={{ minHeight: 200 }}>
-                {isLoading && <p>Carregando...</p>}
+                {isLoading && (
+                  <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+                    <CircularProgress />
+                  </Box>
+                )}
                 {isError && <p>Erro ao carregar materiais.</p>}
                 {!isLoading && !isError && materiais && materiais.length > 0 ? (
                   <Bar data={chartData} options={chartOptions} />
